@@ -139,11 +139,11 @@
       </form>
       
 
-      <p class="mb-1">
+      {{-- <p class="mb-1">
 
         <a href="{{ route('forgotpassword') }}">I forgot my password</a>
 
-      </p>
+      </p> --}}
 
       <p class="mb-0">
 
