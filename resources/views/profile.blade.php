@@ -20,7 +20,7 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
 
             <form method="post" action="{{ route('profile') }}" enctype="multipart/form-data">
               @csrf
@@ -44,12 +44,12 @@
 
                   <div class="row mt-4">
                                       
-                    <div class="col-sm-3 form-group">
+                    <div class="col-sm-6 form-group">
                         <label>Name</label>
                         <input type="text" name="name" class="form-control" id="name" value="{{ auth()->user()->name }}">
                     </div>
 
-                    <div class="col-sm-3 form-group mt-auto">
+                    <div class="col-sm-6 form-group mt-auto">
                       <div class="custom-file">
                         <input type="file" name="profile_image" class="custom-file-input" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose profile picture</label>
@@ -59,7 +59,7 @@
                   </div>
 
                   <div class="row mt-4">
-                    <div class="col-sm-6 form-group mt-auto">
+                    <div class="col-sm-12 form-group mt-auto">
                       <div class="custom-file">
                         <input type="file" name="dashboard_image" class="custom-file-input" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">Choose dashboard image</label>
@@ -68,7 +68,7 @@
                   </div>
 
                   <div class="row mt-4">
-                    <div class="col-sm-3 form-group">
+                    <div class="col-sm-6 form-group">
                       <label>Gender</label><br>
                       <div class="form-check form-check-inline">                        
                       <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="Male" {{ auth()->user()->gender == "Male" ? 'checked' : '' }}>
@@ -80,22 +80,82 @@
                       </div>
                     </div>
                   
-                    <div class="col-sm-3 form-group">
+                    <div class="col-sm-6 form-group">
                         <label>Phone</label>
                         <input type="text" name="phone" class="form-control" id="phone" value="{{ auth()->user()->phone }}" placeholder="Phone">
                     </div>
                   </div>
 
                   <div class="row mt-4">
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-12 form-group">
                       <label>About Us</label>
                       <textarea cols="10" rows="5" name="about_us" class="form-control">{{ auth()->user()->about_us }}</textarea>                        
                     </div>
                   </div>
 
+                  <div class="row col-2">
+                    <div>
+                    <button class="btn btn-primary btn-block" type="submit" name="submit">Update Profile</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+
+            </form>
+
+          </div>
+        
+          <div class="col-md-6">
+
+            <form method="post" action="{{ route('update.password') }}">
+              @csrf
+              <!-- Profile Image -->
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Change Password</h3>
+                </div>
+                <div class="card-body box-profile">
+                  
                   <div class="row">
-                    <div class="col-2">
-                    <button class="btn btn-primary btn-block" type="submit" name="submit">Update</button>
+
+                    
+                      @if($errors->any())
+                        <div class="col-sm-12 form-group">
+                          {!! implode('', $errors->all('<div class="text-red">:message</div>')) !!}
+                        </div>
+                      @endif                    
+                                      
+                    <div class="col-sm-12 form-group">
+                        <label>
+                          Enter Old Password
+                          <span class="text-red"> *</span>
+                        </label>
+                        <input type="password" name="current_password" class="form-control" placeholder="Old Password">
+                    </div>
+
+                    <div class="col-sm-12 form-group">
+                        <label>
+                          Enter New Password
+                          <span class="text-red"> *</span>
+                        </label>
+                        <input type="password" name="password" class="form-control" placeholder="New Password">
+                    </div>
+
+                    <div class="col-sm-12 form-group">
+                        <label>
+                          Confirm New Password
+                          <span class="text-red"> *</span>
+                        </label>
+                        <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm New Password">
+                    </div>
+
+                  </div>
+                
+                  <div class="row col-2">
+                    <div>
+                    <button class="btn btn-primary btn-block" type="submit" name="submit">Update Password</button>
                     </div>
                   </div>
                 </div>

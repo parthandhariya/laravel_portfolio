@@ -6,11 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
+use Hash;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AuthController extends Controller
 {
+	public function __costruct()
+	{
+		return $this->middleware('\App\Http\Middleware\PreventBackHistory::class');
+	}
+
 	public function index()
 	{
 		return view('auth.login');
@@ -152,10 +158,40 @@ class AuthController extends Controller
 	    return back();
 	}	
 
-	public function logout()
+	public function updatePassword(Request $request)
+	{
+
+		$request->validate([
+            'current_password' => ['required', 'string'],
+            'password' => ['required', 'string', 'confirmed'],
+        ]);
+		
+        if (!Hash::check($request->current_password, Auth::user()->password)) {        	
+
+            return back()->withErrors(['current_password' => 'The old password does not match our records.']);
+        }
+
+        
+        $user = Auth::user();
+        
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+                
+        $message = 'Your password updated successfully Please Login';
+        return redirect()->route('logout',$message);
+	}
+
+	public function logout($message = NULL)
 	{
 		\Session::flush();
 		\Auth::logout();
+
+		if(!is_null($message))
+		{
+			return redirect()->route('login')->with('message',$message);
+		}
+
 		return redirect()->route('login');
 	}
 }

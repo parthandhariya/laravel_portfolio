@@ -45,12 +45,14 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'], function(){
 	Route::get('profile',[AuthController::class,'profile'])->name('profile');
 	Route::post('profile',[AuthController::class,'profileUpdate'])->name('profile');
 
+	Route::post('updatepassword',[AuthController::class,'updatePassword'])->name('update.password');
+
 	Route::resource('pages', PagesController::class);
 	Route::get('pagesList', [PagesController::class,'getList'])->name('pages.list');
 
 	Route::resource('themeoption', ThemeOptionController::class);
 	Route::get('themeoptionList', [ThemeOptionController::class,'getList'])->name('themeoption.list');
 
-	Route::get('logout',[AuthController::class,'logout'])->name('logout');
+	Route::get('logout/{message?}',[AuthController::class,'logout'])->name('logout');
 
 });
