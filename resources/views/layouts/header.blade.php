@@ -19,8 +19,10 @@
         @endif
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">          
-          <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
-          <div class="dropdown-divider"></div>
+          @if(auth()->user()->user_type == "user")
+            <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+            <div class="dropdown-divider"></div>
+          @endif
           <a class="dropdown-item" href="{{ route('logout') }}">Log Out</a>
         </div>
       </li>

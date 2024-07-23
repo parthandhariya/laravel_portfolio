@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Pages\PagesController;
 use App\Http\Controllers\ThemeOption\ThemeOptionController;
@@ -18,13 +19,13 @@ use App\Http\Controllers\ThemeOption\ThemeOptionController;
 
 Route::get('/', function () {
     if(\Auth::check()){
-    	 return redirect()->route('home');
+    	 return redirect()->route('home');    
     }else{
     	return redirect()->route('login');
     }
 });
 
-Route::group(['middleware' => 'guest','prefix' => 'admin'], function(){
+Route::group(['prefix' => 'guest'], function(){
 	
 	Route::get('login',[AuthController::class,'index'])->name('login');
 	Route::post('login',[AuthController::class,'login'])->name('login');
@@ -39,8 +40,9 @@ Route::group(['middleware' => 'guest','prefix' => 'admin'], function(){
 
 });
 
-Route::group(['middleware' => 'auth','prefix' => 'admin'], function(){
+Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 
+	//dd('user');
 	Route::get('home',[AuthController::class,'home'])->name('home');
 	Route::get('profile',[AuthController::class,'profile'])->name('profile');
 	Route::post('profile',[AuthController::class,'profileUpdate'])->name('profile');
@@ -53,6 +55,13 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'], function(){
 	Route::resource('themeoption', ThemeOptionController::class);
 	Route::get('themeoptionList', [ThemeOptionController::class,'getList'])->name('themeoption.list');
 
-	Route::get('logout/{message?}',[AuthController::class,'logout'])->name('logout');
-
 });
+
+Route::group(['middleware' => 'customauth:admin', 'prefix' => 'admin'], function(){
+
+	Route::get('home',[AdminController::class,'home'])->name('admin.home');
+	Route::resource('allusers', AdminController::class);
+	Route::get('allusersList', [AdminController::class,'getList'])->name('allusers.list');
+});
+
+Route::get('logout/{message?}',[AuthController::class,'logout'])->name('logout');

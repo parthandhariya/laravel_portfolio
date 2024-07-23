@@ -34,7 +34,13 @@ class AuthController extends Controller
 		if(Auth::attempt($request->only('email','password')))
 		{
 			setcookie("email","");
-			setcookie("password","");			
+			setcookie("password","");
+
+			if(Auth()->user()->user_type == "admin")
+			{
+				return redirect()->route('admin.home');
+			}
+
 			return redirect()->route('home');
 		}
 
@@ -78,7 +84,7 @@ class AuthController extends Controller
 	}
 
 	public function home()
-	{
+	{				
 		return view('home');
 	}
 

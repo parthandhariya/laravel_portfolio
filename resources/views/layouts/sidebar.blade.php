@@ -31,20 +31,35 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a> --}}
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('pages.index') }}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Pages</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('themeoption.index') }}" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Theme Options</p>
-                </a>
-              </li>              
-            </ul>
+
+            @if(auth()->user()->user_type == "admin")
+              <ul class="nav nav-treeview">                
+                <li class="nav-item">
+                  <a href="{{ route('allusers.index') }}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>All Users</p>
+                  </a>
+                </li>              
+              </ul>
+            @endif
+
+            @if(auth()->user()->user_type == "user")
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('pages.index') }}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Pages</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('themeoption.index') }}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Theme Options</p>
+                  </a>
+                </li>              
+              </ul>  
+            @endif
+            
           </li>
           {{-- <li class="nav-item">
             <a href="#" class="nav-link">
