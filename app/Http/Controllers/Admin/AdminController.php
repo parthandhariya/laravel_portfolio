@@ -95,8 +95,9 @@ class AdminController extends Controller
     public function getList(Request $request)
     {        
         if ($request->ajax()) {
-            $data = User::select('id','name','email','phone','gender')
+            $data = User::select('id','name','email','phone','gender','deleted_at')
                     ->where('user_type','user')
+                    ->withTrashed()
                     ->get();
             
 
@@ -117,9 +118,20 @@ class AdminController extends Controller
                     return $data->gender;
                 })
 
-                ->addColumn('action', function($row){                    
-                    $btn = '<a href="javascript:;" class="btn btn-danger btn-sm"><i class="fa fa-lock"></i></a> ';
-                    $btn .= '<a href="javascript:;" class="btn btn-primary btn-sm"><i class="fa fa-key"></i></a>';
+                ->addColumn('action', function($row){
+                    
+                    if(is_null($row->deleted_at))
+                    {
+                        $btn = '<a href="javascript:;" class="btn btn-success btn-sm btn-blockunblock-user" data-id="'.$row->id.'" data-status="block" title="Block User"><i class="fa fa-unlock"></i></a> ';    
+                    }
+                    elseif(!is_null($row->deleted_at))
+                    {
+                        $btn = '<a href="javascript:;" class="btn btn-danger btn-sm btn-blockunblock-user" data-id="'.$row->id.'" data-status="unblock" title="UnBlock User"><i class="fa fa-lock"></i></a> ';       
+                    }
+                    
+
+                    $btn .= '<a href="javascript:;" class="btn btn-primary btn-sm"  title="Reset Password"><i class="fa fa-key"></i></a>';
+
                     return $btn;
                 })
                 ->rawColumns(['action'])                
@@ -128,5 +140,25 @@ class AdminController extends Controller
 
             return $list;
         }
+    }
+
+    public function blockUnblockUser(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->status;
+    
+        if($status == "block")
+        {
+            $updateUser = User::findOrFail($id)->delete();            
+            $message = "User Blocked Successfully";
+        }
+        else
+        {
+            $updateUser = User::withTrashed()->findOrFail($id)->restore();            
+            $message = "User UnBlocked Successfully";
+        }
+
+        Alert::success($message,'Thank you');
+        return redirect()->back();
     }
 }

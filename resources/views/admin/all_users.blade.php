@@ -15,7 +15,11 @@
     </div>
     <!-- /.content-header -->
 
-    
+    <form method="post" action="{{ route('blockunblockuser') }}" id="frmBlockUnblockUser">
+      @csrf
+      <input type="hidden" name="id" id="blockUnblockUserId" value="">
+      <input type="hidden" name="status" id="blockUnblockStatus" value="">
+    </form>
 
     <div class="content">
       <div class="container-fluid">
@@ -78,6 +82,20 @@
     });
 
     
+  });
+
+
+  $(document).ready(function() {
+  
+    $("#tableUsers").on('click', '.btn-blockunblock-user', function() {      
+      
+      $("#blockUnblockUserId").val($(this).data('id'));
+      $("#blockUnblockStatus").val($(this).data('status'));
+
+      $("#frmBlockUnblockUser").submit();
+
+    });
+
   });
 
 
