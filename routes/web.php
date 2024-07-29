@@ -63,6 +63,7 @@ Route::group(['middleware' => 'customauth:admin', 'prefix' => 'admin'], function
 	Route::resource('allusers', AdminController::class);
 	Route::get('allusersList', [AdminController::class,'getList'])->name('allusers.list');
 	Route::post('blockunblockuser', [AdminController::class,'blockUnblockUser'])->name('blockunblockuser');
+	Route::post('resetuserpassword', [AdminController::class,'resetUserPassword'])->name('resetuserpassword');
 });
 
 Route::get('logout/{message?}',[AuthController::class,'logout'])->name('logout');

@@ -130,7 +130,7 @@ class AdminController extends Controller
                     }
                     
 
-                    $btn .= '<a href="javascript:;" class="btn btn-primary btn-sm"  title="Reset Password"><i class="fa fa-key"></i></a>';
+                    $btn .= '<a href="javascript:;" class="btn btn-primary btn-sm btn-reset-password"  data-id="'.$row->id.'" title="Reset Password"><i class="fa fa-key"></i></a>';
 
                     return $btn;
                 })
@@ -159,6 +159,18 @@ class AdminController extends Controller
         }
 
         Alert::success($message,'Thank you');
+        return redirect()->back();
+    }
+
+    public function resetUserPassword(Request $request)
+    {
+        $id = $request->id;
+        $user = User::findOrFail($id);
+
+        $user->password = \Hash::make(123456);
+        $user->save();
+
+        Alert::success('Password Reset Successfully','Thank you');
         return redirect()->back();
     }
 }

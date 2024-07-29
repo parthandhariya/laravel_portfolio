@@ -21,6 +21,12 @@
       <input type="hidden" name="status" id="blockUnblockStatus" value="">
     </form>
 
+
+    <form method="post" action="{{ route('resetuserpassword') }}" id="frmResetPassword">
+      @csrf
+      <input type="hidden" name="id" id="resetPasswordId" value="">      
+    </form>
+
     <div class="content">
       <div class="container-fluid">
         <div class="row">
@@ -87,6 +93,7 @@
 
   $(document).ready(function() {
   
+    // Start blockUnblock User
     $("#tableUsers").on('click', '.btn-blockunblock-user', function() {      
       
       $("#blockUnblockUserId").val($(this).data('id'));
@@ -95,6 +102,19 @@
       $("#frmBlockUnblockUser").submit();
 
     });
+    // End blockUnblock User
+
+
+    // Start resetUser Password
+    $("#tableUsers").on('click', '.btn-reset-password', function() {      
+      
+      $("#resetPasswordId").val($(this).data('id'));
+      
+      $("#frmResetPassword").submit();
+
+    });
+    // End resetUser Password
+
 
   });
 
