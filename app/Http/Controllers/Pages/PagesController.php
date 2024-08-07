@@ -39,17 +39,44 @@ class PagesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {        
-        $pages = new Pages();
+    {
+        $request->validate([
+            'name' => 'required',            
+        ],);
 
-        $pages->user_id = auth()->user()->id;
-        $pages->name = $request->name;
-        $pages->status = $request->status;
-        
         $dataArray = explode(',', $request->parent_with_level);
         $parent_id = $dataArray[0];
         $level = $dataArray[1] + 1;
 
+        $totalRoot = Pages::where('user_id',auth()->user()->id)->where('parent_id','0')->get();
+
+        if($totalRoot->count() > 0 && $totalRoot->count() == 4 && $parent_id == '0')
+        {
+            Alert::error('Only Four Root Pages are Allowed','Sorry');
+            return back();    
+        }
+        
+
+        $totalFirstLevel = Pages::where('user_id',auth()->user()->id)->where('parent_id',$parent_id)->where('level','1')->get();
+                
+        if(count($totalFirstLevel) > 2)
+        {
+            Alert::error('Only Three Pages for Root are Allowed','Sorry');
+            return back();        
+        }
+
+        if($level == 3)
+        {
+            Alert::error('Only Two Nested Pages are Allowed','Sorry');
+            return back();    
+        }
+
+        $pages = new Pages();
+
+        $pages->user_id = auth()->user()->id;
+        $pages->name = strtoupper($request->name);
+        $pages->status = $request->status;
+                
         $pages->parent_id = $parent_id;
         $pages->level = $level;
 
@@ -80,11 +107,13 @@ class PagesController extends Controller
     public function edit($id)
     {
         $page = Pages::where('user_id',auth()->user()->id)->where('id',$id)->first();
+        /*$page = Pages::where('id',$id)->first();*/
         if(is_null($page)){
             abort(404);
         }
 
-        $pages = Pages::where('user_id',auth()->user()->id)->get();
+        /*$pages = Pages::where('user_id',auth()->user()->id)->get();*/
+        $pages = Pages::all();
         return view('pages.edit',compact('page','pages'));
     }
 
@@ -97,14 +126,46 @@ class PagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $page = Pages::findOrFail($id);
+        $request->validate([
+            'name' => 'required',            
+        ],);
 
-        $page->name = $request->name;
-        $page->status = $request->status;
+        $page = Pages::where('id',$id)->where('user_id',auth()->user()->id)->first();
+
+        if(is_null($page))
+        {
+            abort(404);
+        }
 
         $dataArray = explode(',', $request->parent_with_level);
         $parent_id = $dataArray[0];
         $level = $dataArray[1] + 1;
+
+        $totalRoot = Pages::where('user_id',auth()->user()->id)->where('parent_id','0')->get();
+
+        if($totalRoot->count() > 0 && $totalRoot->count() == 4 && $parent_id == '0')
+        {
+            Alert::error('Only Four Root Pages are Allowed','Sorry');
+            return back();    
+        }
+
+        $totalFirstLevel = Pages::where('user_id',auth()->user()->id)->where('parent_id',$parent_id)->where('level','1')->get();
+                
+        if(count($totalFirstLevel) > 2)
+        {
+            Alert::error('Only Three Pages for Root are Allowed','Sorry');
+            return back();        
+        }
+
+        if($level == 3)
+        {
+            Alert::error('Only Two Nested Pages are Allowed','Sorry');
+            return back();    
+        }
+
+        $page->user_id = auth()->user()->id;
+        $page->name = strtoupper($request->name);
+        $page->status = $request->status;
 
         $page->parent_id = $parent_id;
         $page->level = $level;
@@ -170,9 +231,12 @@ class PagesController extends Controller
     public function getList(Request $request)
     {        
         if ($request->ajax()) {
-            $data = Pages::select('id','name','parent_id','status')->where('user_id',auth()->user()->id)->get();
+            $data = Pages::select('id','user_id','name','parent_id','status')->where('user_id',auth()->user()->id)->get();
             $list = Datatables::of($data)->addIndexColumn()
 
+                /*->editColumn('user', function(pages $page) {
+                    return $page->user->name ?? 'Root';
+                })*/
                 ->editColumn('parent_id', function(pages $page) {
                     return $page->page->name ?? 'Root';
                 })

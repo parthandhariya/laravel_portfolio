@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Pages\PagesController;
 use App\Http\Controllers\ThemeOption\ThemeOptionController;
+use App\Http\Controllers\FrontUser\FrontUserController;
+use App\Http\Controllers\Property\PropertyController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,12 +20,21 @@ use App\Http\Controllers\ThemeOption\ThemeOptionController;
 */
 
 Route::get('/', function () {
+
+	//return redirect()->route('front.index');
+
     if(\Auth::check()){
-    	 return redirect()->route('home');    
+    	 return redirect()->route('home');    	 
     }else{
-    	return redirect()->route('login');
+    	return redirect()->route('login');    	
     }
 });
+
+
+
+/*Route::resource('front',FrontUserController::class);*/
+
+
 
 Route::group(['prefix' => 'guest'], function(){
 	
@@ -54,6 +65,10 @@ Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 
 	Route::resource('themeoption', ThemeOptionController::class);
 	Route::get('themeoptionList', [ThemeOptionController::class,'getList'])->name('themeoption.list');
+
+	Route::resource('property', PropertyController::class);
+	Route::get('propertyList', [PropertyController::class,'getList'])->name('property.list');
+	Route::get('editpropertyimage/{id}', [PropertyController::class,'editImage'])->name('editpropertyimage');
 
 });
 

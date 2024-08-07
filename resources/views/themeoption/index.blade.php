@@ -60,13 +60,23 @@
               <!-- form start -->
               <form method="post" action="{{ route('themeoption.store') }}" enctype="multipart/form-data">
                 @csrf
-                <div class="card-body"> 
+                <div class="card-body">
+
+                  {{-- <div class="row">
+
+                  @if($errors->any())
+
+                      {!! implode(' ', $errors->all('<div class="col-3 mr-5 text-red form-group">:message</div>')) !!}
+                  @endif
+                  
+                  </div>
+                  <div style="clear:both;"></div> --}}
                   <div class="row">
 
-                    <div>
+                    <div>                      
                       <div class="col-auto form-group">
                         <div class="custom-file">
-                          <input type="file" name="site_favicon" class="custom-file-input" id="site_favicon">
+                          <input type="file" name="site_favicon" class="custom-file-input" id="site_favicon" accept="image/*" required="">
                           <label class="custom-file-label" for="exampleInputFile">Choose Favicon Image</label>
                         </div>
                       </div>
@@ -77,10 +87,10 @@
                       </div>
                     </div>
 
-                    <div>
+                    <div>                      
                       <div class="col-auto form-group">
                         <div class="custom-file">
-                          <input type="file" name="site_logo" class="custom-file-input" id="site_logo">
+                          <input type="file" name="site_logo" class="custom-file-input" id="site_logo" accept="image/*" required="">
                           <label class="custom-file-label" for="exampleInputFile">Choose Site Logo</label>
                         </div>
                       </div>
@@ -93,7 +103,7 @@
 
                     <div>
                       <div class="col-auto form-group">                        
-                        <input type="text" class="form-control" name="site_name" id="site_name" placeholder="Site Name">
+                        <input type="text" class="form-control" name="site_name" id="site_name" placeholder="Site Name" required="">
                       </div>
                     </div>
 
@@ -129,6 +139,7 @@
                       <thead>
                           <tr>
                               <th>ID</th>
+                              {{-- <th>User</th> --}}
                               <th>Favicon</th>
                               <th>Logo</th>
                               <th>Name</th>
@@ -163,6 +174,7 @@
         ajax: "{{ route('themeoption.list') }}",        
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            /*{data: 'user', name: 'user'},*/
             {data: 'site_favicon', name: 'site_favicon'},
             {data: 'site_logo', name: 'site_logo'},
             {data: 'site_name', name: 'site_name'},
@@ -178,6 +190,7 @@
     
   });
 
+  
   
   $("#tableOption").on("click",".a-fancybox",function(){          
        Fancybox.bind('img', {}); 
@@ -195,7 +208,7 @@ $(document).ready(function(){
 
     $(document).on("click","#modal_btn_delete",function(){
 
-        var baseUrl = "{{ url('/') }}";        
+        var baseUrl = "{{ url('user/') }}";        
         var action = baseUrl + "/themeoption/" + id;
         $("#frm_submit").attr('action',action).submit();
 
@@ -221,23 +234,7 @@ $(document).ready(function(){
   $("#site_logo").change(function () {
       filePreview(this,'site_logo_preview');
   });
-
-  $(document).on("click","#btn_delete",function(){
-
-    var id = $(this).data('id');
-
-    $("#modal_themeoption_delete").modal();
-
-    $(document).on("click","#modal_btn_delete",function(){
-
-        var baseUrl = "{{ url('admin/') }}";        
-        var action = baseUrl + "/themeoption/" + id;
-        $("#frm_submit").attr('action',action).submit();
-
-    });
-    
-  }); 
-
+  
 });
 
 </script>

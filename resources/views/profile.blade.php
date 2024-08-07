@@ -114,7 +114,7 @@
               <!-- Profile Image -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Change Password</h3>
+                  <h3 class="card-title mb-0">Change Password</h3>
                 </div>
                 <div class="card-body box-profile">
                   
@@ -129,7 +129,7 @@
                                       
                     <div class="col-sm-12 form-group">
                         <label>
-                          Enter Old Password
+                          Enter Current Password
                           <span class="text-red"> *</span>
                         </label>
                         <input type="password" name="current_password" class="form-control" placeholder="Old Password">

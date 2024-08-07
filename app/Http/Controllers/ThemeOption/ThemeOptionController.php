@@ -38,9 +38,23 @@ class ThemeOptionController extends Controller
      */
     public function store(Request $request)
     {
+
+        $customMessages = [            
+            'site_favicon.max' => 'The Favicon image may not be greater than 2MB.',
+            'site_logo.max' => 'The Site Logo may not be greater than 2MB.',
+        ];
+
+        $request->validate([
+            'site_favicon' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'site_logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'site_name' => 'required',
+        ], $customMessages);
+
+        
         $themeOption = new ThemeOptions();
 
         $checkForExist = ThemeOptions::where('user_id',auth()->user()->id)->first();
+        /*$checkForExist = ThemeOptions::first();*/
 
         if(!is_null($checkForExist))
         {
@@ -118,6 +132,10 @@ class ThemeOptionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'site_name' => 'required',            
+        ],);
+        
         $themeOption = ThemeOptions::findOrFail($id);
 
         $themeOption->site_name = $request->site_name;
@@ -168,6 +186,8 @@ class ThemeOptionController extends Controller
             $themeOption->site_logo = $storePath;
         }
 
+        $themeOption->user_id = auth()->user()->id;
+
         $themeOption->save();
 
         Alert::success('Theme Option updated successfully','Thank you');
@@ -182,8 +202,10 @@ class ThemeOptionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {        
         $themeOption = ThemeOptions::findOrFail($id);
+
+        //dd($themeOption);
         
         if(!is_null($themeOption->site_favicon))
         {
@@ -217,9 +239,13 @@ class ThemeOptionController extends Controller
     public function getList(Request $request)
     {        
         if ($request->ajax()) {
-            $data = ThemeOptions::select('id','site_favicon','site_logo','site_name')->where('user_id',auth()->user()->id)->get();
-
+            $data = ThemeOptions::select('id','user_id','site_favicon','site_logo','site_name')->where('user_id',auth()->user()->id)->get();
+            
             $list = Datatables::of($data)->addIndexColumn()
+
+                /*->editColumn('user', function($data) {
+                    return $data->user->name;
+                })*/
 
                 ->editColumn('site_favicon', function($data) {
                     return '<a href="javascript:;" class="a-fancybox" data-fancybox="'.$data->site_favicon.'"><img src='.$data->site_favicon.' class="fancybox" height="40" width="40" /></a>';                    

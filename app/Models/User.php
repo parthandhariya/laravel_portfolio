@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Pages;
+use App\Models\Properties;
 
 class User extends Authenticatable
 {
@@ -47,5 +48,10 @@ class User extends Authenticatable
     public function pages()
     {
         return $this->hasMany(Pages::class,'page_id');
+    }
+
+    public function properties()
+    {
+        return $this->hasMany(Properties::class,'user_id');
     }
 }

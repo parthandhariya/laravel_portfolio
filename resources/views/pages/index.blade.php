@@ -65,7 +65,7 @@
                   <div class="row">
                     <div class="col-md-3 form-group">
                       <label for="Name">Name</label>
-                      <input type="text" class="form-control" name="name" id="Name" placeholder="Name">
+                      <input type="text" class="form-control" name="name" id="Name" placeholder="Name" required="">
                     </div>
                     <div class="col-md-3 form-group">
                       <label for="Name">Pages</label>
@@ -112,6 +112,7 @@
                       <thead>
                           <tr>
                               <th>ID</th>
+                              {{-- <th>User</th> --}}
                               <th>Page</th>
                               <th>Parent Page</th>
                               <th>Status</th>
@@ -150,6 +151,7 @@
         ajax: "{{ route('pages.list') }}",        
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            /*{data: 'user', name: 'user'},*/
             {data: 'name', name: 'name'},
             {data: 'parent_id', name: 'parent_id'},
             {data: 'status', name: 'status'},

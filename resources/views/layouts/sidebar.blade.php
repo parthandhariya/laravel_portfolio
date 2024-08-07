@@ -56,7 +56,13 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p>Theme Options</p>
                   </a>
-                </li>              
+                </li>
+                {{-- <li class="nav-item">
+                  <a href="{{ route('property.index') }}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Properties</p>
+                  </a>
+                </li> --}}              
               </ul>  
             @endif
             

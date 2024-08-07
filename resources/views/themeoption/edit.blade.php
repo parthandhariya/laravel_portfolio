@@ -63,7 +63,7 @@
 
                     <div>
                       <div class="col-auto form-group">                        
-                        <input type="text" class="form-control" name="site_name" id="site_name" value="{{ $viewObject->site_name }}" placeholder="Site Name">
+                        <input type="text" class="form-control" name="site_name" id="site_name" value="{{ $viewObject->site_name }}" placeholder="Site Name" required="">
                       </div>
                     </div>
 
