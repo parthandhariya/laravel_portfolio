@@ -22,8 +22,9 @@
           <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Edit Theme Option Detail</h3>
+              <div class="card-header">                
+                <a class="mr-3">Edit Theme Option Detail</a>
+                <a href="{{ route('themeoption.index') }}" class="btn btn-secondary">{{ "Go Back" }}</a>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
