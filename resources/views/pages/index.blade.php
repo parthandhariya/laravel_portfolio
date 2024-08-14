@@ -116,6 +116,8 @@
                               <th>Page</th>
                               <th>Parent Page</th>
                               <th>Status</th>
+                              <th>Created</th>
+                              <th>Last Modified</th>
                               <th width="100px">Action</th>
                           </tr>
                       </thead>
@@ -155,6 +157,8 @@
             {data: 'name', name: 'name'},
             {data: 'parent_id', name: 'parent_id'},
             {data: 'status', name: 'status'},
+            {data: 'created', name: 'created'},            
+            {data: 'last_modified', name: 'last_modified'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         drawCallback: function(settings) {          

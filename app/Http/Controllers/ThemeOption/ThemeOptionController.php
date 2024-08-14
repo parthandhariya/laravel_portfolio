@@ -239,7 +239,7 @@ class ThemeOptionController extends Controller
     public function getList(Request $request)
     {        
         if ($request->ajax()) {
-            $data = ThemeOptions::select('id','user_id','site_favicon','site_logo','site_name')->where('user_id',auth()->user()->id)->get();
+            $data = ThemeOptions::select('id','user_id','site_favicon','site_logo','site_name','created_at','updated_at')->where('user_id',auth()->user()->id)->get();
             
             $list = Datatables::of($data)->addIndexColumn()
 
@@ -252,7 +252,16 @@ class ThemeOptionController extends Controller
                 })
                 ->editColumn('site_logo', function($data) {
                     return '<a href="javascript:;" class="a-fancybox" data-fancybox="'.$data->site_logo.'"><img src='.$data->site_logo.' class="fancybox" height="40" width="40" /></a>';                    
-                })                
+                }) 
+
+                ->editColumn('created', function($data) {
+                    return date('d M Y',strtotime($data->created_at));
+                })
+
+                ->editColumn('last_modified', function($data) {
+                    return date('d M Y',strtotime($data->updated_at));
+                })
+                               
                 ->addColumn('action', function($row){
                     $btn = '<a href="'.route('themeoption.edit',$row->id).'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> ';
                     $btn .= '<a href="javascript:;" class="btn btn-danger btn-sm" id="btn_delete" data-id="'.$row->id.'"><i class="fa fa-trash"></i></a>';

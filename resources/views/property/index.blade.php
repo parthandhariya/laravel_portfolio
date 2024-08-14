@@ -31,17 +31,40 @@
               <form method="post" action="{{ route('property.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body"> 
-                  <div class="row">
-                    
-                      <div class="col-auto form-group">                        
-                        <input type="text" class="form-control" name="title" id="title" placeholder="Property Title">
+                  <div class="row">                    
+                      <div class="col-6 form-group">                        
+                        <input type="text" class="form-control" name="title" id="title" placeholder="Property Title" required="">
                       </div>
-
-                      <div class="col-auto mt-auto form-group">                      
-                        <button type="submit" class="btn btn-primary">Save</button>
-                      </div>
-                    
                   </div>
+
+                  <div class="row">                    
+                      <div class="col-6 form-group">                        
+                        <select name="option_id" class="form-control">
+                          @foreach($propertyOption as $key => $value)
+                            <option value="{{ $key }}">{{ $value }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                  </div>
+
+                  <div class="row">                    
+                      <div class="col-6 form-group">                        
+                        <input type="text" class="form-control" name="price" id="price" placeholder="Property Price" required="">
+                      </div>
+                  </div>
+
+                  <div class="row">                    
+                      <div class="col-6 form-group">                        
+                        <textarea class="form-control" rows="5" name="description" placeholder="Property Description" required=""></textarea>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-auto mt-auto form-group">                      
+                          <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+
                 </div>
                 <!-- /.card-body -->                
               </form>
@@ -69,7 +92,11 @@
                       <thead>
                           <tr>
                               <th>ID</th>
-                              <th>Title</th>                              
+                              <th>Title</th>
+                              <th>Option</th>
+                              <th>Price</th>
+                              <th>Created</th>
+                              <th>Last Modified</th>                              
                               <th width="100px">Action</th>
                           </tr>
                       </thead>
@@ -101,7 +128,11 @@
         ajax: "{{ route('property.list') }}",        
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-            {data: 'title', name: 'title'},            
+            {data: 'title', name: 'title'},
+            {data: 'option_id', name: 'option_id'},
+            {data: 'price', name: 'price'},
+            {data: 'created', name: 'created'},            
+            {data: 'last_modified', name: 'last_modified'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         drawCallback: function(settings) {          

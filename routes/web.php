@@ -69,6 +69,8 @@ Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 	Route::resource('property', PropertyController::class);
 	Route::get('propertyList', [PropertyController::class,'getList'])->name('property.list');
 	Route::get('editpropertyimage/{id}', [PropertyController::class,'editImage'])->name('editpropertyimage');
+	Route::post('updatepropertyimage', [PropertyController::class,'updateImage'])->name('updatepropertyimage');
+	Route::post('deletepropertyimage', [PropertyController::class,'destroySelectedImage'])->name('deletepropertyimage');
 
 });
 

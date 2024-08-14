@@ -143,6 +143,8 @@
                               <th>Favicon</th>
                               <th>Logo</th>
                               <th>Name</th>
+                              <th>Created</th>
+                              <th>Last Modified</th>
                               <th width="100px">Action</th>
                           </tr>
                       </thead>
@@ -178,6 +180,8 @@
             {data: 'site_favicon', name: 'site_favicon'},
             {data: 'site_logo', name: 'site_logo'},
             {data: 'site_name', name: 'site_name'},
+            {data: 'created', name: 'created'},            
+            {data: 'last_modified', name: 'last_modified'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         drawCallback: function(settings) {          

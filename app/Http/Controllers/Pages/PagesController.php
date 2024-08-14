@@ -231,7 +231,7 @@ class PagesController extends Controller
     public function getList(Request $request)
     {        
         if ($request->ajax()) {
-            $data = Pages::select('id','user_id','name','parent_id','status')->where('user_id',auth()->user()->id)->get();
+            $data = Pages::select('id','user_id','name','parent_id','status','created_at','updated_at')->where('user_id',auth()->user()->id)->get();
             $list = Datatables::of($data)->addIndexColumn()
 
                 /*->editColumn('user', function(pages $page) {
@@ -242,7 +242,16 @@ class PagesController extends Controller
                 })
                 ->editColumn('status', function(pages $page) {
                     return $page->status == "1" ? 'Active' : 'Inactive';
-                })                
+                })
+
+                ->editColumn('created', function($data) {
+                    return date('d M Y',strtotime($data->created_at));
+                })
+
+                ->editColumn('last_modified', function($data) {
+                    return date('d M Y',strtotime($data->updated_at));
+                })
+                                
                 ->addColumn('action', function($row){
                     $btn = '<a href="'.route('pages.edit',$row->id).'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> ';
                     /*$btn .= '<a href="javascript:;" class="btn btn-danger btn-sm" id="btn_delete" data-id="'.$row->id.'"><i class="fa fa-trash"></i></a>';*/
