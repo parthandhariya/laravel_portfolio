@@ -79,8 +79,17 @@ class PagesController extends Controller
                 
         $pages->parent_id = $parent_id;
         $pages->level = $level;
+        $pages->page_link = $request->page_link;
 
         $pages->save();
+        
+        $parentCheck = Pages::where('user_id',auth()->user()->id)->where('id',$parent_id)->first();
+        
+        if(!is_null($parentCheck))
+        {
+            $parentCheck->page_link = NULL;
+            $parentCheck->save();
+        }        
 
         Alert::success('Page created successfully','Thank you');
 
@@ -112,8 +121,8 @@ class PagesController extends Controller
             abort(404);
         }
 
-        /*$pages = Pages::where('user_id',auth()->user()->id)->get();*/
-        $pages = Pages::all();
+        $pages = Pages::where('user_id',auth()->user()->id)->get();
+        /*$pages = Pages::all();*/
         return view('pages.edit',compact('page','pages'));
     }
 
@@ -171,6 +180,14 @@ class PagesController extends Controller
         $page->level = $level;
 
         $page->save();
+
+        $parentCheck = Pages::where('user_id',auth()->user()->id)->where('id',$parent_id)->first();
+        
+        if(!is_null($parentCheck))
+        {
+            $parentCheck->page_link = NULL;
+            $parentCheck->save();
+        }
 
         Alert::success('Page updated successfully','Thank you');
 
@@ -231,7 +248,7 @@ class PagesController extends Controller
     public function getList(Request $request)
     {        
         if ($request->ajax()) {
-            $data = Pages::select('id','user_id','name','parent_id','status','created_at','updated_at')->where('user_id',auth()->user()->id)->get();
+            $data = Pages::select('id','user_id','name','parent_id','status','page_link','created_at','updated_at')->where('user_id',auth()->user()->id)->get();
             $list = Datatables::of($data)->addIndexColumn()
 
                 /*->editColumn('user', function(pages $page) {
@@ -242,6 +259,10 @@ class PagesController extends Controller
                 })
                 ->editColumn('status', function(pages $page) {
                     return $page->status == "1" ? 'Active' : 'Inactive';
+                })
+
+                ->editColumn('page_link', function(pages $page) {
+                    return $page->page_link;
                 })
 
                 ->editColumn('created', function($data) {

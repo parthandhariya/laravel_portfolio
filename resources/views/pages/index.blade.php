@@ -76,6 +76,10 @@
                         @endforeach
                       </select>
                     </div>
+                    <div class="col-md-3 form-group">
+                      <label for="Name">Page Link</label>
+                      <input type="text" class="form-control" name="page_link" id="page_link" placeholder="Page Link" required="">
+                    </div>
                     <div class="col-md-2 form-group">
                       <label>Status</label>
                       <select class="form-control" name="status">
@@ -83,7 +87,7 @@
                         <option value="0">Inactive</option>                      
                       </select>
                     </div>
-                    <div class="col-md-3 mt-auto form-group">                      
+                    <div class="col-md-1 mt-auto form-group">                      
                       <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                   </div>
@@ -116,6 +120,7 @@
                               <th>Page</th>
                               <th>Parent Page</th>
                               <th>Status</th>
+                              <th>Page Link</th>
                               <th>Created</th>
                               <th>Last Modified</th>
                               <th width="100px">Action</th>
@@ -157,6 +162,7 @@
             {data: 'name', name: 'name'},
             {data: 'parent_id', name: 'parent_id'},
             {data: 'status', name: 'status'},
+            {data: 'page_link', name: 'page_link'},
             {data: 'created', name: 'created'},            
             {data: 'last_modified', name: 'last_modified'},
             {data: 'action', name: 'action', orderable: false, searchable: false},

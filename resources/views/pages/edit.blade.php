@@ -58,6 +58,10 @@
                       </select>
                     </div>
                     <div class="col-md-3 form-group">
+                      <label for="Name">Page Link</label>
+                      <input type="text" class="form-control" name="page_link" id="page_link" value="{{ $page->page_link }}" placeholder="Page Link" required="">
+                    </div>
+                    <div class="col-md-2 form-group">
                       <label>Status</label>
                       <select class="form-control" name="status">
 
@@ -67,7 +71,7 @@
                         
                       </select>
                     </div>
-                    <div class="col-md-3 mt-auto form-group">
+                    <div class="col-md-1 mt-auto form-group">
                       <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                   </div>

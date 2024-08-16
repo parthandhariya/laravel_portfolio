@@ -49,7 +49,7 @@
 
                   <div class="row">                    
                       <div class="col-6 form-group">                        
-                        <input type="text" class="form-control" name="price" id="price" placeholder="Property Price" required="">
+                        <input type="number" class="form-control" name="price" id="price" placeholder="Property Price" required="">
                       </div>
                   </div>
 
