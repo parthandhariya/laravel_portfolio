@@ -70,7 +70,7 @@
                     <div class="col-md-3 form-group">
                       <label for="Name">Pages</label>
                       <select class="form-control" name="parent_with_level">
-                        <option value="{{ implode(',',[0,-1]) }}">------- Root -------</option>
+                        <option value="{{ implode(',',[0,-1]) }}">------- ROOT -------</option>
                         @foreach($pages as $k => $v)
                           <option value="{{ implode(',', [$v->id,$v->level]) }}">{{ $v->name }}</option>
                         @endforeach
@@ -109,6 +109,14 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card card-primary">
+
+              @if(count($pages) > 0)
+                <div class="card-header text-right">
+                  {{-- <h3 class="card-title">Pages</h3> --}}
+                  <a href="{{ route('resetpages') }}" class="btn btn-danger">Reset Pages</a>
+                </div>
+              @endif
+
               <div class="card-body">
                 <div>
 

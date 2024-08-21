@@ -65,6 +65,16 @@ class PagesController extends Controller
             return back();        
         }
 
+        $totalSecondLevel = Pages::where('user_id',auth()->user()->id)->where('parent_id',$parent_id)->where('level','2')->get();
+                
+        
+        if(count($totalSecondLevel) > 2)
+        {
+            Alert::error('Only Three Sub Pages are Allowed','Sorry');
+            return back();        
+        }
+
+
         if($level == 3)
         {
             Alert::error('Only Two Nested Pages are Allowed','Sorry');
@@ -166,6 +176,15 @@ class PagesController extends Controller
             return back();        
         }
 
+        $totalSecondLevel = Pages::where('user_id',auth()->user()->id)->where('parent_id',$parent_id)->where('level','2')->get();
+                
+        
+        if(count($totalSecondLevel) > 2)
+        {
+            Alert::error('Only Three Sub Pages are Allowed','Sorry');
+            return back();        
+        }
+
         if($level == 3)
         {
             Alert::error('Only Two Nested Pages are Allowed','Sorry');
@@ -255,7 +274,7 @@ class PagesController extends Controller
                     return $page->user->name ?? 'Root';
                 })*/
                 ->editColumn('parent_id', function(pages $page) {
-                    return $page->page->name ?? 'Root';
+                    return $page->page->name ?? 'ROOT';
                 })
                 ->editColumn('status', function(pages $page) {
                     return $page->status == "1" ? 'Active' : 'Inactive';
@@ -284,5 +303,12 @@ class PagesController extends Controller
 
             return $list;
         }
+    }
+
+    public function resetPages()
+    {
+        Pages::where('user_id',auth()->user()->id)->delete();
+        Alert::success('Pages Reset Successfully','Thank you');
+        return redirect()->back();
     }
 }

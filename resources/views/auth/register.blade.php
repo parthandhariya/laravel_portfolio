@@ -30,7 +30,7 @@
       <form action="{{ route('register') }}" method="post">
         @csrf
         <div class="input-group mb-3">
-          <input type="text" name="name" class="form-control" placeholder="Full name">
+          <input type="text" name="name" class="form-control" placeholder="Full name" value="{{ old('name') }}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -38,10 +38,18 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Email">
+          <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="number" name="phone" class="form-control" placeholder="Mobile" value="{{ old('phone') }}">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-phone"></span>
             </div>
           </div>
         </div>

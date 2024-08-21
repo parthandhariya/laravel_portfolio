@@ -62,6 +62,7 @@ Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 
 	Route::resource('pages', PagesController::class);
 	Route::get('pagesList', [PagesController::class,'getList'])->name('pages.list');
+	Route::get('resetpages', [PagesController::class,'resetPages'])->name('resetpages');
 
 	Route::resource('themeoption', ThemeOptionController::class);
 	Route::get('themeoptionList', [ThemeOptionController::class,'getList'])->name('themeoption.list');

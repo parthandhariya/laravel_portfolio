@@ -67,7 +67,7 @@
 
                         @if(!is_null($v->property_image))
                           
-                        <div class="col-md-3 form-group">
+                        <div class="col-md-4 form-group">
                               <div class="text-right">
                                 <input type="checkbox" class="form-check-input large-checkbox img-checkbox" data-id="{{ $v->id }}">
                               </div>                              
@@ -80,7 +80,7 @@
                               $blankImageFlag = 1;
                             @endphp
 
-                        <div class="col-md-3 form-group">                            
+                        <div class="col-md-4 form-group">                            
                             <div class="custom-file">
                                 <input type="file" name="images[{{ $k }}]" class="custom-file-input images" data-id="{{ $v->id }}" accept="image/*">
                                 <label class="custom-file-label" for="exampleInputFile">Choose Property Image {{ $k + 1 }}</label>

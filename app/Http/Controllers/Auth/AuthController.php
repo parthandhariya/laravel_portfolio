@@ -25,26 +25,33 @@ class AuthController extends Controller
 	public function login(Request $request)
 	{
 		$credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'username' => ['required'],
             'password' => ['required'],
         ]);
 		
 		//$remember = isset($request->remember) ? true : false;
 
-		if(Auth::attempt($request->only('email','password')))
+		$userName = $request->username;
+		$password = $request->password;
+
+		$user = User::where('email',$userName)->orWhere('phone',$userName)->first();
+
+		if(!is_null($user))
 		{
-			setcookie("email","");
-			setcookie("password","");
-
-			if(Auth()->user()->user_type == "admin")
+			if(Hash::check($request->password, $user->password))
 			{
-				return redirect()->route('admin.home');
+				Auth::login($user);
+
+				if(Auth()->user()->user_type == "admin")
+				{
+					return redirect()->route('admin.home');
+				}
+
+				return redirect()->route('home');				
 			}
-
-			return redirect()->route('home');
 		}
-
-		return back()->withErrors('Invalide login detail');
+		
+		return back()->withErrors('Invalide login detail');	
 	}
 
 	public function registerView()
@@ -59,6 +66,7 @@ class AuthController extends Controller
 
 			'name' => 'required',
 			'email' => 'required|unique:users|email',
+			'phone' => 'required|unique:users|numeric|digits:10',
 			'password' => 'required|confirmed'
 
 			],
@@ -67,10 +75,14 @@ class AuthController extends Controller
 				'name.required' => 'Full name field is required'
 			]
 		);
+	
+		/*dd($request->phone);*/
 		
 		$user = User::create([
 			'name' => $request->name,
 			'email' => $request->email,
+			'phone' => $request->phone,
+			'slug' => md5(uniqid(rand(), true)),
 			'password' => \Hash::make($request->password)
 		]);
 		
@@ -97,11 +109,19 @@ class AuthController extends Controller
 	{
 		$user = Auth::user();
 
+		/*$request->validate([
+			  'phone' => 'required|numeric|digits:10|unique:users,phone,'.$user->id,
+		],
+
+		[
+			'phone.unique' => 'Phone number already been taken',
+		]);*/
+
 		if ($request->hasFile('profile_image'))
 		{
 
 			$request->validate([
-			    'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Example validation rules
+			    'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',			    
 			]);
 
 	        $image = $request->file('profile_image');
@@ -154,7 +174,7 @@ class AuthController extends Controller
 	    }
 
 	    $user->gender = $request->gender;
-	    $user->phone = $request->phone;
+	    /*$user->phone = $request->phone;*/
 	    $user->about_us = $request->about_us;
 
 	    $user->save();

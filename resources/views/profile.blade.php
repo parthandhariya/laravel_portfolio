@@ -42,32 +42,31 @@
                     
                   </div>
 
-                  <div class="row mt-4">
+
+                  <div class="row mt-3">
+                    
                                       
                     <div class="col-sm-6 form-group">
-                        <label>Name</label>
-                        <input type="text" name="name" class="form-control" id="name" value="{{ auth()->user()->name }}">
+                      <div class="custom-file">
+                        <input type="file" name="dashboard_image" class="custom-file-input" id="exampleInputFile">
+                        <label class="custom-file-label" for="exampleInputFile">Dashboard Image</label>
+                      </div>                        
                     </div>
 
                     <div class="col-sm-6 form-group mt-auto">
                       <div class="custom-file">
                         <input type="file" name="profile_image" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose profile picture</label>
+                        <label class="custom-file-label" for="exampleInputFile">Profile Image</label>
                       </div>
                     </div>
 
                   </div>
 
-                  <div class="row mt-4">
-                    <div class="col-sm-12 form-group mt-auto">
-                      <div class="custom-file">
-                        <input type="file" name="dashboard_image" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose dashboard image</label>
-                      </div>
-                    </div>                    
-                  </div>
-
-                  <div class="row mt-4">
+                  <div class="row mt-2">
+                    <div class="col-sm-6 form-group mt-auto">
+                      <label>Name</label>
+                      <input type="text" name="name" class="form-control" id="name" value="{{ auth()->user()->name }}">
+                    </div>
                     <div class="col-sm-6 form-group">
                       <label>Gender</label><br>
                       <div class="form-check form-check-inline">                        
@@ -78,15 +77,23 @@
                         <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="Female" {{ auth()->user()->gender == "Female" ? 'checked' : '' }}>
                         <label class="form-check-label" for="inlineRadio2">Female</label>
                       </div>
+                    </div>                   
+                  </div>
+
+                  <div class="row mt-2">
+                    
+                    <div class="col-sm-6 form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" value="{{ auth()->user()->email }}" placeholder="Email" disabled="">
                     </div>
                   
                     <div class="col-sm-6 form-group">
                         <label>Phone</label>
-                        <input type="text" name="phone" class="form-control" id="phone" value="{{ auth()->user()->phone }}" placeholder="Phone">
+                        <input type="text" class="form-control" value="{{ auth()->user()->phone }}" placeholder="Phone" disabled="">
                     </div>
                   </div>
 
-                  <div class="row mt-4">
+                  <div class="row mt-2">
                     <div class="col-sm-12 form-group">
                       <label>About Us</label>
                       <textarea cols="10" rows="5" name="about_us" class="form-control">{{ auth()->user()->about_us }}</textarea>                        
@@ -132,7 +139,7 @@
                           Enter Current Password
                           <span class="text-red"> *</span>
                         </label>
-                        <input type="password" name="current_password" class="form-control" placeholder="Old Password">
+                        <input type="password" name="current_password" class="form-control" placeholder="Current Password">
                     </div>
 
                     <div class="col-sm-12 form-group">

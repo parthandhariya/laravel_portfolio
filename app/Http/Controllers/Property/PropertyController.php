@@ -54,9 +54,9 @@ class PropertyController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'price' => 'required',
+            'price' => 'required|integer|between:1,100000000000',
         ]);
-
+        
         $property = new Properties();
         
         $property->user_id = auth()->user()->id;
@@ -126,8 +126,10 @@ class PropertyController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'price' => 'required',
+            'price' => 'required|integer|between:1,1000000000000',
         ]);
+
+        
 
         $property = Properties::findOrFail($id);
 

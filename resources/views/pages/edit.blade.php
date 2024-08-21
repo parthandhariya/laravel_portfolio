@@ -47,7 +47,7 @@
                     <div class="col-md-3 form-group">
                       <label for="Name">Page</label>
                       <select class="form-control" name="parent_with_level">
-                        <option value="{{ implode(',',[0,-1]) }}">------- Root -------</option>
+                        <option value="{{ implode(',',[0,-1]) }}">------- ROOT -------</option>
                         @foreach($pages as $k => $v)
 
                           @if($v->id == $page->id)

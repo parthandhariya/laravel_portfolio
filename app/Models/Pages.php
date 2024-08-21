@@ -9,7 +9,7 @@ use App\Models\User;
 
 class Pages extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = 'pages';
     protected $primaryKey = 'id';

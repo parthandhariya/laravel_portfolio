@@ -76,7 +76,7 @@
 
         <div class="input-group mb-3">
 
-          <input type="email" name="email" class="form-control" placeholder="Email">
+          <input type="text" name="username" class="form-control" placeholder="Email or Mobile">
 
           <div class="input-group-append">
 
@@ -145,7 +145,7 @@
 
       </p> --}}
 
-      <p class="mb-0">
+      <p class="mb-0 mt-2">
 
         <a href="{{ route('register') }}" class="text-center">Register a new membership</a>
 
