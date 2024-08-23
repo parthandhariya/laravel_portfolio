@@ -55,7 +55,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Pages</h3>
+                <h3 class="card-title mb-0">Pages</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -113,7 +113,7 @@
               @if(count($pages) > 0)
                 <div class="card-header text-right">
                   {{-- <h3 class="card-title">Pages</h3> --}}
-                  <a href="{{ route('resetpages') }}" class="btn btn-danger">Reset Pages</a>
+                  <a href="javascript:;" class="btn btn-danger" id="btn_reset_pages">Reset Pages</a>
                 </div>
               @endif
 
@@ -183,18 +183,22 @@
   });
 
 $(document).ready(function(){
-  $(document).on("click","#btn_delete",function(){
+  $(document).on("click","#btn_reset_pages",function(){
 
-    var id = $(this).data('id');
+    Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, Reset it!'
+      }).then((result) => {
+          if (result.isConfirmed) {
 
-    $("#modal_page_delete").modal();
-
-    $(document).on("click","#modal_btn_delete",function(){
-
-        var baseUrl = "{{ url('admin/') }}";        
-        var action = baseUrl + "/pages/" + id;
-        $("#frm_submit").attr('action',action).submit();
-
+            window.location.href = "{{ route('resetpages') }}";
+                    
+          }
     });
     
   });  

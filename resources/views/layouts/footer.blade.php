@@ -43,6 +43,9 @@
       {{-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script> --}}
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      
 <!-- Page specific script -->
 <script>
   

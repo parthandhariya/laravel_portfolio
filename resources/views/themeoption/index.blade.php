@@ -10,32 +10,7 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <!-- The Modal (Delete Confirmation)-->
-        <div class="modal fade" id="modal_themeoption_delete">
-          <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-            
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Delete Confirmation</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-              
-              <!-- Modal body -->
-              <div class="modal-body">
-                Are you sure for delete.?
-              </div>
-              
-              <!-- Modal footer -->
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="modal_btn_delete" data-dismiss="modal">Yes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-        <!-- End Modal -->
+       
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -54,7 +29,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Theme Option</h3>
+                <h3 class="card-title mb-0">Theme Option</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -204,18 +179,26 @@
 
 
 $(document).ready(function(){
-  $(document).on("click","#btn_delete",function(){
+  $(document).on("click",".btn-delete",function(){
 
-    var id = $(this).data('id');
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+          if (result.isConfirmed) {
 
-    $("#modal_themeoption_delete").modal();
+            var id = $(this).data('id');
+            var baseUrl = "{{ url('user/') }}";        
+            var action = baseUrl + "/themeoption/" + id;
 
-    $(document).on("click","#modal_btn_delete",function(){
-
-        var baseUrl = "{{ url('user/') }}";        
-        var action = baseUrl + "/themeoption/" + id;
-        $("#frm_submit").attr('action',action).submit();
-
+            $("#frm_submit").attr('action',action).submit();
+              
+          }
     });
     
   });
