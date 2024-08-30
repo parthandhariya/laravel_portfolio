@@ -8,8 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\ThemeOptions;
 use App\Models\Pages;
 use App\Models\Properties;
+use App\Models\PropertyDetail;
 
 class User extends Authenticatable
 {
@@ -55,5 +57,15 @@ class User extends Authenticatable
     public function properties()
     {
         return $this->hasMany(Properties::class,'user_id');
+    }
+
+    public function propertyDetail()
+    {
+        return $this->hasMany(PropertyDetail::class,'user_id');
+    }
+
+    public function themeOption()
+    {
+        return $this->hasMany(ThemeOptions::class,'user_id');
     }
 }

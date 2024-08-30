@@ -100,9 +100,12 @@
                     </div>
                   </div>
 
-                  <div class="row col-2">
-                    <div>
-                    <button class="btn btn-primary btn-block" type="submit" name="submit">Update Profile</button>
+                  <div class="row col-12">
+                    <div class="col-sm-6 pl-0">
+                      <button class="btn btn-primary btn-block" type="submit" name="submit">Update Profile</button>
+                    </div>
+                    <div class="col-sm-6 pl-0">
+                      <a href="{{ route('frontuser.home',auth()->user()->slug) }}" class="btn btn-success" target="_blank"><i class="fa fa-eye"></i> Website</a>
                     </div>
                   </div>
                 </div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\FrontUser;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Properties;
 
 class FrontUserController extends Controller
 {
@@ -14,8 +16,68 @@ class FrontUserController extends Controller
      */
     public function index()
     {
-        return view('front.front_user');
+        //return view('front.index');
     }
+
+    public function getFrontUserDetail($slug)
+    {
+        $user = User::where('slug',$slug)->first();
+        if(is_null($user))
+        {
+            abort(404);
+        }
+
+        $property = Properties::where('user_id',$user->id)->get();
+
+        $data['user'] = $user;
+        $data['property'] = $property;
+
+        return $data;        
+    }
+
+    public function home($slug = NULL)
+    {        
+        $data = $this->getFrontUserDetail($slug);
+
+        $user = $data['user'];
+        $property = $data['property'];
+        $activeMenu = 'home';
+
+        return view('front.index',compact('user','property','activeMenu'));
+    }
+
+    public function service($slug = NULL)
+    {  
+        $data = $this->getFrontUserDetail($slug);
+
+        $user = $data['user'];
+        $property = $data['property'];
+        $activeMenu = 'service';
+
+        return view('front.service',compact('user','property','activeMenu'));
+    }
+
+    public function about($slug = NULL)
+    {   
+        $data = $this->getFrontUserDetail($slug);
+
+        $user = $data['user'];
+        $property = $data['property'];
+        $activeMenu = 'about';
+
+        return view('front.about',compact('user','property','activeMenu'));
+    }
+
+    public function contactUs($slug = NULL)
+    {   
+        $data = $this->getFrontUserDetail($slug);
+
+        $user = $data['user'];
+        $property = $data['property'];
+        $activeMenu = 'contactus';
+            
+        return view('front.contactus',compact('user','property','activeMenu'));
+    }    
 
     /**
      * Show the form for creating a new resource.

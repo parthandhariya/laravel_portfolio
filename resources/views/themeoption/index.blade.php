@@ -2,6 +2,19 @@
 
 @section('style')
 
+{{-- <style>
+td.dt-control {
+    background: url('https://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.dt-control {
+    background: url('https://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+}
+</style> --}}
+
+
+
+
 @endsection
 
 <!-- Content Wrapper. Contains page content -->
@@ -113,6 +126,7 @@
                   <table class="table table-bordered themeoption_datatable" id="tableOption">
                       <thead>
                           <tr>
+                              {{-- <th></th> --}}
                               <th>ID</th>
                               {{-- <th>User</th> --}}
                               <th>Favicon</th>
@@ -144,12 +158,20 @@
 <script type="text/javascript">
   $(function () {
 
-    var table = $('.themeoption_datatable').DataTable({
+    var table = $('#tableOption').DataTable({
 
         processing: true,
-        serverSide: true,        
+        serverSide: true,
+        responsive: true,
         ajax: "{{ route('themeoption.list') }}",        
         columns: [
+             /*{
+                className: 'dt-control',
+                orderable: false,
+                data: null,
+                defaultContent: '',
+            },*/
+            
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
             /*{data: 'user', name: 'user'},*/
             {data: 'site_favicon', name: 'site_favicon'},
@@ -158,7 +180,12 @@
             {data: 'created', name: 'created'},            
             {data: 'last_modified', name: 'last_modified'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
+
+
         ],
+
+        /*order: [[1, 'asc']],*/
+
         drawCallback: function(settings) {          
           var pagination = $(this).closest('.dataTables_wrapper').find('.dataTables_paginate');
           pagination.toggle(this.api().page.info().pages > 1);
@@ -166,10 +193,41 @@
       
     });
 
+    // Add event listener for opening and closing details
+    /*$('#tableOption tbody').on('click', 'td.dt-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+
+        if (row.child.isShown()) {
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            row.child(format(row.data())).show();
+            tr.addClass('shown');
+        }
+    });*/
+
     
   });
 
-  
+  /*function format(d) {
+        
+        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px">' +
+            '<tr>' +
+                '<td>Site Name:</td>' +
+                '<td>' + d.site_name + '</td>' +
+            '</tr>' +
+            '<tr>' +
+                '<td>Created:</td>' +
+                '<td>' + d.created + '</td>' +
+            '</tr>' +
+            '<tr>' +
+                '<td>Extra info:</td>' +
+                '<td>And any further details here (images etc).</td>' +
+            '</tr>' +
+        '</table>';
+    }*/
+
   
   $("#tableOption").on("click",".a-fancybox",function(){          
        Fancybox.bind('img', {}); 
@@ -202,6 +260,8 @@ $(document).ready(function(){
     });
     
   });
+
+  
 
   function filePreview(input,preview) {
     if (input.files && input.files[0]) {

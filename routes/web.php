@@ -21,7 +21,7 @@ use App\Http\Controllers\Property\PropertyController;
 
 Route::get('/', function () {
 
-	//return redirect()->route('front.index');
+	/*return redirect()->route('frontuser.home');*/
 
     if(\Auth::check()){
     	 return redirect()->route('home');    	 
@@ -30,10 +30,19 @@ Route::get('/', function () {
     }
 });
 
+/*Route::get('home',[FrontUserController::class,'home'])->name('frontuser.home');*/
 
+Route::group(['prefix' => 'client'], function(){
 
-/*Route::resource('front',FrontUserController::class);*/
+Route::get('home/{slug}',[FrontUserController::class,'home'])->name('frontuser.home');
 
+Route::get('service/{slug}',[FrontUserController::class,'service'])->name('frontuser.service');
+
+Route::get('about/{slug}',[FrontUserController::class,'about'])->name('frontuser.about');
+
+Route::get('contactus/{slug}',[FrontUserController::class,'contactUs'])->name('frontuser.contactus');
+
+});
 
 
 Route::group(['prefix' => 'guest'], function(){
