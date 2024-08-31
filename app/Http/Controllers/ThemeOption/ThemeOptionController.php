@@ -263,8 +263,8 @@ class ThemeOptionController extends Controller
                 })
                                
                 ->addColumn('action', function($row){
-                    $btn = '<a href="'.route('themeoption.edit',$row->id).'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> ';
-                    $btn .= '<a href="javascript:;" class="btn btn-danger btn-sm btn-delete" data-id="'.$row->id.'"><i class="fa fa-trash"></i></a>';
+                    $btn = '<a href="'.route('themeoption.edit',$row->id).'" class="btn btn-primary btn-sm form-group"><i class="fa fa-edit"></i></a> ';
+                    $btn .= '<a href="javascript:;" class="btn btn-danger btn-sm btn-delete form-group" data-id="'.$row->id.'"><i class="fa fa-trash"></i></a>';
                     return $btn;
                 })
                 ->rawColumns(['site_favicon','site_logo'],['action'])                

@@ -20,7 +20,7 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
@@ -35,13 +35,13 @@
                 <div class="card-body"> 
 
                   <div class="row">                    
-                      <div class="col-6 form-group">                        
+                      <div class="col-12 form-group">                        
                         <input type="text" class="form-control" name="title" id="title" value="{{ $property->title }}" placeholder="Property Title" required="">
                       </div>
                   </div>
 
                   <div class="row">                    
-                      <div class="col-6 form-group">                        
+                      <div class="col-12 form-group">                        
                         <select name="option_id" class="form-control">
                           @foreach($propertyOption as $key => $value)
                             <option value="{{ $key }}" {{ ($key == $property->option_id) ? 'selected' : '' }}>{{ $value }}</option>
@@ -51,13 +51,13 @@
                   </div>
 
                   <div class="row">                    
-                      <div class="col-6 form-group">                        
+                      <div class="col-12 form-group">                        
                         <input type="text" class="form-control" name="price" id="price" value="{{ $property->price }}" placeholder="Property Price" required="">
                       </div>
                   </div>
 
                   <div class="row">                    
-                      <div class="col-6 form-group">                        
+                      <div class="col-12 form-group">                        
                         <textarea class="form-control" rows="5" name="description" placeholder="Property Description" required="">{{ $property->description }}</textarea>
                       </div>
                   </div>

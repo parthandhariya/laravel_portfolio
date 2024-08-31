@@ -277,9 +277,9 @@ class PropertyController extends Controller
                                 
                 ->addColumn('action', function($row){
 
-                    $btn = '<a href="'.route('property.edit',$row->id).'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a> ';
+                    $btn = '<a href="'.route('property.edit',$row->id).'" class="btn btn-primary btn-sm form-group"><i class="fa fa-edit"></i></a> ';
 
-                    $btn .= '<a href="'.route('editpropertyimage',$row->id).'" class="btn btn-secondary btn-sm" title="Add Images"><i class="fa fa-image"></i></a> ';                    
+                    $btn .= '<a href="'.route('editpropertyimage',$row->id).'" class="btn btn-secondary btn-sm form-group" title="Add Images"><i class="fa fa-image"></i></a> ';                    
                     return $btn;
                 })
                 ->rawColumns(['action'])                

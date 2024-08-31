@@ -20,11 +20,11 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Add Property</h3>
+                <h3 class="card-title">Add Property Detail</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -32,13 +32,13 @@
                 @csrf
                 <div class="card-body"> 
                   <div class="row">                    
-                      <div class="col-6 form-group">                        
+                      <div class="col-12 form-group">                        
                         <input type="text" class="form-control" name="title" id="title" placeholder="Property Title" required="">
                       </div>
                   </div>
 
                   <div class="row">                    
-                      <div class="col-6 form-group">                        
+                      <div class="col-12 form-group">                        
                         <select name="option_id" class="form-control">
                           @foreach($propertyOption as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
@@ -48,13 +48,13 @@
                   </div>
 
                   <div class="row">                    
-                      <div class="col-6 form-group">                        
+                      <div class="col-12 form-group">                        
                         <input type="number" class="form-control" name="price" id="price" placeholder="Property Price" required="">
                       </div>
                   </div>
 
                   <div class="row">                    
-                      <div class="col-6 form-group">                        
+                      <div class="col-12 form-group">                        
                         <textarea class="form-control" rows="5" name="description" placeholder="Property Description" required=""></textarea>
                       </div>
                   </div>
@@ -86,7 +86,7 @@
           <div class="col-md-12">
             <div class="card card-primary">
               <div class="card-body">
-                <div>
+                <div class="table-responsive">
 
                   <table class="table table-bordered property_datatable" id="tableProperty">
                       <thead>

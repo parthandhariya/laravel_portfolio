@@ -118,7 +118,7 @@
               @endif
 
               <div class="card-body">
-                <div>
+                <div class="table-responsive">
 
                   <table class="table table-bordered page_datatable">
                       <thead>
