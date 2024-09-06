@@ -8,6 +8,8 @@ use App\Http\Controllers\Pages\PagesController;
 use App\Http\Controllers\ThemeOption\ThemeOptionController;
 use App\Http\Controllers\FrontUser\FrontUserController;
 use App\Http\Controllers\Property\PropertyController;
+use App\Http\Controllers\Footer\FooterController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,9 +32,31 @@ Route::get('/', function () {
     }
 });
 
+
+
+/*Route::group(['prefix' => 'custom'], function ($slug) use ($routes) {
+    foreach ($routes as $route) {
+        Route::get($route->page_link, [FrontUserController::class,'functionPage'])->name($route->page_link);
+    }
+});*/
+
+
+
+//$slugMaster = NULL;
+
+
+
+Route::group(['prefix' => 'client'], function (){
+
+	Route::get('/{slug}',[FrontUserController::class,'index'])->name('frontend');
+
+});	
+
+
+
 /*Route::get('home',[FrontUserController::class,'home'])->name('frontuser.home');*/
 
-Route::group(['prefix' => 'client'], function(){
+/*Route::group(['prefix' => 'client'], function(){
 
 Route::get('home/{slug}',[FrontUserController::class,'home'])->name('frontuser.home');
 
@@ -42,7 +66,7 @@ Route::get('about/{slug}',[FrontUserController::class,'about'])->name('frontuser
 
 Route::get('contactus/{slug}',[FrontUserController::class,'contactUs'])->name('frontuser.contactus');
 
-});
+});*/
 
 
 Route::group(['prefix' => 'guest'], function(){
@@ -81,6 +105,9 @@ Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 	Route::get('editpropertyimage/{id}', [PropertyController::class,'editImage'])->name('editpropertyimage');
 	Route::post('updatepropertyimage', [PropertyController::class,'updateImage'])->name('updatepropertyimage');
 	Route::post('deletepropertyimage', [PropertyController::class,'destroySelectedImage'])->name('deletepropertyimage');
+
+	Route::resource('footer', FooterController::class);
+	Route::get('viewfooterdetail', [FooterController::class,'viewFooterDetail'])->name('viewfooterdetail');
 
 });
 

@@ -64,13 +64,13 @@
 
     <div class="section">
       <div class="container">
-        <div class="row mb-5 align-items-center">
+        {{--<div class="row mb-5 align-items-center">
           <div class="col-lg-6">
             <h2 class="font-weight-bold text-primary heading">
               Popular Properties
             </h2>
           </div>
-          {{-- <div class="col-lg-6 text-lg-end">
+          <div class="col-lg-6 text-lg-end">
             <p>
               <a
                 href="#"
@@ -79,60 +79,17 @@
                 >View all properties</a
               >
             </p>
-          </div> --}}
-        </div>
-        <div class="row">
+          </div>
+        </div> --}}
+
+        {{-- start Property slider row --}}
+
+        {{-- <div class="row">
           <div class="col-12">
             <div class="property-slider-wrap">
               <div class="property-slider">
 
-                @foreach($property as $key => $value)
-
-                {{-- @dd($value->propertyDetail) --}}
-
-                  @foreach($value->propertyDetail as $k => $v)
-
-                  @if(!is_null($v->property_image))
-
-                    <div class="{{-- property-item --}}">
-                      <a href="#" class="img">
-                        <img src="{{ $v->property_image }}" alt="Image" class="img-fluid" />
-                      </a>
-
-                      {{-- <div class="property-content">
-                        <div class="price mb-2"><span>$1,291,000</span></div>
-                        <div>
-                          <span class="d-block mb-2 text-black-50"
-                            >5232 California Fake, Ave. 21BC</span
-                          >
-                          <span class="city d-block mb-3">California, USA</span>
-
-                          <div class="specs d-flex mb-4">
-                            <span class="d-block d-flex align-items-center me-3">
-                              <span class="icon-bed me-2"></span>
-                              <span class="caption">2 beds</span>
-                            </span>
-                            <span class="d-block d-flex align-items-center">
-                              <span class="icon-bath me-2"></span>
-                              <span class="caption">2 baths</span>
-                            </span>
-                          </div>
-
-                          <a
-                            href="property-single.html"
-                            class="btn btn-primary py-2 px-3"
-                            >See details</a
-                          >
-                        </div>
-                      </div> --}}
-                    </div>
-                    <!-- .item -->
-
-                  @endif
-
-                  @endforeach
-
-                @endforeach
+              <!-- Add Property slider foreach -->
                 
               </div>
 
@@ -159,7 +116,11 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
+
+        {{-- end Property slider row --}}
+
+
       </div>
     </div>
 

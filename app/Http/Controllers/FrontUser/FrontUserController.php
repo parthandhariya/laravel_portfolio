@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Properties;
+use App\Models\Pages;
 
 class FrontUserController extends Controller
 {
@@ -14,9 +15,23 @@ class FrontUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug = NULL)
     {
-        //return view('front.index');
+        $user = User::where('slug',$slug)->first();
+
+        if(is_null($user))
+        {
+            abort(404);
+        }
+
+        $pages = Pages::where('user_id',$user->id)->where('parent_id','0')->get();
+
+        return view('front.index',compact('slug','user','pages'));
+    }
+
+    public function functionPage()
+    {
+        dd(1);
     }
 
     public function getFrontUserDetail($slug)

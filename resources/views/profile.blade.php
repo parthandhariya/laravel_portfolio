@@ -105,7 +105,9 @@
                       <button class="btn btn-primary btn-block" type="submit" name="submit">Update Profile</button>
                     </div>
                     <div class="col-sm-6 pl-0 form-group">
-                      <a href="{{ route('frontuser.home',auth()->user()->slug) }}" class="btn btn-success" target="_blank"><i class="fa fa-eye"></i> Preview Website</a>
+                      {{-- <a href="{{ route('frontuser.home',auth()->user()->slug) }}" class="btn btn-success" target="_blank"><i class="fa fa-eye"></i> Preview Website</a> --}}
+
+                      <a href="{{ route('frontend',auth()->user()->slug) }}" class="btn btn-success" target="_blank"><i class="fa fa-eye"></i> Preview Website</a>
                     </div>
                   </div>
                 </div>

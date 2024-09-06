@@ -58,6 +58,12 @@
                   </a>
                 </li>
                 <li class="nav-item">
+                  <a href="{{ route('footer.index') }}" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Footer</p>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a href="{{ route('property.index') }}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Properties</p>
