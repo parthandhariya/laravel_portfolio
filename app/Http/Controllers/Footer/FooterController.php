@@ -19,7 +19,8 @@ class FooterController extends Controller
     public function index()
     {
         $footerHeading = Footer::get();
-        return view('footer.index',compact('footerHeading'));
+        $footerDetail = [];
+        return view('footer.index',compact('footerHeading','footerDetail'));
     }
 
     /**
