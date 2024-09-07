@@ -11,7 +11,7 @@ use App\Models\Footer;
 
 class FooterDetail extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = 'footer_detail';
     protected $primaryKey = 'id';

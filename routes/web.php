@@ -108,6 +108,7 @@ Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 
 	Route::resource('footer', FooterController::class);
 	Route::get('viewfooterdetail', [FooterController::class,'viewFooterDetail'])->name('viewfooterdetail');
+	Route::post('updatefooter', [FooterController::class,'updateFooterDetail'])->name('updatefooter');
 
 });
 

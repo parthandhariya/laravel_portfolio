@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Footer;
 use App\Models\FooterDetail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FooterController extends Controller
 {
@@ -30,7 +31,52 @@ class FooterController extends Controller
 
     public function viewFooterDetail(Request $request)
     {
-        abort(404);
+        $footerHeading = Footer::get();
+
+        $checkId = Footer::where('id',$request->footer_heading_id)->first();
+        if(is_null($checkId))
+        {
+            abort(404);
+        } 
+
+        $footerDetail = FooterDetail::where('user_id',auth()->user()->id)->where('footer_id',$checkId->id)->first();
+
+        if(is_null($footerDetail))
+        {
+            $footerDetail = new FooterDetail();
+            $footerDetail->user_id = auth()->user()->id;
+            $footerDetail->footer_id = $checkId->id;
+            $footerDetail->save();
+        }
+
+        return view('footer.index',compact('footerDetail','footerHeading'));
+    }
+
+    public function updateFooterDetail(Request $request)
+    {
+        //dd($request->all());
+        $userId = $request->user_id;
+        $footerId = $request->footer_id;
+
+        $footerLines = [
+
+            'line1' => $request->line1,
+            'line2' => $request->line2,
+            'line3' => $request->line3,
+            'line4' => $request->line4,
+            'line5' => $request->line5,
+
+        ];
+
+        //dd($footerLines);
+
+        FooterDetail::where(['user_id'=>$userId,'footer_id'=>$footerId])->update($footerLines);
+
+
+        Alert::success('Footer detail saved successfully','Thank you');
+        
+        return back();
+
     }
 
     public function create()

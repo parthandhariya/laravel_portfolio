@@ -46,10 +46,10 @@ tr.shown td.dt-control {
                   <div class="row">                  
                     <div class="col-md-9">
                       <div class="form-group">
-                          <select name="footer_heading" class="form-control">
+                          <select name="footer_heading_id" class="form-control">
                             <option value="">-- Select Footer Heading --</option>
                             @foreach($footerHeading as $key => $value)
-                              <option value="{{ $value->id }}">{{ ucwords($value->footer_heading) }}</option>
+                              <option value="{{ $value->id }}" {{ in_array($footerDetail->footer_id, $value->toArray()) ? 'selected' : '' }}>{{ ucwords($value->footer_heading) }}</option>
                             @endforeach
                           </select>
                       </div>
@@ -63,6 +63,63 @@ tr.shown td.dt-control {
                   </div>
 
                 </form>
+
+
+                <form method="post" action="{{ route('updatefooter') }}">
+                  
+                  @csrf
+                  
+                  <input type="hidden" name="user_id" value="{{ $footerDetail->user_id }}">
+                  <input type="hidden" name="footer_id" value="{{ $footerDetail->footer_id }}">        
+                          
+
+
+                            
+                            <div class="row">                  
+                              <div class="col-md-9">
+                                <div class="form-group">
+                                  <input type="text" name="{{ 'line1' }}" value="{{ (!is_null($footerDetail->line1)) ? $footerDetail->line1 : '' }}" class="form-control" placeholder="{{ 'Fooer Line 1' }}">
+                                </div>
+                              </div>
+
+                              <div class="col-md-9">
+                                <div class="form-group">
+                                  <input type="text" name="{{ 'line2' }}" value="{{ (!is_null($footerDetail->line2)) ? $footerDetail->line2 : '' }}" class="form-control" placeholder="{{ 'Fooer Line 2' }}">
+                                </div>
+                              </div>
+
+                              <div class="col-md-9">
+                                <div class="form-group">
+                                  <input type="text" name="{{ 'line3' }}" value="{{ (!is_null($footerDetail->line3)) ? $footerDetail->line3 : '' }}" class="form-control" placeholder="{{ 'Fooer Line 3' }}">
+                                </div>
+                              </div>
+
+                              <div class="col-md-9">
+                                <div class="form-group">
+                                  <input type="text" name="{{ 'line4' }}" value="{{ (!is_null($footerDetail->line4)) ? $footerDetail->line4 : '' }}" class="form-control" placeholder="{{ 'Fooer Line 4' }}">
+                                </div>
+                              </div>
+
+                              <div class="col-md-9">
+                                <div class="form-group">
+                                  <input type="text" name="{{ 'line5' }}" value="{{ (!is_null($footerDetail->line5)) ? $footerDetail->line5 : '' }}" class="form-control" placeholder="{{ 'Fooer Line 5' }}">
+                                </div>
+                              </div>
+
+                              <div class="col-md-9">
+                                <div class="form-group">
+                                  <input type="submit" value="Save" class="btn btn-primary">
+                                </div>
+                              </div>
+                            </div>
+
+                          
+                          
+                      
+
+                </form>
+
+
               </div>
               
             </div>
