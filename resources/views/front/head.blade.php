@@ -22,6 +22,6 @@
     <link rel="stylesheet" href="{{ asset('client/assets/css/style.css') }}" />
 
     <title>
-      Property &mdash; Free Bootstrap 5 Website Template by Untree.co
+        {{ $user->themeOption[0]->site_name ?? '' }}
     </title>
 </head>

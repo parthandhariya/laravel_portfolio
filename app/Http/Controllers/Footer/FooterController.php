@@ -37,7 +37,8 @@ class FooterController extends Controller
         $checkId = Footer::where('id',$request->footer_heading_id)->first();
         if(is_null($checkId))
         {
-            abort(404);
+            //abort(404);
+            return redirect()->route('footer.index');
         } 
 
         $footerDetail = FooterDetail::where('user_id',auth()->user()->id)->where('footer_id',$checkId->id)->first();
@@ -58,6 +59,12 @@ class FooterController extends Controller
         //dd($request->all());
         $userId = $request->user_id;
         $footerId = $request->footer_id;
+
+        if(is_null($userId) || is_null($footerId))
+        {
+            Alert::error('Please select proper footer heading','Sorry');
+            return back();
+        }
 
         $footerLines = [
 

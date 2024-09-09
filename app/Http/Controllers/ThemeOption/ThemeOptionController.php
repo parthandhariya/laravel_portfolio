@@ -45,8 +45,8 @@ class ThemeOptionController extends Controller
         ];
 
         $request->validate([
-            'site_favicon' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'site_logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'site_favicon' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'site_logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
             'site_name' => 'required',
         ], $customMessages);
 
@@ -248,10 +248,10 @@ class ThemeOptionController extends Controller
                 })*/
 
                 ->editColumn('site_favicon', function($data) {
-                    return '<a href="javascript:;" class="a-fancybox" data-fancybox="'.$data->site_favicon.'"><img src='.$data->site_favicon.' class="fancybox" height="40" width="40" /></a>';                    
+                    return '<a href="javascript:;" class="a-fancybox" data-fancybox="'.$data->site_favicon.'"><img src="'.$data->site_favicon.'" class="fancybox" height="40" width="40" /></a>';                    
                 })
                 ->editColumn('site_logo', function($data) {
-                    return '<a href="javascript:;" class="a-fancybox" data-fancybox="'.$data->site_logo.'"><img src='.$data->site_logo.' class="fancybox" height="40" width="40" /></a>';                    
+                    return '<a href="javascript:;" class="a-fancybox" data-fancybox="'.$data->site_logo.'"><img src="'.$data->site_logo.'" class="fancybox" height="40" width="40" /></a>';                    
                 }) 
 
                 ->editColumn('created', function($data) {
