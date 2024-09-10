@@ -63,7 +63,7 @@
     </div>
 
     <div class="section">
-      <div class="container">
+      <div class="">
         {{--<div class="row mb-5 align-items-center">
           <div class="col-lg-6">
             <h2 class="font-weight-bold text-primary heading">
@@ -81,6 +81,10 @@
             </p>
           </div>
         </div> --}}
+
+        <div class="row align-items-center">
+          <img src="{{ asset('client/assets/images/coming_soon_page.webp') }}" />
+        </div>
 
         {{-- start Property slider row --}}
 

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Properties;
 use App\Models\Pages;
+use App\Models\Footer;
+use App\Models\FooterDetail;
 
 class FrontUserController extends Controller
 {
@@ -26,7 +28,9 @@ class FrontUserController extends Controller
 
         $pages = Pages::where('user_id',$user->id)->where('parent_id','0')->get();
 
-        return view('front.index',compact('slug','user','pages'));
+        $footer = FooterDetail::where('user_id',$user->id)->orderBy('footer_id')->get();
+
+        return view('front.index',compact('slug','user','pages','footer'));
     }
 
     public function functionPage()
