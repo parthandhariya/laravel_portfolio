@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
 use App\Models\PropertyDetail;
 use App\Models\PropertyOptions;
+use App\Models\PropertyCategory;
+use App\Models\PropertyPrice;
 
 class Properties extends Model
 {
@@ -29,5 +31,15 @@ class Properties extends Model
     public function propertyDetail()
     {
     	return $this->hasMany(PropertyDetail::class,'property_id');
+    }
+
+    public function propertyCategory()
+    {
+        return $this->belongsTo(PropertyCategory::class,'category_id');
+    }
+
+    public function propertyPrice()
+    {
+        return $this->belongsTo(PropertyPrice::class,'price_id');
     }
 }

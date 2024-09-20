@@ -106,6 +106,7 @@
 
     <div class="content">
       <div class="container-fluid">
+        
         <div class="row">
           <div class="col-md-12">
             <div class="card card-primary">
@@ -118,6 +119,17 @@
               @endif
 
               <div class="card-body">
+                {{-- <div class="row mb-4">
+                  <div class="col-md-12">
+                    <div class="col-md-3 pl-0">
+                      <input type="text" name="filter_page_link" value="" class="filter_page_link form-control" placeholder="Search Page Link">
+                    </div>
+
+                    <div class="col-md-3">
+                      
+                    </div>
+                  </div>
+                </div> --}}
                 <div class="table-responsive">
 
                   <table class="table table-bordered page_datatable">
@@ -163,7 +175,14 @@
 
         processing: true,
         serverSide: true,        
-        ajax: "{{ route('pages.list') }}",        
+        
+        ajax: {
+               url: "{{ route('pages.list') }}",
+               data: function (d) {
+                   d.page_link = $('.page_link').val()
+                       /*d.search = $('input[type="search"]').val()*/
+               },
+           },        
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
             /*{data: 'user', name: 'user'},*/
@@ -178,8 +197,13 @@
         drawCallback: function(settings) {          
           var pagination = $(this).closest('.dataTables_wrapper').find('.dataTables_paginate');
           pagination.toggle(this.api().page.info().pages > 1);
-        }
+        },      
     });
+
+    $(document).on('keyup',".filter_page_link",function(){
+        table.draw();           
+    });
+
   });
 
 $(document).ready(function(){

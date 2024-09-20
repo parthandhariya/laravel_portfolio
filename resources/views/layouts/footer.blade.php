@@ -40,12 +40,15 @@
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.4.1/jquery-migrate.min.js"></script>
-      {{-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script> --}}
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+{{-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-      
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ 
+<!--Plugin JavaScript file-->
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script> --}}
+
 <!-- Page specific script -->
 <script>
   

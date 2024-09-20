@@ -12,6 +12,9 @@ use App\Models\ThemeOptions;
 use App\Models\Pages;
 use App\Models\Properties;
 use App\Models\PropertyDetail;
+use App\Models\PropertyOptions;
+use App\Models\PropertyCategory;
+use App\Models\PropertyPrice;
 
 class User extends Authenticatable
 {
@@ -67,5 +70,15 @@ class User extends Authenticatable
     public function themeOption()
     {
         return $this->hasMany(ThemeOptions::class,'user_id');
+    }
+
+    public function propertyCategory()
+    {
+        return $this->hasMany(PropertyCategory::class,'user_id');
+    }
+
+    public function propertyPrice()
+    {
+        return $this->hasMany(PropertyPrice::class,'user_id');
     }
 }

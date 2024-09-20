@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Properties;
 use App\Models\PropertyDetail;
 use App\Models\PropertyOptions;
+use App\Models\PropertyCategory;
+use App\Models\PropertyPrice;
 use DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -20,8 +22,10 @@ class PropertyController extends Controller
     public function index()
     {
         $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
+        $propertyCategory = PropertyCategory::where('user_id',auth()->user()->id)->pluck('name','id')->toArray();
+        $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
 
-        return view('property.index',compact('propertyOption'));
+        return view('property.index',compact('propertyOption','propertyCategory','propertyPrice'));
     }
 
     /**
@@ -42,7 +46,7 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        $totalNumbersOfProperty = Properties::where('user_id',auth()->user()->id)->count();
+        /*$totalNumbersOfProperty = Properties::where('user_id',auth()->user()->id)->count();
 
         if($totalNumbersOfProperty == 2)
         {
@@ -54,8 +58,8 @@ class PropertyController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'price' => 'required|integer|between:1,100000000000',
-        ]);
+            'price_id' => 'required|integer|between:1,100000000000',
+        ]);*/
         
         $property = new Properties();
         
@@ -63,9 +67,9 @@ class PropertyController extends Controller
         $property->option_id = $request->option_id;
         $property->title = $request->title;
         $property->description = $request->description;
-        $property->price = $request->price;
+        $property->category_id = $request->category_id;
+        $property->price_id = $request->price_id;
         
-
         $property->save();
 
         for ($i=0; $i < 6; $i++)
@@ -80,7 +84,7 @@ class PropertyController extends Controller
 
         Alert::success('Property detail saved successfully','Thank you');
         
-        return back();
+        return redirect()->route('property.list.view');
     }
 
     /**
@@ -110,8 +114,10 @@ class PropertyController extends Controller
         }
 
         $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
+        $propertyCategory = PropertyCategory::where('user_id',auth()->user()->id)->pluck('name','id')->toArray();
+        $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
 
-        return view('property.edit',compact('property','propertyOption'));
+        return view('property.edit',compact('property','propertyOption','propertyCategory','propertyPrice'));
     }
 
     /**
@@ -123,11 +129,11 @@ class PropertyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+        /*$request->validate([
             'title' => 'required',
             'description' => 'required',
-            'price' => 'required|integer|between:1,1000000000000',
-        ]);
+            'price_id' => 'required|integer|between:1,1000000000000',
+        ]);*/
 
         
 
@@ -136,13 +142,14 @@ class PropertyController extends Controller
         $property->option_id = $request->option_id;
         $property->title = $request->title;
         $property->description = $request->description;
-        $property->price = $request->price;
+        $property->category_id = $request->category_id;
+        $property->price_id = $request->price_id;
 
         $property->save();
 
         Alert::success('Property updated successfully','Thank you');
         
-        return redirect()->route('property.index');
+        return redirect()->route('property.list.view');
     }
 
     /**
@@ -248,10 +255,63 @@ class PropertyController extends Controller
         return redirect()->back();
     }
 
+    public function list()
+    {
+        $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
+        $propertyCategory = PropertyCategory::where('user_id',auth()->user()->id)->pluck('name','id')->toArray();
+        $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
+
+        return view('property.list',compact('propertyOption','propertyCategory','propertyPrice'));        
+    }
+
     public function getList(Request $request)
     {        
         if ($request->ajax()) {
-            $data = Properties::select('id','user_id','option_id','title','description','price','created_at','updated_at')->where('user_id',auth()->user()->id)->get();
+
+            $option_id = $request->option_id;
+            $category_id = $request->category_id;
+            $price_id = $request->price_id;
+            $userId = auth()->user()->id;
+            $conditionFlag = 0;
+
+            
+
+
+            /*$data = Properties::select('id','user_id','option_id','title','description','price_id','category_id','created_at','updated_at')->where('user_id',auth()->user()->id);*/
+
+            $query = Properties::where('user_id',$userId);
+
+            if(!is_null($option_id))
+            {
+                $conditionFlag = 1;
+                $query->where('option_id',$option_id);
+            }
+            
+
+            if(!is_null($category_id))
+            {
+                $conditionFlag = 1;
+                $query->where('category_id',$category_id);    
+            }
+            
+
+            if(!is_null($price_id))
+            {
+                $conditionFlag = 1;
+                
+                $query->where("price_id",$price_id);
+
+            }
+
+            if($conditionFlag == 1)
+            {
+                $data = $query->get();
+            }
+            else
+            {
+                $data = collect([]);
+            }
+                    
             
             $list = Datatables::of($data)->addIndexColumn()
 
@@ -263,8 +323,12 @@ class PropertyController extends Controller
                     return $data->propertyOption->option_name ?? "--";
                 })
 
-                ->editColumn('price', function($data) {
-                    return $data->price ?? "--";
+                ->editColumn('category_id', function($data) {
+                    return $data->propertyCategory->name ?? "--";
+                })
+
+                ->editColumn('price_id', function($data) {
+                    return $data->propertyPrice->price ?? "--";
                 })
 
                 ->editColumn('created', function($data) {

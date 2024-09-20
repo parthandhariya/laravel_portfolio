@@ -266,9 +266,19 @@ class PagesController extends Controller
 
     public function getList(Request $request)
     {        
+
+
         if ($request->ajax()) {
+
+            //dd($request->page_link);
+            $param = $request->filter_page_link ?? NULL;
+            //if(!is_null($request->page_link))
+
             $data = Pages::select('id','user_id','name','parent_id','status','page_link','created_at','updated_at')->where('user_id',auth()->user()->id)->get();
-            $list = Datatables::of($data)->addIndexColumn()
+
+            $list = Datatables::of($data)
+                
+                ->addIndexColumn()
 
                 /*->editColumn('user', function(pages $page) {
                     return $page->user->name ?? 'Root';
@@ -297,9 +307,14 @@ class PagesController extends Controller
                     /*$btn .= '<a href="javascript:;" class="btn btn-danger btn-sm" id="btn_delete" data-id="'.$row->id.'"><i class="fa fa-trash"></i></a>';*/
                     return $btn;
                 })
+                /*->filterColumn('name', function($query, $param) {
+                    dd($param);                                    
+                    $query->where('name','like', ["%{$param}%"]);
+                })*/
                 /*->addIndexColumn()*/
                 ->rawColumns(['action'])
                 ->make(true);
+                /*->toJson();*/
 
             return $list;
         }

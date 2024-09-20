@@ -8,6 +8,8 @@ use App\Http\Controllers\Pages\PagesController;
 use App\Http\Controllers\ThemeOption\ThemeOptionController;
 use App\Http\Controllers\FrontUser\FrontUserController;
 use App\Http\Controllers\Property\PropertyController;
+use App\Http\Controllers\Property\PropertyCategoryController;
+use App\Http\Controllers\Property\PropertyPriceController;
 use App\Http\Controllers\Footer\FooterController;
 
 /*
@@ -101,6 +103,7 @@ Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 	Route::get('themeoptionList', [ThemeOptionController::class,'getList'])->name('themeoption.list');
 
 	Route::resource('property', PropertyController::class);
+	Route::get('propertylistview', [PropertyController::class,'list'])->name('property.list.view');
 	Route::get('propertyList', [PropertyController::class,'getList'])->name('property.list');
 	Route::get('editpropertyimage/{id}', [PropertyController::class,'editImage'])->name('editpropertyimage');
 	Route::post('updatepropertyimage', [PropertyController::class,'updateImage'])->name('updatepropertyimage');
@@ -109,6 +112,13 @@ Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 	Route::resource('footer', FooterController::class);
 	Route::get('viewfooterdetail', [FooterController::class,'viewFooterDetail'])->name('viewfooterdetail');
 	Route::post('updatefooter', [FooterController::class,'updateFooterDetail'])->name('updatefooter');
+
+	Route::resource('propertycategory', PropertyCategoryController::class);
+	Route::get('propertyCategoryList', [PropertyCategoryController::class,'getList'])->name('propertycategory.list');
+
+
+	Route::resource('propertyprice', PropertyPriceController::class);
+	Route::get('propertyPriceList', [PropertyPriceController::class,'getList'])->name('propertyprice.list');
 
 });
 

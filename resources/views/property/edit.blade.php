@@ -25,7 +25,7 @@
             <div class="card card-primary">
               <div class="card-header">
                 <a class="mr-3">Update Property Detail</a>
-                <a href="{{ route('property.index') }}" class="btn btn-secondary">{{ "Go Back" }}</a>
+                <a href="{{ route('property.list.view') }}" class="btn btn-secondary">{{ "Go Back" }}</a>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -35,26 +35,50 @@
                 <div class="card-body"> 
 
                   <div class="row">                    
-                      <div class="col-12 form-group">                        
+                      <div class="col-12 form-group">
+                        <label for="title">Title</label>
                         <input type="text" class="form-control" name="title" id="title" value="{{ $property->title }}" placeholder="Property Title" required="">
                       </div>
                   </div>
 
                   <div class="row">                    
-                      <div class="col-12 form-group">                        
+                      <div class="col-12 form-group">
+                      <label for="title">Type</label>                        
                         <select name="option_id" class="form-control">
                           @foreach($propertyOption as $key => $value)
-                            <option value="{{ $key }}" {{ ($key == $property->option_id) ? 'selected' : '' }}>{{ $value }}</option>
+                            <option value="{{ $key }}" {{ ($property->propertyOption->id == $key) ? 'selected' : '' }}>{{ $value }}</option>
                           @endforeach
                         </select>
                       </div>
                   </div>
 
                   <div class="row">                    
-                      <div class="col-12 form-group">                        
-                        <input type="text" class="form-control" name="price" id="price" value="{{ $property->price }}" placeholder="Property Price" required="">
+                      <div class="col-12 form-group">
+                      <label for="title">Category</label>                        
+                        <select name="category_id" class="form-control">
+                          @foreach($propertyCategory as $key => $value)
+                            <option value="{{ $key }}" {{ ($property->propertyCategory->id == $key) ? 'selected' : '' }}>{{ $value }}</option>
+                          @endforeach
+                        </select>
                       </div>
                   </div>
+
+                  <div class="row">                    
+                      <div class="col-12 form-group">
+                      <label for="title">Price</label>                        
+                        <select name="price_id" class="form-control">
+                          @foreach($propertyPrice as $key => $value)
+                            <option value="{{ $key }}" {{ ($property->propertyPrice->id == $key) ? 'selected' : '' }}>{{ $value }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                  </div>
+
+                  {{-- <div class="row">                    
+                      <div class="col-12 form-group">                        
+                        <input type="number" class="form-control" name="price_id" id="price_id" placeholder="Property Price" required="">
+                      </div>
+                  </div> --}}
 
                   <div class="row">                    
                       <div class="col-12 form-group">                        
