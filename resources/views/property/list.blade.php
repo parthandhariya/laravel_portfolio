@@ -32,7 +32,7 @@
 
                 <div class="col-md-12">
                   <div class="row mb-4">                  
-                    <div class="col-md-3 pl-0">
+                    <div class="col-md-3 pl-0 mb-2">
                       <select class="form-control" name="option_id" id="option_id">
                         <option value="">---Select Option---</option>
                         @foreach($propertyOption as $key => $value)
@@ -41,7 +41,7 @@
                       </select>
                     </div>
 
-                    <div class="col-md-3 pl-0">
+                    <div class="col-md-3 pl-0 mb-2">
                       <select class="form-control" name="category_id" id="category_id">
                         <option value="">---Select Category---</option>
                         @foreach($propertyCategory as $key => $value)
@@ -50,7 +50,7 @@
                       </select>
                     </div>
 
-                    <div class="col-md-3 pl-0">
+                    <div class="col-md-3 pl-0 mb-2">
                       <select class="form-control" name="price_id" id="price_id">
                         <option value="">---Select Price---</option>
                         @foreach($propertyPrice as $key => $value)

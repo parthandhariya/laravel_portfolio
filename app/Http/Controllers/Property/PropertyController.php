@@ -60,6 +60,12 @@ class PropertyController extends Controller
             'description' => 'required',
             'price_id' => 'required|integer|between:1,100000000000',
         ]);*/
+
+        $request->validate([
+            'option_id' => 'required',
+            'category_id' => 'required',
+            'price_id' => 'required',
+        ]);
         
         $property = new Properties();
         
@@ -129,11 +135,11 @@ class PropertyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*$request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'price_id' => 'required|integer|between:1,1000000000000',
-        ]);*/
+        $request->validate([
+            'option_id' => 'required',
+            'category_id' => 'required',
+            'price_id' => 'required',
+        ]);
 
         
 

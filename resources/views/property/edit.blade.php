@@ -37,13 +37,13 @@
                   <div class="row">                    
                       <div class="col-12 form-group">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" name="title" id="title" value="{{ $property->title }}" placeholder="Property Title" required="">
+                        <input type="text" class="form-control" name="title" id="title" value="{{ $property->title }}" placeholder="Property Title">
                       </div>
                   </div>
 
                   <div class="row">                    
                       <div class="col-12 form-group">
-                      <label for="title">Type</label>                        
+                      <label for="title">Type <span class="text-red">*</span></label>                        
                         <select name="option_id" class="form-control">
                           @foreach($propertyOption as $key => $value)
                             <option value="{{ $key }}" {{ ($property->propertyOption->id == $key) ? 'selected' : '' }}>{{ $value }}</option>
@@ -54,7 +54,7 @@
 
                   <div class="row">                    
                       <div class="col-12 form-group">
-                      <label for="title">Category</label>                        
+                      <label for="title">Category <span class="text-red">*</span></label>                        
                         <select name="category_id" class="form-control">
                           @foreach($propertyCategory as $key => $value)
                             <option value="{{ $key }}" {{ ($property->propertyCategory->id == $key) ? 'selected' : '' }}>{{ $value }}</option>
@@ -65,7 +65,7 @@
 
                   <div class="row">                    
                       <div class="col-12 form-group">
-                      <label for="title">Price</label>                        
+                      <label for="title">Price <span class="text-red">*</span></label>                        
                         <select name="price_id" class="form-control">
                           @foreach($propertyPrice as $key => $value)
                             <option value="{{ $key }}" {{ ($property->propertyPrice->id == $key) ? 'selected' : '' }}>{{ $value }}</option>
@@ -82,7 +82,7 @@
 
                   <div class="row">                    
                       <div class="col-12 form-group">                        
-                        <textarea class="form-control" rows="5" name="description" placeholder="Property Description" required="">{{ $property->description }}</textarea>
+                        <textarea class="form-control" rows="5" name="description" placeholder="Property Description">{{ $property->description }}</textarea>
                       </div>
                   </div>
 

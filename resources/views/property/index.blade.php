@@ -24,7 +24,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title mb-0 mr-3">Add Property Detail</h3>
+                <a class="mr-3">Add Property Detail</a>                
                 <a href="{{ route('property.list.view') }}" class="btn btn-secondary">{{ "Go Back" }}</a>
               </div>
               <!-- /.card-header -->
@@ -35,13 +35,13 @@
                   <div class="row">                    
                       <div class="col-12 form-group">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" name="title" id="title" placeholder="Property Title" required="">
+                        <input type="text" class="form-control" name="title" id="title" placeholder="Property Title">
                       </div>
                   </div>
 
                   <div class="row">                    
                       <div class="col-12 form-group">
-                      <label for="title">Type</label>                        
+                      <label for="title">Type <span class="text-red">*</span></label>                        
                         <select name="option_id" class="form-control">
                           @foreach($propertyOption as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
@@ -52,8 +52,9 @@
 
                   <div class="row">                    
                       <div class="col-12 form-group">
-                      <label for="title">Category</label>                        
+                      <label for="title">Category <span class="text-red">*</label>                        
                         <select name="category_id" class="form-control">
+                          <option value="">---Select Category---</option>
                           @foreach($propertyCategory as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
                           @endforeach
@@ -63,8 +64,9 @@
 
                   <div class="row">                    
                       <div class="col-12 form-group">
-                      <label for="title">Price</label>                        
+                      <label for="title">Price <span class="text-red">*</label>                        
                         <select name="price_id" class="form-control">
+                          <option value="">---Select Price---</option>
                           @foreach($propertyPrice as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
                           @endforeach
@@ -80,7 +82,7 @@
 
                   <div class="row">                    
                       <div class="col-12 form-group">                        
-                        <textarea class="form-control" rows="5" name="description" placeholder="Property Description" required=""></textarea>
+                        <textarea class="form-control" rows="5" name="description" placeholder="Property Description"></textarea>
                       </div>
                   </div>
 
