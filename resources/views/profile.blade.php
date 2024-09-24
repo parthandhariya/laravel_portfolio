@@ -30,13 +30,17 @@
                   <div class="text-center text-lg-left">
 
                     @if(!is_null(auth()->user()->profile_image))
-                      <img class="profile-user-img img-fluid img-circle"
-                         src="{{ auth()->user()->profile_image }}"
-                         alt="User profile picture">
+                      <div id="profile_image">
+                        <img class="profile-user-img img-fluid img-circle"
+                           src="{{ auth()->user()->profile_image }}"
+                           alt="User profile picture">
+                      </div>
                     @else
-                      <img class="profile-user-img img-fluid img-circle"
-                         src="{{ asset('images/default-profile-picture.png') }}"
-                         alt="User profile picture">
+                      <div id="profile_image">
+                        <img class="profile-user-img img-fluid img-circle"
+                           src="{{ asset('images/default-profile-picture.png') }}"
+                           alt="User profile picture">
+                      </div>
                     @endif
 
                     
@@ -55,7 +59,7 @@
 
                     <div class="col-sm-6 form-group mt-auto">
                       <div class="custom-file">
-                        <input type="file" name="profile_image" class="custom-file-input" id="exampleInputFile">
+                        <input type="file" name="profile_image" class="custom-file-input profile_image" id="exampleInputFile">
                         <label class="custom-file-label" for="exampleInputFile">Profile Image</label>
                       </div>
                     </div>
@@ -189,5 +193,28 @@
   <!-- /.content-wrapper -->
 
 @section('script')
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+
+      function filePreview(input,preview) {
+          if (input.files && input.files[0]) {
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                  $('#' + preview).empty();
+                  $('#' + preview).append('<img src="'+e.target.result+'" class="profile-user-img img-fluid img-circle"/>');
+              };
+              reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(".profile_image").change(function () {          
+            filePreview(this,'profile_image');
+        });
+
+  });
+
+</script>
 
 @endsection

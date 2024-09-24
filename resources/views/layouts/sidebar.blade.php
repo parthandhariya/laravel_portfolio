@@ -57,32 +57,44 @@
                     <p>Theme Options</p>
                   </a>
                 </li>
-                
-               {{--  <li class="nav-item">
-                  <a href="{{ route('property.index') }}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Properties</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('propertycategory.index') }}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Property Category</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('propertyprice.index') }}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Property Price</p>
-                  </a>
-                </li> --}}
-
+                              
                 <li class="nav-item">
                   <a href="{{ route('footer.index') }}" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Footer</p>
                   </a>
                 </li>
+
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-circle"></i>
+                    <p>
+                    Property Detail
+                    <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                    <ul class="nav nav-treeview">
+                      
+                      <li class="nav-item">
+                        <a href="{{ route('propertycategory.index') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Category</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ route('propertyprice.index') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Price</p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ route('property.list.view') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>List</p>
+                        </a>
+                      </li>
+                    </ul>                   
+                 </li>
 
               </ul>  
             @endif
@@ -91,42 +103,7 @@
             
           </li>          
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-circle"></i>
-              <p>
-              Property Detail
-              <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-              <ul class="nav nav-treeview">
-                {{-- <li class="nav-item">
-                  <a href="{{ route('property.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Property</p>
-                  </a>
-                </li> --}}
-                <li class="nav-item">
-                  <a href="{{ route('propertycategory.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Category</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('propertyprice.index') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Price</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('property.list.view') }}" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>List</p>
-                  </a>
-                </li>
-              </ul> 
-            {{-- </a> --}}
-          </li>
+          
 
           {{-- <li class="nav-item">
             <a href="{{ route('footer.index') }}" class="nav-link active">
