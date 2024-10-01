@@ -9,7 +9,7 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-
+      
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" style="margin-top: -6px;">
         @if(!is_null(auth()->user()->profile_image))         
@@ -26,6 +26,9 @@
           <a class="dropdown-item" href="{{ route('logout') }}">Log Out</a>
         </div>
       </li>
+
+      
+
     </ul>
   </nav>
   <!-- /.navbar -->

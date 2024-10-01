@@ -9,6 +9,9 @@ use App\Models\Properties;
 use App\Models\Pages;
 use App\Models\Footer;
 use App\Models\FooterDetail;
+use App\Models\PropertyOptions;
+use App\Models\PropertyCategory;
+use App\Models\PropertyPrice;
 
 class FrontUserController extends Controller
 {
@@ -30,7 +33,11 @@ class FrontUserController extends Controller
 
         $footer = FooterDetail::where('user_id',$user->id)->orderBy('footer_id')->get();
 
-        return view('front.index',compact('slug','user','pages','footer'));
+        $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
+        $propertyCategory = PropertyCategory::where('user_id',$user->id)->pluck('name','id')->toArray();
+        $propertyPrice = PropertyPrice::where('user_id',$user->id)->pluck('price','id')->toArray();
+        
+        return view('front.index',compact('slug','user','pages','footer','propertyOption','propertyCategory','propertyPrice'));
     }
 
     public function functionPage()
@@ -97,6 +104,65 @@ class FrontUserController extends Controller
             
         return view('front.contactus',compact('user','property','activeMenu'));
     }    
+
+    public function filterImage(Request $request)
+    {
+        //dd($request->all());
+
+        if($request->ajax())
+        {
+            $user = User::where('slug',$request->slug)->first();
+
+            if(is_null($user))
+            {
+                abort(404);
+            }
+
+            $option_id = $request->option_id;
+            $category_id = $request->category_id;
+            $price_id = $request->price_id;
+            $conditionFlag = 0;
+
+            //dd($option_id,$category_id,$price_id);
+
+            $query = Properties::where('user_id',$user->id);
+
+            if(!is_null($option_id))
+            {
+                $conditionFlag = 1;
+                $query->where('option_id',$option_id);
+            }
+            
+
+            if(!is_null($category_id))
+            {
+                $conditionFlag = 1;
+                $query->where('category_id',$category_id);    
+            }
+            
+
+            if(!is_null($price_id))
+            {
+                $conditionFlag = 1;
+                
+                $query->where("price_id",$price_id);
+
+            }
+
+            if($conditionFlag == 1)
+            {
+                $data = $query->get();
+            }
+            else
+            {
+                $data = collect([]);
+            }
+
+            /*dd($data);*/
+
+            return view('front.filter_property_images',compact('data'));
+        }
+    }
 
     /**
      * Show the form for creating a new resource.

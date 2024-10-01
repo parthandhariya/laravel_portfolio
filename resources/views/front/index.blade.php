@@ -63,7 +63,7 @@
     </div>
 
     <div class="section">
-      <div class="">
+      <div class="ms-5">
         {{--<div class="row mb-5 align-items-center">
           <div class="col-lg-6">
             <h2 class="font-weight-bold text-primary heading">
@@ -83,7 +83,52 @@
         </div> --}}
 
         <div class="row align-items-center">
-          <img src="{{ asset('client/assets/images/coming_soon_page.webp') }}" />
+          {{-- <img src="{{ asset('client/assets/images/coming_soon_page.webp') }}" /> --}}
+          <div col-md-12>
+            <input type="hidden" value="{{ $slug }}" id="slug">
+            <div class="col-md-3 form-group">
+
+              <select class="form-control" name="option_id" id="option_id">
+                <option value="">-- Select Option --</option>
+                @foreach($propertyOption as $k => $v)
+                  <option value="{{ $k }}">{{ $v }}</option>
+                @endforeach
+              </select>
+              
+            </div>
+
+            <div class="col-md-3 form-group">
+              
+              <select class="form-control" name="category_id" id="category_id">
+                <option value="">-- Select Category --</option>
+                @foreach($propertyCategory as $k => $v)
+                  <option value="{{ $k }}">{{ $v }}</option>
+                @endforeach
+              </select>
+              
+            </div>
+
+            <div class="col-md-3 form-group">
+              
+              <select class="form-control" name="price_id" id="price_id">
+                <option value="">-- Select Price --</option>
+                @foreach($propertyPrice as $k => $v)
+                  <option value="{{ $k }}">{{ $v }}</option>
+                @endforeach
+              </select>
+              
+            </div>
+
+            <div class="col-md-2 mt-auto">
+              <button id="btn_view_images" class="btn btn-primary">Search Images</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row align-items-center">
+          <div id="filterImages">
+            
+          </div>
         </div>
 
         {{-- start Property slider row --}}
@@ -582,5 +627,38 @@
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/counter.js"></script>
     <script src="assets/js/custom.js"></script> --}}
+
+    <script>
+      $(document).ready(function(){
+        $(document).on("click","#btn_view_images",function(){
+
+          var slug = $("#slug").val();
+          var option_id = $("#option_id").val();
+          var category_id = $("#category_id").val();
+          var price_id = $("#price_id").val();
+
+          $("#filterImages").empty();
+
+          $.ajax({
+              url: "{{ route('frontend.filterimage') }}",
+              method: "post",              
+              dataType: 'text',
+              data: {
+                "_token": "{{ csrf_token() }}",
+                'slug': slug,
+                'option_id':option_id,
+                'category_id':category_id,
+                'price_id':price_id,
+              },
+              success: function(res)
+              {
+                $("#filterImages").append(res);
+              }
+          });
+
+        });
+      });
+    </script>
+
   </body>
 </html>

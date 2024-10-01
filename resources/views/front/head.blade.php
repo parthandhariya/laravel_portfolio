@@ -14,12 +14,37 @@
       rel="stylesheet"
     />
 
+    {{-- <link rel="stylesheet" href="{{ asset('client/assets/fonts/icomoon/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('client/assets/fonts/flaticon/font/flaticon.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('client/assets/css/tiny-slider.css') }}" />
+    <link rel="stylesheet" href="{{ asset('client/assets/css/aos.css') }}" />
+    <link rel="stylesheet" href="{{ asset('client/assets/css/style.css') }}" /> --}}
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
     <link rel="stylesheet" href="{{ asset('client/assets/fonts/icomoon/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('client/assets/fonts/flaticon/font/flaticon.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('client/assets/css/tiny-slider.css') }}" />
     <link rel="stylesheet" href="{{ asset('client/assets/css/aos.css') }}" />
     <link rel="stylesheet" href="{{ asset('client/assets/css/style.css') }}" />
+
+    <style type="text/css">
+        .btn{
+            font-size: 1.3rem !important;
+        }
+    </style>
 
     <title>
         {{ $user->themeOption[0]->site_name ?? '' }}
