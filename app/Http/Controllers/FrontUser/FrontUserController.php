@@ -34,8 +34,11 @@ class FrontUserController extends Controller
         $footer = FooterDetail::where('user_id',$user->id)->orderBy('footer_id')->get();
 
         $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
-        $propertyCategory = PropertyCategory::where('user_id',$user->id)->pluck('name','id')->toArray();
-        $propertyPrice = PropertyPrice::where('user_id',$user->id)->pluck('price','id')->toArray();
+            
+        $propertyCategory = Properties::select('category_id')->where('user_id',$user->id)->groupBy('category_id')->get();
+
+        
+        $propertyPrice = Properties::select('price_id')->where('user_id',$user->id)->groupBy('price_id')->get();
         
         return view('front.index',compact('slug','user','pages','footer','propertyOption','propertyCategory','propertyPrice'));
     }

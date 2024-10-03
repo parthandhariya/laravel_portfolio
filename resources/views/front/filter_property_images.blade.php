@@ -10,7 +10,10 @@
 
 		<div class="col-md-3 mt-5">
 
-			<img src="{{ $v->property_image }}" alt="" width="250" height="250">
+			<a href="{{ $v->property_image }}" data-lightbox="image-set" width="1000">
+				{{-- <img src="{{ $v->property_image }}" alt="" width="250" height="250"> --}}
+				<img src="{{ $v->property_image }}" alt="" width="250" height="250">
+			</a>
 	
 		</div>
 

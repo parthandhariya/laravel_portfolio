@@ -40,11 +40,17 @@
     <link rel="stylesheet" href="{{ asset('client/assets/css/aos.css') }}" />
     <link rel="stylesheet" href="{{ asset('client/assets/css/style.css') }}" />
 
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
     <style type="text/css">
         .btn{
             font-size: 1.3rem !important;
         }
     </style>
+
+    
 
     <title>
         {{ $user->themeOption[0]->site_name ?? '' }}

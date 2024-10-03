@@ -102,7 +102,7 @@
               <select class="form-control" name="category_id" id="category_id">
                 <option value="">-- Select Category --</option>
                 @foreach($propertyCategory as $k => $v)
-                  <option value="{{ $k }}">{{ $v }}</option>
+                  <option value="{{ $v->propertyCategory->id }}">{{ $v->propertyCategory->name }}</option>
                 @endforeach
               </select>
               
@@ -113,7 +113,7 @@
               <select class="form-control" name="price_id" id="price_id">
                 <option value="">-- Select Price --</option>
                 @foreach($propertyPrice as $k => $v)
-                  <option value="{{ $k }}">{{ $v }}</option>
+                  <option value="{{ $v->propertyPrice->id }}">{{ $v->propertyPrice->price }}</option>
                 @endforeach
               </select>
               

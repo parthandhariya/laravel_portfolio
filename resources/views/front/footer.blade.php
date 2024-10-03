@@ -41,7 +41,7 @@
                 <li><a href="{{ $footer[2]->line5  ?? '' }}">{{ $footer[2]->line5  ?? '' }}</a></li>
               </ul>
 
-              <ul class="list-unstyled social">
+              {{-- <ul class="list-unstyled social">
                 <li>
                   <a href="#"><span class="icon-instagram"></span></a>
                 </li>
@@ -60,7 +60,7 @@
                 <li>
                   <a href="#"><span class="icon-dribbble"></span></a>
                 </li>
-              </ul>
+              </ul> --}}
             </div>
             <!-- /.widget -->
           </div>
