@@ -33,7 +33,7 @@
           <div class="col-md-12">
             <div class="card card-primary">
               <div class="card-body">
-                <div>
+                <div class="table-responsive">
 
                   <table class="table table-bordered allusers_datatable" id="tableUsers">
                       <thead>

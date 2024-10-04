@@ -33,7 +33,18 @@
           	<!--Plugin CSS file with desired skin-->
     		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/> --}}
 
-			@yield('style')			 
+			@yield('style')
+
+			<style type="text/css">
+				.custom-menu-style{
+					background-color: rgba(255, 255, 255, .9);
+    				color: #343a40 !important;
+				}
+				.custom-menu-style:hover{
+					background-color: rgba(255, 255, 255, .9) !important;
+    				color: #343a40 !important;
+				}
+			</style>			 
     </head>
 
 <body class="hold-transition sidebar-mini">
