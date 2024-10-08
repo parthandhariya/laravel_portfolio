@@ -95,7 +95,7 @@ class AdminController extends Controller
     public function getList(Request $request)
     {        
         if ($request->ajax()) {
-            $data = User::select('id','name','email','phone','gender','deleted_at')
+            $data = User::select('id','name','email','phone','gender','slug','deleted_at')
                     ->where('user_type','user')
                     ->withTrashed()
                     ->get();
@@ -130,7 +130,9 @@ class AdminController extends Controller
                     }
                     
 
-                    $btn .= '<a href="javascript:;" class="btn btn-primary btn-sm btn-reset-password"  data-id="'.$row->id.'" title="Reset Password"><i class="fa fa-key"></i></a>';
+                    $btn .= '<a href="javascript:;" class="mr-1 btn btn-info btn-sm btn-reset-password"  data-id="'.$row->id.'" title="Reset Password"><i class="fa fa-key"></i></a>';
+
+                    $btn .= '<a href="'.route('frontend',"$row->slug").'" class="btn btn-success btn-sm" title="Preview Website" target="_blank"><i class="fa fa-eye"></i></a>';                    
 
                     return $btn;
                 })
