@@ -309,14 +309,16 @@ class PropertyController extends Controller
 
             }
 
-            if($conditionFlag == 1)
+            $data = $query->get();
+
+            /*if($conditionFlag == 1)
             {
                 $data = $query->get();
             }
             else
             {
                 $data = collect([]);
-            }
+            }*/
                     
             
             $list = Datatables::of($data)->addIndexColumn()
