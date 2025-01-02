@@ -56,6 +56,11 @@ class PagesController extends Controller
             return back();    
         }
         
+        if($level == 1)
+        {
+            Alert::error('No Nested Page are Allowed','Sorry');
+            return back();        
+        }
 
         $totalFirstLevel = Pages::where('user_id',auth()->user()->id)->where('parent_id',$parent_id)->where('level','1')->get();
                 
@@ -166,6 +171,12 @@ class PagesController extends Controller
         {
             Alert::error('Only Four Root Pages are Allowed','Sorry');
             return back();    
+        }
+
+        if($level == 1)
+        {
+            Alert::error('No Nested Page are Allowed','Sorry');
+            return back();        
         }
 
         $totalFirstLevel = Pages::where('user_id',auth()->user()->id)->where('parent_id',$parent_id)->where('level','1')->get();
