@@ -44,6 +44,20 @@
 					background-color: rgba(255, 255, 255, .9) !important;
     				color: #343a40 !important;
 				}
+
+				.far, .fa-bell {
+			      position: relative;
+			    }
+			    .far, .fa-bell::after {
+			      content: "";
+			      position: absolute;
+			      top: 10px;
+			      right: 30px;
+			      width: 10px;
+			      height: 10px;			      
+			      border-radius: 50%;
+			      border: 2px solid white;
+			    }
 			</style>			 
     </head>
 
