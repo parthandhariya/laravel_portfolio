@@ -11,6 +11,9 @@ use App\Http\Controllers\Property\PropertyController;
 use App\Http\Controllers\Property\PropertyCategoryController;
 use App\Http\Controllers\Property\PropertyPriceController;
 use App\Http\Controllers\Footer\FooterController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\AdminPropertyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,14 +29,14 @@ use App\Http\Controllers\Footer\FooterController;
 
 
 Route::get('test-chron-job',function(){
-	\Artisan::call('user:disable');
+	Artisan::call('user:disable');
 });
 
 Route::get('/', function () {
 
 	/*return redirect()->route('frontuser.home');*/
 
-    if(\Auth::check()){
+    if(Auth::check()){
     	 return redirect()->route('home');    	 
     }else{
     	return redirect()->route('login');    	
@@ -136,6 +139,8 @@ Route::group(['middleware' => 'customauth:admin', 'prefix' => 'admin'], function
 	Route::get('allusersList', [AdminController::class,'getList'])->name('allusers.list');
 	Route::post('blockunblockuser', [AdminController::class,'blockUnblockUser'])->name('blockunblockuser');
 	Route::post('resetuserpassword', [AdminController::class,'resetUserPassword'])->name('resetuserpassword');
+
+	Route::get('propertyimages/{userId}',[AdminPropertyController::class,'viewPropertyImages'])->name('property.images.view');
 });
 
 Route::get('logout/{message?}',[AuthController::class,'logout'])->name('logout');
