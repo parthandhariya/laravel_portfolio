@@ -141,6 +141,7 @@ Route::group(['middleware' => 'customauth:admin', 'prefix' => 'admin'], function
 	Route::post('resetuserpassword', [AdminController::class,'resetUserPassword'])->name('resetuserpassword');
 
 	Route::get('propertyimages/{userId}',[AdminPropertyController::class,'viewPropertyImages'])->name('property.images.view');
+	Route::post('adminfilterimages',[AdminPropertyController::class,'filterImageByPropertyId'])->name('admin.filterimage');
 });
 
 Route::get('logout/{message?}',[AuthController::class,'logout'])->name('logout');
