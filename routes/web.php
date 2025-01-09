@@ -142,6 +142,8 @@ Route::group(['middleware' => 'customauth:admin', 'prefix' => 'admin'], function
 
 	Route::get('propertyimages/{userId}',[AdminPropertyController::class,'viewPropertyImages'])->name('property.images.view');
 	Route::post('adminfilterimages',[AdminPropertyController::class,'filterImageByPropertyId'])->name('admin.filterimage');
+	Route::post('approveimages',[AdminPropertyController::class,'approveImages'])->name('admin.approveimages');
+	Route::post('rejectimages',[AdminPropertyController::class,'rejectImages'])->name('admin.rejectimages');
 });
 
 Route::get('logout/{message?}',[AuthController::class,'logout'])->name('logout');

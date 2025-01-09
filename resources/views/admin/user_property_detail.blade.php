@@ -15,6 +15,15 @@
     </div>
     <!-- /.content-header -->
     
+  <form method="post" action="{{ route('admin.approveimages') }}" id="frmImageId">
+    @csrf
+    <input type="hidden" name="imageId" id="imageId" value="">
+  </form>
+
+  <form method="post" action="{{ route('admin.rejectimages') }}" id="frmRejectImageId">
+    @csrf
+    <input type="hidden" name="imageId" id="reject-imageId" value="">
+  </form>
     
     <div class="content">
       <div class="container-fluid">
@@ -23,7 +32,7 @@
             <div class="card card-primary">
               <div class="card-body">
                 <div class="row pl-3">
-                    <div class="col-md-4 pl-0">
+                    <div class="col-md-4 pl-0 mr-3">
                         <select class="form-control" name="property_id" id="property_id">
                         <option value="">---Select Property---</option>
                         @foreach($property as $key => $value)
@@ -31,8 +40,14 @@
                         @endforeach
                         </select>
                     </div>
-                    <div class="col-md-2 mt-auto">
-                        <button type="button" class="btn btn-primary" id="btn_view_images">View Detail</button>
+                    <div class="mt-auto pr-3">
+                        <button type="button" class="btn btn-primary" id="btn_view_images">View Detail</button>                      
+                    </div>
+                    <div class="mt-auto pr-3 d-none id-container">
+                      <button type="button" class="btn btn-success" id="btn-approve-image">Approve Image</button>                      
+                    </div>
+                    <div class="mt-auto pr-3 d-none id-container">
+                      <button type="button" class="btn btn-danger" id="btn-reject-image">Reject Image</button>                      
                     </div>
                 </div>
               </div>
@@ -61,10 +76,16 @@
 <script type="text/javascript">
   
   $(document).ready(function(){
+
+        var idArray = [];
+
         $(document).on("click","#btn_view_images",function(){
           
           var property_id = $("#property_id").val();          
 
+          idArray = [];
+          $("#imageId").val("");
+          $("#reject-imageId").val("");
           $("#filterImages").empty();
 
           $.ajax({
@@ -84,8 +105,43 @@
               }
           });
 
-        });
-      });
+        });    
+
+    $(document).on("change",".img-checkbox",function(){
+
+        var ischecked= $(this).is(':checked');
+        if(!ischecked){
+          idArray.pop($(this).data('id'));
+        }else{
+          idArray.push($(this).data('id'));
+        }
+        
+        if(idArray.length === 0)
+        {
+          $(".id-container").addClass('d-none');      
+        }
+
+        if(idArray.length > 0)
+        {
+          $(".id-container").removeClass('d-none');          
+        }       
+    })
+
+    $(document).on("click","#btn-approve-image",function(){
+        
+        $("#imageId").val(idArray.join(","));
+        
+        $("#frmImageId").submit();        
+    });
+
+    $(document).on("click","#btn-reject-image",function(){
+        
+        $("#reject-imageId").val(idArray.join(","));
+        
+        $("#frmRejectImageId").submit();        
+    });
+
+  });
 
 </script>
 

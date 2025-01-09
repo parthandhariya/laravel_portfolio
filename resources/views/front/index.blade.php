@@ -36,6 +36,10 @@
           class="img overlay"
           style="background-image: url('{{ asset('client/assets/images/hero_bg_1.jpg') }}')"
         ></div>
+        <div
+          class="img overlay"
+          style="background-image: url('{{ asset('client/assets/images/new_banner_image.jpg') }}')"
+        ></div>
       </div>
 
       <div class="container">

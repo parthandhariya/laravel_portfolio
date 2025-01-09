@@ -2,7 +2,7 @@
 
 	@foreach($value->propertyDetail as $k => $v)
 
-		@if(is_null($v->property_image))
+		@if(is_null($v->property_image) || $v->image_status != '1')
 
 			@continue
 
