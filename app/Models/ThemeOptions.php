@@ -11,6 +11,8 @@ class ThemeOptions extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const TOTAL_BANNER_IMAGES = 3;
+
     protected $table = 'theme_options';
     protected $primaryKey = 'id';
 

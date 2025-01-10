@@ -147,6 +147,127 @@ tr.shown td.dt-control {
         </div>
       </div>
     </div>
+
+    <!-- /.banner images -->
+
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">                
+                <a class="mr-3">Select Banner Images</a>              
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form method="post" action="{{ route('themeoption.save.design') }}" enctype="multipart/form-data">
+                @csrf
+                
+                <div class="card-body">
+                  <div class="row">
+                
+                    @if(!is_null($bannerImages))
+
+                      @foreach($bannerImages as $key => $value)
+
+                        <div>
+                          <div class="col-auto form-group">
+                            <div class="custom-file">
+                              <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $key }}">
+                              <label class="custom-file-label" for="exampleInputFile">{{ "Choose Banner Image" }}</label>
+                            </div>
+                          </div>
+                          <div class="col-auto form-group">
+                            <div id="banner_image{{ $key }}">
+                              <img src="{{ $value }}" height="250" width="250" />
+                            </div>
+                          </div>
+                        </div>
+
+                      @endforeach
+
+                      @if($totalBannerImages - count($bannerImages) > 0)
+                        
+                          @php
+                            $pendingCount = count($bannerImages) - $totalBannerImages;
+                          @endphp
+
+                          @for($totalImage = $pendingCount;  $totalImage < 0; $totalImage++)
+                                                  
+                            <div>
+                              <div class="col-auto form-group">
+                                <div class="custom-file">
+                                  <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $totalImage }}">
+                                  <label class="custom-file-label" for="exampleInputFile">{{ "Choose Banner Image" }}</label>
+                                </div>
+                              </div>
+                              <div class="col-auto form-group">
+                                <div id="banner_image{{ $totalImage }}">
+                                  <img src="" height="250" width="250" />
+                                </div>
+                              </div>
+                            </div>
+
+                          @endfor
+
+                      @endif
+                     
+                    @else
+                      
+                      @for($totalImage = 1;  $totalImage <= $totalBannerImages; $totalImage++)
+                        
+                      <div>
+                        <div class="col-auto form-group">
+                          <div class="custom-file">
+                            <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $totalImage }}">
+                            <label class="custom-file-label" for="exampleInputFile">{{ "Choose Banner Image" }}</label>
+                          </div>
+                        </div>
+                        <div class="col-auto form-group">
+                          <div id="banner_image{{ $totalImage }}">
+                            <img src="" height="250" width="250" />
+                          </div>
+                        </div>
+                      </div>
+
+                      @endfor                      
+
+                    @endif
+
+                  </div>
+                
+                  <div class="row mb-4">
+                    <div>
+                      <div class="col-auto mt-auto form-group">                      
+                        <label for="myColor" class="form-label">Menu Background Color</label>
+                        <input type="color" name="menu_background" class="form-control form-control-color" id="myColor" value="#CCCCCC" title="Choose a color">
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="row">
+                  <div>
+                    <div class="col-auto mt-auto form-group">                      
+                      <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+                </div>
+
+                </div>
+                <!-- /.card-body -->                
+              </form>
+            </div>
+            <!-- /.card -->          
+          </div>
+          <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+
+    <!-- /.banner images -->
+
   </div>
 
 @endsection
@@ -264,6 +385,7 @@ $(document).ready(function(){
   
 
   function filePreview(input,preview) {
+    
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -280,6 +402,23 @@ $(document).ready(function(){
 
   $("#site_logo").change(function () {
       filePreview(this,'site_logo_preview');
+  });
+
+
+  function themeOptionFilePreview(input,preview) {
+    
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#' + preview).empty();
+            $('#' + preview).append('<img src="'+e.target.result+'" width="250" height="250"/>');
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+  }
+
+  $(".banner_image").change(function () {        
+    themeOptionFilePreview(this, $(this).data("id"));
   });
   
 });

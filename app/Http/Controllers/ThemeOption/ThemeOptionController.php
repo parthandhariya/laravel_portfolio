@@ -17,7 +17,12 @@ class ThemeOptionController extends Controller
      */
     public function index()
     {
-        return view('themeoption.index');
+        $themeOption = ThemeOptions::where('user_id',auth()->user()->id)->first();
+        
+        $totalBannerImages = $themeOption::TOTAL_BANNER_IMAGES;        
+        $bannerImages = json_decode($themeOption->banner_images,true) ?? [];
+        
+        return view('themeoption.index',compact('bannerImages','totalBannerImages'));
     }
 
     /**
@@ -95,6 +100,65 @@ class ThemeOptionController extends Controller
         Alert::success('Theme Option saved successfully','Thank you');
         
         return back();
+    }
+
+    public function saveDesign(Request $request)
+    {        
+        if(count($request->file()) > 0)
+        {
+            $request->validate([
+                'banner_images.*' => 'image|mimes:jpeg,png,jpg,gif',                
+            ]);
+
+            //$propertyId = $request->propertyId;
+
+            $themeOption = ThemeOptions::where('user_id',auth()->user()->id)->first();
+
+            $storePath = [];
+
+            if(!is_null($themeOption->banner_images))
+            {
+                $temp = $themeOption->banner_images;
+                $list = json_decode($themeOption->banner_images,true);
+
+                foreach($list as $k => $v)
+                {
+                    $arr = explode("/",$v);
+                    $fileName = last($arr);
+
+                    $path = public_path() .'images/banner_images/user_'.auth()->user()->id.'/'. $fileName;
+                    
+                    if(file_exists($path))
+                    {                            
+                        unlink($path);              
+                    }
+                }                    
+            }
+
+            foreach ($request->file('banner_images') as $key => $value)
+            {                
+                $image = $value;
+                $imageName = time() . '_' . $image->getClientOriginalName().$key;
+                $destinationPath = 'images/banner_images/user_'.auth()->user()->id.'/';
+
+                $pathDetail = $image->move(public_path($destinationPath), $imageName);
+
+                $storePath[] = asset("/images/banner_images/user_".auth()->user()->id."/".$imageName);
+                                                                  
+            }
+
+            $themeOption->banner_images = json_encode($storePath);
+
+            $themeOption->save();
+
+            Alert::success('Saved successfully','Thank you');        
+            return redirect()->back();
+        }
+        else
+        {
+            Alert::error('Choose at least one Property Image','Sorry');
+            return redirect()->back();
+        }
     }
 
     /**
