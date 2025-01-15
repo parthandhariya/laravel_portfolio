@@ -111,6 +111,7 @@ Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 
 	Route::resource('themeoption', ThemeOptionController::class);
 	Route::post('themedesign', [ThemeOptionController::class,'saveDesign'])->name('themeoption.save.design');
+	Route::post('resetthemedesign', [ThemeOptionController::class,'resetDesign'])->name('themeoption.reset.design');
 	Route::get('themeoptionList', [ThemeOptionController::class,'getList'])->name('themeoption.list');
 
 	Route::resource('property', PropertyController::class);

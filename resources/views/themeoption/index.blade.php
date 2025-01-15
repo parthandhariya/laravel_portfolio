@@ -50,15 +50,14 @@ tr.shown td.dt-control {
                 @csrf
                 <div class="card-body">
 
-                  {{-- <div class="row">
+                  <div class="row">
 
                   @if($errors->any())
-
                       {!! implode(' ', $errors->all('<div class="col-3 mr-5 text-red form-group">:message</div>')) !!}
                   @endif
                   
                   </div>
-                  <div style="clear:both;"></div> --}}
+                  <div style="clear:both;"></div>
                   <div class="row">
 
                     <div>                      
@@ -132,8 +131,8 @@ tr.shown td.dt-control {
                               <th>Favicon</th>
                               <th>Logo</th>
                               <th>Name</th>
-                              <th>Created</th>
-                              <th>Last Modified</th>
+                              {{-- <th>Created</th>
+                              <th>Last Modified</th> --}}
                               <th width="100px">Action</th>
                           </tr>
                       </thead>
@@ -157,7 +156,11 @@ tr.shown td.dt-control {
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">                
-                <a class="mr-3">Select Banner Images</a>              
+                <a class="mr-3">Select Banner Images</a>
+                <form action="{{ route('themeoption.reset.design') }}" method="POST" class="float-right">
+                  @csrf
+                  <button type="submit" class="btn btn-danger" id="">Reset</button>
+                </form>               
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -166,18 +169,18 @@ tr.shown td.dt-control {
                 
                 <div class="card-body">
                   <div class="row">
-                
-                    @if(!is_null($bannerImages))
+                    
+                    @if(!is_null($bannerImages) && !empty($bannerImages))
 
                       @foreach($bannerImages as $key => $value)
-
+                                           
                         <div>
-                          <div class="col-auto form-group">
+                          {{-- <div class="col-auto form-group">
                             <div class="custom-file">
                               <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $key }}">
                               <label class="custom-file-label" for="exampleInputFile">{{ "Choose Banner Image" }}</label>
                             </div>
-                          </div>
+                          </div> --}}
                           <div class="col-auto form-group">
                             <div id="banner_image{{ $key }}">
                               <img src="{{ $value }}" height="250" width="250" />
@@ -187,32 +190,28 @@ tr.shown td.dt-control {
 
                       @endforeach
 
-                      @if($totalBannerImages - count($bannerImages) > 0)
-                        
-                          @php
-                            $pendingCount = count($bannerImages) - $totalBannerImages;
-                          @endphp
+                      @if(count($bannerImages) < $totalBannerImages)
 
-                          @for($totalImage = $pendingCount;  $totalImage < 0; $totalImage++)
-                                                  
-                            <div>
-                              <div class="col-auto form-group">
-                                <div class="custom-file">
-                                  <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $totalImage }}">
-                                  <label class="custom-file-label" for="exampleInputFile">{{ "Choose Banner Image" }}</label>
-                                </div>
-                              </div>
-                              <div class="col-auto form-group">
-                                <div id="banner_image{{ $totalImage }}">
-                                  <img src="" height="250" width="250" />
-                                </div>
-                              </div>
+                        @for($totalImage = count($bannerImages);  $totalImage < $totalBannerImages; $totalImage++)
+                          
+                        <div>
+                          <div class="col-auto form-group">
+                            <div class="custom-file">
+                              <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $totalImage }}">
+                              <label class="custom-file-label" for="exampleInputFile">{{ "Choose Banner Image" }}</label>
                             </div>
+                          </div>
+                          <div class="col-auto form-group">
+                            <div id="banner_image{{ $totalImage }}">
+                              {{-- <img src="" height="250" width="250" /> --}}
+                            </div>
+                          </div>
+                        </div>
 
-                          @endfor
-
+                        @endfor
+                        
                       @endif
-                     
+                                          
                     @else
                       
                       @for($totalImage = 1;  $totalImage <= $totalBannerImages; $totalImage++)
@@ -226,7 +225,7 @@ tr.shown td.dt-control {
                         </div>
                         <div class="col-auto form-group">
                           <div id="banner_image{{ $totalImage }}">
-                            <img src="" height="250" width="250" />
+                            {{-- <img src="" height="250" width="250" /> --}}
                           </div>
                         </div>
                       </div>
@@ -293,15 +292,11 @@ tr.shown td.dt-control {
                 defaultContent: '',
             },*/
             
-            {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-            /*{data: 'user', name: 'user'},*/
+            {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },           
             {data: 'site_favicon', name: 'site_favicon'},
             {data: 'site_logo', name: 'site_logo'},
-            {data: 'site_name', name: 'site_name'},
-            {data: 'created', name: 'created'},            
-            {data: 'last_modified', name: 'last_modified'},
+            {data: 'site_name', name: 'site_name'},          
             {data: 'action', name: 'action', orderable: false, searchable: false},
-
 
         ],
 

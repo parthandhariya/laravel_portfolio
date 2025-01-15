@@ -111,7 +111,7 @@
                     <div class="col-sm-6 pl-0 form-group">
                       {{-- <a href="{{ route('frontuser.home',auth()->user()->slug) }}" class="btn btn-success" target="_blank"><i class="fa fa-eye"></i> Preview Website</a> --}}
 
-                      <a href="{{ route('frontend',auth()->user()->slug) }}" class="btn btn-success" target="_blank"><i class="fa fa-eye"></i> Preview Website</a>
+                      <a href="{{ route('frontend',auth()->user()->slug) }}" class="btn btn-success w-100" target="_blank"><i class="fa fa-eye"></i> Preview Website</a>
                     </div>
                   </div>
                 </div>

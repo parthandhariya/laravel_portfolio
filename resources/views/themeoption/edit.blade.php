@@ -37,7 +37,7 @@
                     <div>
                       <div class="col-auto form-group">
                         <div class="custom-file">
-                          <input type="file" name="site_favicon" class="custom-file-input" id="site_favicon">
+                          <input type="file" name="site_favicon" class="custom-file-input" id="site_favicon" accept="image/*" required="">
                           <label class="custom-file-label" for="exampleInputFile">Choose Favicon Image</label>
                         </div>
                       </div>
@@ -51,7 +51,7 @@
                     <div>
                       <div class="col-auto form-group">
                         <div class="custom-file">
-                          <input type="file" name="site_logo" class="custom-file-input" id="site_logo">
+                          <input type="file" name="site_logo" class="custom-file-input" id="site_logo" accept="image/*" required="">
                           <label class="custom-file-label" for="exampleInputFile">Choose Site Logo</label>
                         </div>
                       </div>
