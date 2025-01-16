@@ -1,13 +1,11 @@
 <nav class="site-nav">
-      <div class="container">
+      <div class="container custom-contaier">
         <div class="menu-bg-wrap">
           <div class="site-navigation">
             {{-- <a href="index.html" class="logo m-0 float-start">Property</a> --}}
             <img src="{{ $user->themeOption[0]->site_logo ?? '' }}" alt="" style="height: 45px; width: 100px;">
 
-            <ul
-              class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
-            >
+            <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
               {{-- <li class="{{ $activeMenu == 'home' ? 'active' : '' }}"><a href="{{ route('frontuser.home',$user->slug) }}">Home</a></li>
               
               <li class="{{ $activeMenu == 'service' ? 'active' : '' }}"><a href="{{ route('frontuser.service',$user->slug) }}">Services</a></li>
@@ -63,9 +61,7 @@
                 @endif
 
               @endforeach              
-
-              
-
+                            
             </ul>
 
             <a

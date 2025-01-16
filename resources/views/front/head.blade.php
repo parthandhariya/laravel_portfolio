@@ -48,6 +48,39 @@
         .btn{
             font-size: 1.3rem !important;
         }
+        .site-nav {            
+            position: fixed;
+            top: 0;
+            z-index: 9;
+            padding: 0;
+            width: 100%;
+        }
+
+        .menu-bg-wrap{
+            border-radius: 0;
+        }
+
+        .hero, .hero > .container > .row {
+            height: 54vh;
+            min-height: 400px;           
+        }
+
+        .hero-slide .img {            
+            margin-top: 85px;
+        }
+
+        .hero-slide .img.overlay {
+            position: relative;
+            max-height: 400px;           
+        }
+        .custom-contaier {            
+            padding: 0;
+            min-width: 100%;
+        }
+
+        .section{
+            margin-top: 280px;
+        }
     </style>
 
     

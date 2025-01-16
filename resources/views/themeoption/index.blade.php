@@ -157,9 +157,9 @@ tr.shown td.dt-control {
             <div class="card card-primary">
               <div class="card-header">                
                 <a class="mr-3">Select Banner Images</a>
-                <form action="{{ route('themeoption.reset.design') }}" method="POST" class="float-right">
+                <form action="{{ route('themeoption.reset.design') }}" method="POST" class="float-right" id="frm_reset_theme_option">
                   @csrf
-                  <button type="submit" class="btn btn-danger" id="">Reset</button>
+                  <button type="button" class="btn btn-danger" id="btn_reset_theme_option">Reset</button>
                 </form>               
               </div>
               <!-- /.card-header -->
@@ -353,6 +353,7 @@ tr.shown td.dt-control {
 
 
 $(document).ready(function(){
+
   $(document).on("click",".btn-delete",function(){
 
       Swal.fire({
@@ -375,6 +376,24 @@ $(document).ready(function(){
           }
     });
     
+  });
+
+  $(document).on("click","#btn_reset_theme_option",function(){
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Reset it!'
+    }).then((result) => {
+        if (result.isConfirmed) {         
+          $("#frm_reset_theme_option").submit();            
+        }
+    });
+
   });
 
   

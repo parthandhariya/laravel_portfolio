@@ -22,49 +22,48 @@
 
     @include('front.navbar')
 
-    <div class="hero">
-      <div class="hero-slide">
-        <div
-          class="img overlay"
-          style="background-image: url('{{ asset('client/assets/images/hero_bg_3.jpg') }}')"
-        ></div>
-        <div
-          class="img overlay"
-          style="background-image: url('{{ asset('client/assets/images/hero_bg_2.jpg') }}')"
-        ></div>
-        <div
-          class="img overlay"
-          style="background-image: url('{{ asset('client/assets/images/hero_bg_1.jpg') }}')"
-        ></div>
-        <div
-          class="img overlay"
-          style="background-image: url('{{ asset('client/assets/images/new_banner_image.jpg') }}')"
-        ></div>
-      </div>
+    
+    <div class="slider-container">
+      <div class="hero">
+        <div class="hero-slide">
 
-      <div class="container">
-        <div class="row justify-content-center align-items-center">
-          <div class="col-lg-9 text-center">
-            <h1 class="heading" data-aos="fade-up">
-              Easiest way to find your dream home
-            </h1>
-            <form
-              action="#"
-              class="narrow-w form-search d-flex align-items-stretch mb-3"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <input
-                type="text"
-                class="form-control px-4"
-                placeholder="Your ZIP code or City. e.g. New York"
-              />
-              <button type="submit" class="btn btn-primary">Search</button>
-            </form>
-          </div>
-        </div>
+          @if(!is_null($user->themeOption[0]->banner_images))
+
+            @php
+              $bannerImageArray = json_decode($user->themeOption[0]->banner_images,true);        
+            @endphp
+            
+            @foreach ($bannerImageArray as $key => $value)
+                      
+              <div
+                class="img overlay"
+                style="background-image: url('{{ $value }}')"
+              ></div>
+                              
+            @endforeach
+
+          @else
+            
+            <div
+              class="img overlay"
+              style="background-image: url('{{ asset('client/assets/images/hero_bg_3.jpg') }}')"
+            ></div>
+            <div
+              class="img overlay"
+              style="background-image: url('{{ asset('client/assets/images/hero_bg_2.jpg') }}')"
+            ></div>
+            <div
+              class="img overlay"
+              style="background-image: url('{{ asset('client/assets/images/hero_bg_1.jpg') }}')"
+            ></div>
+
+          @endif
+
+        </div>  
       </div>
-    </div>
+    </div>  
+      
+    {{-- </div> --}}
 
     <div class="section">
       <div class="ms-5">
@@ -90,7 +89,7 @@
           {{-- <img src="{{ asset('client/assets/images/coming_soon_page.webp') }}" /> --}}
           <div col-md-12>
             <input type="hidden" value="{{ $slug }}" id="slug">
-            <div class="col-md-3 form-group">
+            <div class="col-md-3">
 
               <select class="form-control" name="option_id" id="option_id">
                 <option value="">-- Select Option --</option>
@@ -101,7 +100,7 @@
               
             </div>
 
-            <div class="col-md-3 form-group">
+            <div class="col-md-3">
               
               <select class="form-control" name="category_id" id="category_id">
                 <option value="">-- Select Category --</option>
@@ -112,7 +111,7 @@
               
             </div>
 
-            <div class="col-md-3 form-group">
+            <div class="col-md-3">
               
               <select class="form-control" name="price_id" id="price_id">
                 <option value="">-- Select Price --</option>
