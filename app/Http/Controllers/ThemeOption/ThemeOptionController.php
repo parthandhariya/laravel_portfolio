@@ -18,11 +18,21 @@ class ThemeOptionController extends Controller
     public function index()
     {
         $themeOption = ThemeOptions::where('user_id',auth()->user()->id)->first();
+                
+        if(is_null($themeOption))
+        {
+            $totalBannerImages = ThemeOptions::TOTAL_BANNER_IMAGES;        
+            $bannerImages =  NULL;        
+            $backgroundAndFont = [];
+        }
+        else
+        {
+            $totalBannerImages = $themeOption::TOTAL_BANNER_IMAGES;        
+            $bannerImages = json_decode($themeOption->banner_images,true) ?? NULL;        
+            $backgroundAndFont = json_decode($themeOption->background_and_font,true) ?? [];
+        }
         
-        $totalBannerImages = $themeOption::TOTAL_BANNER_IMAGES;        
-        $bannerImages = json_decode($themeOption->banner_images,true) ?? NULL;        
-        
-        return view('themeoption.index',compact('bannerImages','totalBannerImages'));
+        return view('themeoption.index',compact('bannerImages','totalBannerImages','backgroundAndFont'));
     }
 
     /**
@@ -45,8 +55,8 @@ class ThemeOptionController extends Controller
     {
 
         $request->validate([
-            'site_favicon' => 'required|image|max:4096',
-            'site_logo' => 'required|image|max:4096',
+            'site_favicon' => 'required|image',
+            'site_logo' => 'required|image',
             'site_name' => 'required',
         ]);
 
@@ -113,6 +123,11 @@ class ThemeOptionController extends Controller
            
             $themeOption = ThemeOptions::where('user_id',auth()->user()->id)->first();
 
+            if(is_null($themeOption))
+            {
+                $themeOption = new ThemeOptions();
+            }
+
             $storePath = [];
 
             if(!is_null($themeOption->banner_images))
@@ -131,8 +146,11 @@ class ThemeOptionController extends Controller
                 $storePath[] = asset("/images/banner_images/user_".auth()->user()->id."/".$imageName);                                                                  
             }
             
-            $themeOption->banner_images = json_encode($storePath);
+            //dd($storePath);
 
+            $themeOption->banner_images = json_encode($storePath);
+            $themeOption->user_id = auth()->user()->id;
+            
             $themeOption->save();
 
             Alert::success('Saved successfully','Thank you');        
@@ -148,6 +166,12 @@ class ThemeOptionController extends Controller
     public function resetDesign(Request $request)
     {
         $themeOption = ThemeOptions::where('user_id',auth()->user()->id)->first();
+
+        if(is_null($themeOption))
+        {
+            Alert::error('No theme design found','sorry');        
+            return redirect()->route('themeoption.index');
+        }
 
         if(!is_null($themeOption->banner_images))
         {
@@ -165,7 +189,7 @@ class ThemeOptionController extends Controller
         }
         
         $themeOption->banner_images = NULL;
-        $themeOption->menu_background = NULL;
+        $themeOption->background_and_font = NULL;
         $themeOption->save();
 
         Alert::success('Theme design reset successfully','Thank you');

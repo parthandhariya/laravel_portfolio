@@ -33,8 +33,10 @@ class FrontUserController extends Controller
 
         $footer = FooterDetail::where('user_id',$user->id)->orderBy('footer_id')->get();
 
-        $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
+        //$propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
             
+        $propertyOption = Properties::select('option_id')->where('user_id',$user->id)->groupBy('option_id')->get();
+
         $propertyCategory = Properties::select('category_id')->where('user_id',$user->id)->groupBy('category_id')->get();
 
         
@@ -160,9 +162,7 @@ class FrontUserController extends Controller
             {
                 $data = collect([]);
             }
-
-            /*dd($data);*/
-
+        
             return view('front.filter_property_images',compact('data'));
         }
     }

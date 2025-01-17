@@ -52,9 +52,7 @@ tr.shown td.dt-control {
 
                   <div class="row">
 
-                  @if($errors->any())
-                      {!! implode(' ', $errors->all('<div class="col-3 mr-5 text-red form-group">:message</div>')) !!}
-                  @endif
+                  
                   
                   </div>
                   <div style="clear:both;"></div>
@@ -156,7 +154,7 @@ tr.shown td.dt-control {
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">                
-                <a class="mr-3">Select Banner Images</a>
+                <a class="mr-3">Theme Design <span class="text-red">( Maximum 3 Banner images are allowed )</span></a>
                 <form action="{{ route('themeoption.reset.design') }}" method="POST" class="float-right" id="frm_reset_theme_option">
                   @csrf
                   <button type="button" class="btn btn-danger" id="btn_reset_theme_option">Reset</button>
@@ -197,7 +195,7 @@ tr.shown td.dt-control {
                         <div>
                           <div class="col-auto form-group">
                             <div class="custom-file">
-                              <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $totalImage }}">
+                              <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $totalImage }}" accept="image/*">
                               <label class="custom-file-label" for="exampleInputFile">{{ "Choose Banner Image" }}</label>
                             </div>
                           </div>
@@ -219,7 +217,7 @@ tr.shown td.dt-control {
                       <div>
                         <div class="col-auto form-group">
                           <div class="custom-file">
-                            <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $totalImage }}">
+                            <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $totalImage }}" accept="image/*">
                             <label class="custom-file-label" for="exampleInputFile">{{ "Choose Banner Image" }}</label>
                           </div>
                         </div>
@@ -236,15 +234,18 @@ tr.shown td.dt-control {
 
                   </div>
                 
-                  <div class="row mb-4">
-                    <div>
-                      <div class="col-auto mt-auto form-group">                      
-                        <label for="myColor" class="form-label">Menu Background Color</label>
-                        <input type="color" name="menu_background" class="form-control form-control-color" id="myColor" value="#CCCCCC" title="Choose a color">
+                  <div class="row mb-4">                    
+                      <div class="col-md-3 mt-auto form-group">                      
+                        <label for="myColor" class="form-label">Background Color</label>
+                        <input type="color" name="background" class="form-control form-control-color" value="{{ $backgroundAndFont['background'] ?? '#005555' }}" title="Choose a color">
+                      </div> 
+                      
+                      <div class="col-md-3 mt-auto form-group">                      
+                        <label for="myColor" class="form-label">Font Color</label>
+                        <input type="color" name="font" class="form-control form-control-color" value="{{ $backgroundAndFont['font'] ?? '#FFFFFF' }}" title="Choose a color">
                       </div>
-                    </div>
                   </div>
-
+                  
                 <div class="row">
                   <div>
                     <div class="col-auto mt-auto form-group">                      

@@ -3,8 +3,15 @@
         <div class="menu-bg-wrap">
           <div class="site-navigation">
             {{-- <a href="index.html" class="logo m-0 float-start">Property</a> --}}
-            <img src="{{ $user->themeOption[0]->site_logo ?? '' }}" alt="" style="height: 45px; width: 100px;">
 
+            @php
+              $siteLogo = $user->themeOption[0]->site_logo ?? ''
+            @endphp
+
+            @if($siteLogo != '')
+              <img src="{{ $siteLogo }}" alt="" style="min-height: 45px; max-height: 45px; width: 100px;">
+            @endif
+            
             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
               {{-- <li class="{{ $activeMenu == 'home' ? 'active' : '' }}"><a href="{{ route('frontuser.home',$user->slug) }}">Home</a></li>
               

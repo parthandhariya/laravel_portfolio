@@ -89,18 +89,18 @@
           {{-- <img src="{{ asset('client/assets/images/coming_soon_page.webp') }}" /> --}}
           <div col-md-12>
             <input type="hidden" value="{{ $slug }}" id="slug">
-            <div class="col-md-3">
+            <div class="col-md-3 mb-4">
 
               <select class="form-control" name="option_id" id="option_id">
                 <option value="">-- Select Option --</option>
                 @foreach($propertyOption as $k => $v)
-                  <option value="{{ $k }}">{{ $v }}</option>
+                  <option value="{{ $v->propertyOption->id }}">{{ $v->propertyOption->option_name }}</option>
                 @endforeach
               </select>
               
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3 mb-4">
               
               <select class="form-control" name="category_id" id="category_id">
                 <option value="">-- Select Category --</option>
@@ -111,7 +111,7 @@
               
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3 mb-4">
               
               <select class="form-control" name="price_id" id="price_id">
                 <option value="">-- Select Price --</option>
