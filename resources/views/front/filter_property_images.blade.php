@@ -82,7 +82,7 @@
 	@endforeach
 
 @if($count == 0)
-	<div class="alert alert-danger p-4 col-md-10" data-dismiss="alert" aria-label="Close" style="cursor: pointer; margin-left:12px;">
+	<div class="alert alert-danger p-4 col-md-10" data-dismiss="alert" aria-label="Close" style="cursor: pointer;">
 		<strong>Alert !</strong> No matching data found.
   	</div>
 @endif
