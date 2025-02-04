@@ -74,6 +74,7 @@
                               <th>Title</th>
                               <th>Option</th>
                               <th>Category</th>
+                              <th>Price Range</th>
                               <th>Price</th>
                               <th>Created</th>
                               <th>Last Modified</th>                              
@@ -119,6 +120,7 @@
             {data: 'option_id', name: 'option_id'},
             {data: 'category_id', name: 'category_id'},
             {data: 'price_id', name: 'price_id'},
+            {data: 'axat_price', name: 'axat_price'},
             {data: 'created', name: 'created'},            
             {data: 'last_modified', name: 'last_modified'},
             {data: 'action', name: 'action', orderable: false, searchable: false},

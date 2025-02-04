@@ -60,6 +60,13 @@
 			      border-radius: 50%;
 			      border: 2px solid white;
 			    }
+
+				body:not(.layout-fixed) .main-sidebar {
+					height: inherit;
+					min-height: 100%;
+					position: fixed;
+					top: 0;
+				}
 			</style>			 
     </head>
 

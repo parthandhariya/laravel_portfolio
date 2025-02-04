@@ -114,20 +114,22 @@ class ThemeOptionController extends Controller
     }
 
     public function saveDesign(Request $request)
-    {        
+    {
+        //dd($request->all());
+        
+        $themeOption = ThemeOptions::where('user_id',auth()->user()->id)->first();
+
+        if(is_null($themeOption))
+        {
+            $themeOption = new ThemeOptions();
+        }
+
         if(count($request->file()) > 0)
         {
             $request->validate([
                 'banner_images.*' => 'image',                
             ]);
            
-            $themeOption = ThemeOptions::where('user_id',auth()->user()->id)->first();
-
-            if(is_null($themeOption))
-            {
-                $themeOption = new ThemeOptions();
-            }
-
             $storePath = [];
 
             if(!is_null($themeOption->banner_images))
@@ -149,18 +151,24 @@ class ThemeOptionController extends Controller
             //dd($storePath);
 
             $themeOption->banner_images = json_encode($storePath);
-            $themeOption->user_id = auth()->user()->id;
             
-            $themeOption->save();
+        }
 
-            Alert::success('Saved successfully','Thank you');        
-            return redirect()->back();
-        }
-        else
-        {
-            Alert::error('Choose at least one Banner Image','Sorry');
-            return redirect()->back();
-        }
+        $backgroundAndFont = json_encode([
+            'background' => $request->background,
+            'font' => $request->font,
+        ]);
+        
+       
+        $themeOption->background_and_font = $backgroundAndFont;
+
+        $themeOption->user_id = auth()->user()->id;
+        
+        $themeOption->save();
+
+        Alert::success('Saved successfully','Thank you');        
+        return redirect()->back();
+        
     }
 
     public function resetDesign(Request $request)

@@ -61,10 +61,14 @@ class PropertyController extends Controller
             'price_id' => 'required|integer|between:1,100000000000',
         ]);*/
 
+        //dd($request->all());
+
         $request->validate([
+            'title' => 'required',
             'option_id' => 'required',
             'category_id' => 'required',
             'price_id' => 'required',
+            'axat_price' => 'required',
         ]);
         
         $property = new Properties();
@@ -75,6 +79,9 @@ class PropertyController extends Controller
         $property->description = $request->description;
         $property->category_id = $request->category_id;
         $property->price_id = $request->price_id;
+        $property->axat_price = $request->axat_price;
+        $property->latitude = $request->latitude;
+        $property->longitude = $request->longitude;
         
         $property->save();
 
@@ -136,9 +143,11 @@ class PropertyController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'title' => 'required',
             'option_id' => 'required',
             'category_id' => 'required',
             'price_id' => 'required',
+            'axat_price' => 'required',
         ]);
 
         
@@ -150,6 +159,9 @@ class PropertyController extends Controller
         $property->description = $request->description;
         $property->category_id = $request->category_id;
         $property->price_id = $request->price_id;
+        $property->axat_price = $request->axat_price;
+        $property->latitude = $request->latitude;
+        $property->longitude = $request->longitude;
 
         $property->save();
 
@@ -337,6 +349,10 @@ class PropertyController extends Controller
 
                 ->editColumn('price_id', function($data) {
                     return $data->propertyPrice->price ?? "--";
+                })
+
+                ->editColumn('axat_price', function($data) {
+                    return $data->axat_price ?? "--";
                 })
 
                 ->editColumn('created', function($data) {

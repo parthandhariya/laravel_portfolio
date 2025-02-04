@@ -19,9 +19,10 @@
       </div>
       <div class="site-mobile-menu-body"></div>
     </div>
-
+    
     @include('front.navbar')
-
+    
+    
     
     <div class="slider-container">
       <div class="hero">
@@ -35,10 +36,16 @@
             
             @foreach ($bannerImageArray as $key => $value)
                       
-              <div
+              {{-- <div
                 class="img overlay"
                 style="background-image: url('{{ $value }}')"
-              ></div>
+              ></div> --}}
+
+              <img
+                class="img overlay"
+                src="{{ $value }}"
+                style="height:400px;"
+              />
                               
             @endforeach
 
@@ -65,7 +72,7 @@
       
     {{-- </div> --}}
 
-    <div class="section">
+    <div class="section mb-4">
       <div class="ms-5">
         {{--<div class="row mb-5 align-items-center">
           <div class="col-lg-6">
@@ -114,7 +121,7 @@
             <div class="col-md-3 mb-4">
               
               <select class="form-control" name="price_id" id="price_id">
-                <option value="">-- Select Price --</option>
+                <option value="">-- Select Price Range --</option>
                 @foreach($propertyPrice as $k => $v)
                   <option value="{{ $v->propertyPrice->id }}">{{ $v->propertyPrice->price }}</option>
                 @endforeach
@@ -123,16 +130,32 @@
             </div>
 
             <div class="col-md-2 mt-auto">
-              <button id="btn_view_images" class="btn btn-primary">Search Images</button>
+              <button id="btn_view_images" class="btn btn-primary">Search</button>
             </div>
           </div>
         </div>
 
         <div class="row align-items-center">
-          <div id="filterImages">
+          <div id="filterImages" class="ms-4">
             
           </div>
         </div>
+
+      
+          {{-- <div class="mt-5 mb-5">
+            <div class="col-md-12">
+              <button id="btn_view_map" class="btn btn-primary">View Map</button>
+            </div>
+          </div> --}}
+
+          
+          {{-- <div class="form-group col-md-9 mt-5 mb-5">
+            <div id="map"></div>
+          </div>             --}}
+          
+
+        
+      
 
         {{-- start Property slider row --}}
 
@@ -175,6 +198,8 @@
 
       </div>
     </div>
+
+    
 
     {{-- <section class="features-1">
       <div class="container">
@@ -613,6 +638,7 @@
       </div>
     </div> --}}
 
+    
     @include('front.footer')
     <!-- /.site-footer -->
 
@@ -631,36 +657,112 @@
     <script src="assets/js/counter.js"></script>
     <script src="assets/js/custom.js"></script> --}}
 
+    {{-- <script src="https://gomaps.pro/library.js"></script> --}}
+    {{-- <script src="https://maps.gomaps.pro/maps/api/place/queryautocomplete/json?input=NewDelhi&key=AlzaSyzCYIKwBp27mkuVR6o0VTPMlArHtJtDfIP"></script> --}}
+    
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script>
-      $(document).ready(function(){
-        $(document).on("click","#btn_view_images",function(){
 
-          var slug = $("#slug").val();
-          var option_id = $("#option_id").val();
-          var category_id = $("#category_id").val();
-          var price_id = $("#price_id").val();
+    
 
-          $("#filterImages").empty();
 
-          $.ajax({
-              url: "{{ route('frontend.filterimage') }}",
-              method: "post",              
-              dataType: 'text',
-              data: {
-                "_token": "{{ csrf_token() }}",
-                'slug': slug,
-                'option_id':option_id,
-                'category_id':category_id,
-                'price_id':price_id,
-              },
-              success: function(res)
-              {
-                $("#filterImages").append(res);
-              }
+  $(document).ready(function(){
+
+        
+  $(document).on("click","#btn_view_images",function(){
+
+    var slug = $("#slug").val();
+    var option_id = $("#option_id").val();
+    var category_id = $("#category_id").val();
+    var price_id = $("#price_id").val();
+
+    $("#filterImages").empty();
+
+    $.ajax({
+        url: "{{ route('frontend.filterimage') }}",
+        method: "post",              
+        dataType: 'text',
+        data: {
+          "_token": "{{ csrf_token() }}",
+          'slug': slug,
+          'option_id':option_id,
+          'category_id':category_id,
+          'price_id':price_id,
+        },
+        success: function(res)
+        {
+          $("#filterImages").append(res);
+        }
+    });
+
+  });                
+        let map;       
+  
+        function updateMap(lat, lng) 
+        {
+          lat = parseFloat(lat);  // Ensure lat is a number
+          lng = parseFloat(lng);  // Ensure lng is a number
+
+          if (isNaN(lat) || isNaN(lng)) {
+              console.error("Invalid latitude or longitude values:", lat, lng);
+              return;
+          }
+
+          if (typeof map !== "undefined") {
+              map.setCenter(new google.maps.LatLng(lat, lng));
+              new google.maps.Marker({
+                  position: { lat: lat, lng: lng },
+                  map: map,
+                  title: "Updated Location",
+              });
+          } else {
+              console.error("Map is not initialized.");
+          }
+        }
+
+  
+        function initMap(lat, lng, mapId)
+        {
+          lat = parseFloat(lat);
+          lng = parseFloat(lng);
+          //alert(mapId);
+          $("#map"+mapId).css({ "height": "400px"});
+          //alert(mapId+'  '+lat+'  '+lng);
+          map = new google.maps.Map(document.getElementById("map"+mapId), {
+              center: { lat: lat, lng: lng },
+              zoom: 10,
           });
 
+          new google.maps.Marker({
+              position: { lat: lat, lng: lng },
+              map: map,
+              title: "Initial Location",
+          });
+        }              
+
+        function loadGoogleMaps(lat,lng,mapId) {
+            if (window.google && window.google.maps) {
+                initMap(lat,lng,mapId); // Example: San Francisco
+                return;
+            }
+            
+            var script = document.createElement("script");
+            script.src = "https://maps.gomaps.pro/maps/api/js?key=AlzaSyrNlkOdl0-1B20KiC-KT8k-IgYGdwhJOpd&callback=loadGoogleMaps";
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+        }
+   
+        loadGoogleMaps();
+        
+        $(document).on("click",".btn-view-map",function(){          
+          loadGoogleMaps($(this).data('lat'), $(this).data('lng'), $(this).attr('data-mapId'));          
         });
-      });
+
+    });
+
     </script>
 
   </body>

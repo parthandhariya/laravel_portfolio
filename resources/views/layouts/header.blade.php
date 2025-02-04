@@ -23,7 +23,7 @@
         @endphp
 
         <li class="nav-item dropdown">
-          <a class="nav-link" data-toggle="dropdown" href="#">
+          <a class="nav-link imageDropdown" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
             <span class="badge badge-warning navbar-badge">{{ $totalPendingImage > 0 ? $totalPendingImage : '' }}</span>
           </a>
@@ -36,7 +36,7 @@
               <div class="dropdown-divider"></div>
               
               @foreach($totalUserWisePendingImage as $key => $value)
-              <a href="{{ route('property.images.view',[$value->user_id]) }}" class="dropdown-item">
+              <a href="{{ route('property.images.view',[$value->user_id]) }}" class="dropdown-item imageDropdown">
                 <img src="{{ $value->user->profile_image ?? asset('images/default-profile-picture.png') }}" width="35" height="35" class="img-circle" alt="User Image"> {{ $value->totalImage . ' Images Pending' }}
                 {{-- <span class="float-right text-muted text-sm">12 hours</span> --}}
               </a>
@@ -52,13 +52,16 @@
       @endif
       
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#" style="margin-top: -6px;">
+        <a class="nav-link" id="imageDropdown" data-toggle="dropdown" href="#" style="margin-top: -6px;">
+
         @if(!is_null(auth()->user()->profile_image))         
           <img src="{{ auth()->user()->profile_image }}" width="35" height="35" class="img-circle elevation-2" alt="User Image">
         @else
           <img src="{{ asset('images/default-profile-picture.png') }}" width="35" height="35" class="img-circle elevation-2" alt="User Image">
         @endif
+
         </a>
+
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">          
           @if(auth()->user()->user_type == "user")
             <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>

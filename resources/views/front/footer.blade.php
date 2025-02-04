@@ -1,3 +1,4 @@
+<div class="row footer">
 <div class="site-footer">
       <div class="container">
         <div class="row">
@@ -104,9 +105,13 @@
       </div>
     </div>
 
+    {{-- <script src="https://gomaps.pro/library.js"></script> --}}
+    
+
     <script src="{{ asset('client/assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('client/assets/js/tiny-slider.js') }}"></script>
     <script src="{{ asset('client/assets/js/aos.js') }}"></script>
     <script src="{{ asset('client/assets/js/navbar.js') }}"></script>
     <script src="{{ asset('client/assets/js/counter.js') }}"></script>
     <script src="{{ asset('client/assets/js/custom.js') }}"></script>
+</div>

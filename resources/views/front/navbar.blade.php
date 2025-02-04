@@ -1,6 +1,6 @@
 <nav class="site-nav">
-      <div class="container custom-contaier">
-        <div class="menu-bg-wrap">
+      <div class="container custom-contaier menu-background">
+        <div class="menu-bg-wrap menu-background">
           <div class="site-navigation">
             {{-- <a href="index.html" class="logo m-0 float-start">Property</a> --}}
 
@@ -9,7 +9,11 @@
             @endphp
 
             @if($siteLogo != '')
-              <img src="{{ $siteLogo }}" alt="" style="min-height: 45px; max-height: 45px; width: 100px;">
+              
+              <a href="{{ $siteLogo }}" data-lightbox="image-set" width="1000">                
+                <img src="{{ $siteLogo }}" alt="" style="min-height: 45px; max-height: 45px; width: 100px;">
+              </a>
+              
             @endif
             
             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">

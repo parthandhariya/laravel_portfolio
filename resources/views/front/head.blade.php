@@ -23,8 +23,10 @@
 
 
     <!-- Latest compiled and minified CSS -->
+    <script src="https://gomaps.pro/library.js"></script>
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+    
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -44,10 +46,28 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 
+    
+    
+
+    @php
+        $backgroundColor = NULL;
+        $fontColor = NULL;
+        $designColor = $user->themeOption[0]->background_and_font ?? NULL;
+        
+        if(!is_null($designColor))
+        {
+            $designColor = json_decode($designColor,true);
+            $backgroundColor = $designColor['background'];
+            $fontColor = $designColor['font'];
+        }
+    @endphp
+
     <style type="text/css">
+                        
         .btn{
             font-size: 1.3rem !important;
         }
+
         .site-nav {            
             position: fixed;
             top: 0;
@@ -58,29 +78,49 @@
 
         .menu-bg-wrap{
             border-radius: 0;
+            background-color: {{ $backgroundColor ?? '#005555' }};
+        }
+
+        .site-nav .site-navigation .site-menu > li > a {
+            
+            color: {{ $fontColor ?? 'rgba(255, 255, 255, 0.5)' }};
         }
 
         .hero, .hero > .container > .row {
-            height: 54vh;
-            min-height: 400px;           
+            height: 92vh;
+            /* min-height: 400px;            */
         }
 
         .hero-slide .img {            
             margin-top: 85px;
+           
         }
 
         .hero-slide .img.overlay {
             position: relative;
-            max-height: 400px;           
+            max-height: 400px;
         }
+
         .custom-contaier {            
             padding: 0;
             min-width: 100%;
         }
-
-        .section{
-            margin-top: 280px;
+          
+        #map {
+            height: 400px;
+            width: 100%;
         }
+
+        .btn{
+            border-radius: 0px;
+            background-color: {{ $backgroundColor ?? '#005555' }} !important;
+            color: {{ $fontColor ?? 'FFFFFF' }} !important;
+        }
+
+        .footer{
+            min-width: 100%;
+        }
+       
     </style>
 
     

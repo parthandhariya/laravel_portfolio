@@ -20,7 +20,7 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
@@ -29,18 +29,19 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form method="post" action="{{ route('property.store') }}" enctype="multipart/form-data">
+              <form method="post" action="{{ route('property.store') }}" enctype="multipart/form-data" id="frmSaveProperty">
                 @csrf
+                <input type="hidden" name="latitude" id="latitude" value=""/>
+                <input type="hidden" name="longitude" id="longitude" value=""/>
                 <div class="card-body"> 
-                  <div class="row">                    
-                      <div class="col-12 form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" name="title" id="title" placeholder="Property Title">
-                      </div>
-                  </div>
 
                   <div class="row">                    
-                      <div class="col-12 form-group">
+                      <div class="col-4 form-group">
+                        <label for="title">Title <span class="text-red">*</span></label>
+                        <input type="text" class="form-control" name="title" id="title" placeholder="Property Title" required>
+                      </div>
+                                      
+                      <div class="col-4 form-group">
                       <label for="title">Type <span class="text-red">*</span></label>                        
                         <select name="option_id" class="form-control">
                           @foreach($propertyOption as $key => $value)
@@ -48,47 +49,52 @@
                           @endforeach
                         </select>
                       </div>
-                  </div>
-
-                  <div class="row">                    
-                      <div class="col-12 form-group">
+                                                        
+                      <div class="col-4 form-group">
                       <label for="title">Category <span class="text-red">*</label>                        
-                        <select name="category_id" class="form-control">
+                        <select name="category_id" class="form-control" required>
                           <option value="">---Select Category---</option>
                           @foreach($propertyCategory as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
                           @endforeach
                         </select>
                       </div>
-                  </div>
-
-                  <div class="row">                    
-                      <div class="col-12 form-group">
-                      <label for="title">Price <span class="text-red">*</label>                        
-                        <select name="price_id" class="form-control">
-                          <option value="">---Select Price---</option>
+                  
+                      <div class="col-4 form-group">
+                      <label for="title">Price Range<span class="text-red">*</label>                        
+                        <select name="price_id" class="form-control" required>
+                          <option value="">---Select Price Range---</option>
                           @foreach($propertyPrice as $key => $value)
                             <option value="{{ $key }}">{{ $value }}</option>
                           @endforeach
                         </select>
                       </div>
-                  </div>
 
-                  {{-- <div class="row">                    
-                      <div class="col-12 form-group">                        
-                        <input type="number" class="form-control" name="price_id" id="price_id" placeholder="Property Price" required="">
+                      <div class="col-4 form-group">
+                        <label for="title">Price <span class="text-red">*</span></label>
+                        <input type="number" class="form-control" name="axat_price" id="axat_price" placeholder="Price" required>
                       </div>
-                  </div> --}}
-
-                  <div class="row">                    
-                      <div class="col-12 form-group">                        
-                        <textarea class="form-control" rows="5" name="description" placeholder="Property Description"></textarea>
+                                        
+                      <div class="col-4 form-group mt-4">                        
+                        <textarea class="form-control" name="description" placeholder="Property Description"></textarea>
                       </div>
                   </div>
 
                   <div class="row">
+                      <div class="col-md-12 ml-3 pl-4 form-group">                        
+                        <input type="checkbox" id="load-api" class="form-check-input"/> <label class="form-check-label" for="load-api"> Enable Google Location </label>
+                      </div>                    
+                      <div class="col-8">                        
+                        <input type="text" class="form-control"  id="autocomplete" placeholder="Enter a location">                        
+                      </div>
+                      <div class="col-12 form-group">
+                        <span class="text-green" id="location-error-message"></span>
+                      </div>
+                  </div>
+                
+                  <div class="row">
                     <div class="col-auto mt-auto form-group">                      
-                          <button type="submit" class="btn btn-primary">Save</button>
+                      <button type="submit" class="btn btn-primary" id="btnsubmit">Save</button>
                     </div>
                   </div>
 
@@ -114,5 +120,88 @@
   <!-- /.content-wrapper -->
 
 @section('script')
+
+<script>
+
+  $(document).ready(function(){
+  
+   let googleApiLoaded = false;
+   let isPlaceSelected = false;
+   
+   $("#autocomplete").hide();
+ 
+     $('#load-api').change(function() {
+         if(this.checked) {
+          
+           // Check if API is already loaded
+           
+           if (googleApiLoaded) {              
+               $("#autocomplete").show();
+               //$("#btnsubmit").show();
+               return;
+           }
+ 
+           // Dynamically load the Google Places API script
+           const script = document.createElement('script');
+           
+           script.src = 'https://maps.gomaps.pro/maps/api/js?key=AlzaSyrNlkOdl0-1B20KiC-KT8k-IgYGdwhJOpd&libraries=places';
+           script.async = true;
+           script.defer = true;
+          //  initializeAutocomplete(); // Initialize the autocomplete feature              
+ 
+           script.onload = function () {
+               googleApiLoaded = true; // Set flag to true
+               initializeAutocomplete(); // Initialize the autocomplete feature              
+           };
+ 
+           script.onerror = function () {
+               alert('Failed to load Google Places API.');
+           };
+ 
+           document.head.appendChild(script);
+           $("#autocomplete").show();
+           //$("#btnsubmit").show();
+ 
+         }else{
+ 
+           // googleApiLoaded = false;
+           isPlaceSelected = false;
+           $("#autocomplete").val("").hide();          
+           $('#location-error-message').text('');
+ 
+         }      
+     });    
+ 
+   // Function to initialize Autocomplete
+     function initializeAutocomplete() {
+        const autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
+         componentRestrictions: { country: 'IN' } // Restrict to India      
+             
+         autocomplete.addListener('place_changed', function () {
+            const place = autocomplete.getPlace();
+           
+             if (place && place.geometry) {
+                                 
+                 $("#latitude").val(place.geometry.location.lat());
+                 $("#longitude").val(place.geometry.location.lng());                
+                 $('#location-error-message').text('');
+                 isPlaceSelected = true;                    
+             } else {               
+               isPlaceSelected = false;               
+             }          
+         });                   
+     }
+
+    $('#frmSaveProperty').on('submit', function (e) {
+        if ($('#load-api').is(':checked')) {
+          if(!isPlaceSelected){          
+            e.preventDefault(); // Prevent form submission                          
+            $('#location-error-message').text('Please wait..');
+          }
+        }      
+    });
+   
+ })
+ </script>
 
 @endsection
