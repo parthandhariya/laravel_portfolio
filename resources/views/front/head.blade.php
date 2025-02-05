@@ -79,6 +79,8 @@
         .menu-bg-wrap{
             border-radius: 0;
             background-color: {{ $backgroundColor ?? '#005555' }};
+            min-height:85px;
+            max-height:85px;
         }
 
         .site-nav .site-navigation .site-menu > li > a {

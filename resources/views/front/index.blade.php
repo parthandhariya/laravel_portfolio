@@ -27,8 +27,8 @@
     <div class="slider-container">
       <div class="hero">
         <div class="hero-slide">
-
-          @if(isset($user->themeOption) && !is_null($user->themeOption[0]->banner_images))
+          
+          @if($user->themeOption->count() > 0 && !is_null($user->themeOption[0]->banner_images))
 
             @php
               $bannerImageArray = json_decode($user->themeOption[0]->banner_images,true);        
