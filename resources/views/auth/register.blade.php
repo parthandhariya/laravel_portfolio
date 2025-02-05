@@ -13,13 +13,24 @@
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
+  <style>
+    .background-img{
+      background-image: url('{{ asset('images/login_page_image/login_background.jpg') }}');
+      background-size: cover;
+    }
+  </style>
+
 </head>
-<body class="hold-transition register-page">
+<body class="hold-transition register-page background-img">
 <div class="register-box">
   <div class="card card-outline card-primary">
     <div class="text-center">
       {{-- <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a> --}}
-      <img src="{{ asset('images/login_page_image/loginpage.png') }}" class="w-100" height="100" />
+      {{-- <img src="{{ asset('images/login_page_image/loginpage.png') }}" class="w-100" height="100" /> --}}
+
+      <img src="{{ asset('images/login_page_image/auth_image.jpg') }}" class="w-100" height="100" />
+
     </div>
     <div class="card-body">
       

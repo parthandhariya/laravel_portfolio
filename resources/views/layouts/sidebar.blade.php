@@ -40,6 +40,12 @@
             @if(auth()->user()->user_type == "user")
               <ul class="nav nav-treeview">
                 <li class="nav-item">
+                  <a href="{{ route('frontend',auth()->user()->slug) }}" target="_blank" class="nav-link" style="background-color: #28a745; border-color:#28a745; color:#fff;">
+                    <i class="fa fa-eye"></i>
+                    <p>Preview Website</p>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a href="{{ route('pages.index') }}" class="nav-link active">
                     <i class="fa fa-file nav-icon"></i>
                     <p>Pages</p>
@@ -96,7 +102,7 @@
               <p>Footer</p>
             </a>
           </li>
-
+          
           @endif
 
         </ul>
