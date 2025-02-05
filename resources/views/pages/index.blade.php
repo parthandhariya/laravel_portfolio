@@ -55,7 +55,8 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title mb-0">Pages</h3>
+                <h3 class="card-title mb-0 mr-2">Pages</h3>
+                <span class="text-red">(Pages will only be shown in Preview Website, Detail developement is Pending)</span>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -64,11 +65,11 @@
                 <div class="card-body"> 
                   <div class="row">
                     <div class="col-md-3 form-group">
-                      <label for="Name">Name</label>
+                      <label for="Name">Page Name <span class="text-red">*</span></label>
                       <input type="text" class="form-control" name="name" id="Name" placeholder="Name" required="">
                     </div>
                     <div class="col-md-3 form-group">
-                      <label for="Name">Pages</label>
+                      <label for="Name">Pages <span class="text-red">*</span></label>
                       <select class="form-control" name="parent_with_level">
                         <option value="{{ implode(',',[0,-1]) }}">------- ROOT -------</option>
                         @foreach($pages as $k => $v)
@@ -77,11 +78,11 @@
                       </select>
                     </div>
                     <div class="col-md-3 form-group">
-                      <label for="Name">Page Link</label>
+                      <label for="Name">Page Link <span class="text-red">*</span></label>
                       <input type="text" class="form-control" name="page_link" id="page_link" placeholder="Page Link" required="">
                     </div>
                     <div class="col-md-2 form-group">
-                      <label>Status</label>
+                      <label>Status <span class="text-red">*</span></label>
                       <select class="form-control" name="status">
                         <option value="1">Active</option>
                         <option value="0">Inactive</option>                      
@@ -137,8 +138,8 @@
                           <tr>
                               <th>ID</th>
                               {{-- <th>User</th> --}}
-                              <th>Page</th>
-                              <th>Parent Page</th>
+                              <th>Page Name</th>
+                              <th>Parent Pages</th>
                               <th>Status</th>
                               <th>Page Link</th>
                               <th>Created</th>

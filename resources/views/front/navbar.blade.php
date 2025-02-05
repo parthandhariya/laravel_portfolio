@@ -45,8 +45,8 @@
                                         @if($v1->children()->count() > 0)
 
                                         @else
-
-                                          <li class=""><a href="{{ '' }}">{{ $v1->name }}</a></li>
+                                          
+                                          @if ($v1->status == '1') <li class=""><a href="{{ '' }}">{{ $v1->name }}</a></li> @endif
 
                                         @endif
 
@@ -56,7 +56,7 @@
                               </li>  
 
                             @else
-                              <li class=""><a href="{{ '' }}">{{ $v->name }}</a></li>
+                              @if ($v->status == '1') <li class=""><a href="{{ '' }}">{{ $v->name }}</a></li> @endif
                             @endif
 
                         @endforeach
@@ -64,11 +64,8 @@
                       </ul>
                    </li>
                 
-                @else
-
-                    
-                    <li class=""><a href="{{ '' }}" class="">{{ $value->name }}</a></li>
-
+                @else                                        
+                    @if ($value->status == '1') <li class=""><a href="{{ '' }}">{{ $value->name }}</a></li> @endif
                 @endif
 
               @endforeach              

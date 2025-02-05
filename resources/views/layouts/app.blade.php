@@ -67,6 +67,10 @@
 					position: fixed;
 					top: 0;
 				}
+
+				.content-header {
+					padding: 5px .5rem;
+				}
 			</style>			 
     </head>
 

@@ -41,11 +41,11 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-3 form-group">
-                      <label for="Name">Name</label>
+                      <label for="Name">Name <span class="text-red">*</span></label>
                       <input type="text" class="form-control" name="name" id="Name" value="{{ $page->name }}" placeholder="Name" required="">
                     </div>
                     <div class="col-md-3 form-group">
-                      <label for="Name">Page</label>
+                      <label for="Name">Page <span class="text-red">*</span></label>
                       <select class="form-control" name="parent_with_level">
                         <option value="{{ implode(',',[0,-1]) }}">------- ROOT -------</option>
                         @foreach($pages as $k => $v)
@@ -58,11 +58,11 @@
                       </select>
                     </div>
                     <div class="col-md-3 form-group">
-                      <label for="Name">Page Link</label>
+                      <label for="Name">Page Link <span class="text-red">*</span></label>
                       <input type="text" class="form-control" name="page_link" id="page_link" value="{{ $page->page_link }}" placeholder="Page Link" required="">
                     </div>
                     <div class="col-md-2 form-group">
-                      <label>Status</label>
+                      <label>Status <span class="text-red">*</span></label>
                       <select class="form-control" name="status">
 
                         @foreach($status as $k => $v)

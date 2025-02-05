@@ -89,7 +89,7 @@ class PagesController extends Controller
         $pages = new Pages();
 
         $pages->user_id = auth()->user()->id;
-        $pages->name = strtoupper($request->name);
+        $pages->name = ucwords($request->name);
         $pages->status = $request->status;
                 
         $pages->parent_id = $parent_id;
@@ -164,14 +164,14 @@ class PagesController extends Controller
         $dataArray = explode(',', $request->parent_with_level);
         $parent_id = $dataArray[0];
         $level = $dataArray[1] + 1;
+    
+        // $totalRoot = Pages::where('user_id',auth()->user()->id)->where('parent_id','0')->get();
 
-        $totalRoot = Pages::where('user_id',auth()->user()->id)->where('parent_id','0')->get();
-
-        if($totalRoot->count() > 0 && $totalRoot->count() == 4 && $parent_id == '0')
-        {
-            Alert::error('Only Four Root Pages are Allowed','Sorry');
-            return back();    
-        }
+        // if($totalRoot->count() > 0 && $totalRoot->count() == 4 && $parent_id == '0')
+        // {
+        //     Alert::error('Only Four Root Pages are Allowed','Sorry');
+        //     return back();    
+        // }
 
         if($level == 1)
         {
@@ -203,7 +203,8 @@ class PagesController extends Controller
         }
 
         $page->user_id = auth()->user()->id;
-        $page->name = strtoupper($request->name);
+        $page->name = ucwords($request->name);
+        $page->page_link = $request->page_link;
         $page->status = $request->status;
 
         $page->parent_id = $parent_id;
@@ -211,13 +212,13 @@ class PagesController extends Controller
 
         $page->save();
 
-        $parentCheck = Pages::where('user_id',auth()->user()->id)->where('id',$parent_id)->first();
+        // $parentCheck = Pages::where('user_id',auth()->user()->id)->where('id',$parent_id)->first();                
         
-        if(!is_null($parentCheck))
-        {
-            $parentCheck->page_link = NULL;
-            $parentCheck->save();
-        }
+        // if(!is_null($parentCheck))
+        // {
+        //     $parentCheck->page_link = NULL;
+        //     $parentCheck->save();
+        // }
 
         Alert::success('Page updated successfully','Thank you');
 
