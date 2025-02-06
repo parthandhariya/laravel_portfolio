@@ -64,7 +64,7 @@
 					<div id="map{{ $value->id }}"></div>
 				</div>
 			</div>
-			<div class="row col-md-12">
+			<div class="row col-md-12 mb-4">
 				<div class="col-12 mt-5">
 					<button id="btn_view_map" class="btn btn-primary btn-view-map" data-lat="{{ $value->latitude }}" data-lng="{{ $value->longitude }}" data-mapId="{{ $value->id }}" >View Map</button>
 				</div>

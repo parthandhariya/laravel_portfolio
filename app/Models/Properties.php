@@ -10,6 +10,8 @@ use App\Models\PropertyDetail;
 use App\Models\PropertyOptions;
 use App\Models\PropertyCategory;
 use App\Models\PropertyPrice;
+use App\Models\States;
+use App\Models\Cities;
 
 class Properties extends Model
 {
@@ -41,5 +43,15 @@ class Properties extends Model
     public function propertyPrice()
     {
         return $this->belongsTo(PropertyPrice::class,'price_id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(States::class,'state_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(Cities::class,'city_id');
     }
 }

@@ -115,6 +115,9 @@ Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 	Route::get('themeoptionList', [ThemeOptionController::class,'getList'])->name('themeoption.list');
 
 	Route::resource('property', PropertyController::class);
+
+	Route::post('getcityfromstate', [PropertyController::class,'getCityFromState'])->name('getcityfromstate');
+
 	Route::get('propertylistview', [PropertyController::class,'list'])->name('property.list.view');
 	Route::get('propertyList', [PropertyController::class,'getList'])->name('property.list');
 	Route::get('editpropertyimage/{id}', [PropertyController::class,'editImage'])->name('editpropertyimage');

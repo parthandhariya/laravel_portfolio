@@ -74,7 +74,42 @@
                         <label for="title">Price <span class="text-red">*</span></label>
                         <input type="number" class="form-control" name="axat_price" id="axat_price" placeholder="Price" required>
                       </div>
-                                        
+                                                             
+                  </div>
+                  <div class="row">
+
+                      <div class="col-4 form-group">
+                        <label for="address_line1">Address Line1 <span class="text-red">*</span></label>
+                        <input type="text" class="form-control" name="address_line1" id="address_line1" placeholder="Address Line1" required>
+                      </div>
+
+                      <div class="col-4 form-group">
+                        <label for="address_line2">Address Line2 </label>
+                        <input type="text" class="form-control" name="address_line2" id="address_line2" placeholder="Address Line2">
+                      </div>
+
+                      <div class="col-4 form-group">
+                        <label for="address_line3">Address Line3 </label>
+                        <input type="text" class="form-control" name="address_line3" id="address_line3" placeholder="Address Line3">
+                      </div>
+
+                      <div class="col-4 form-group">
+                        <label>State</label>
+                        <select class="form-control select2" name="state_id" id="state_id" style="width: 100%;">
+                          <option selected="selected" value="{{ NULL }}">---Select State---</option>                          
+                          @foreach($propertyState as $key => $value)
+                            <option value="{{ $key }}"> {{ ucwords($value) }} </option>
+                          @endforeach
+                        </select>
+                      </div>
+
+                      <div class="col-4 form-group">
+                        <label>City</label>
+                        <select class="form-control select2" name="city_id" id="city_id" style="width: 100%;">
+                          <option selected="selected">Bhavnagar</option>                          
+                        </select>
+                      </div>
+
                       <div class="col-4 form-group mt-4">                        
                         <textarea class="form-control" name="description" placeholder="Property Description"></textarea>
                       </div>

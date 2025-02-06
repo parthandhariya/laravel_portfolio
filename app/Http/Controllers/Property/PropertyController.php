@@ -9,6 +9,8 @@ use App\Models\PropertyDetail;
 use App\Models\PropertyOptions;
 use App\Models\PropertyCategory;
 use App\Models\PropertyPrice;
+use App\Models\States;
+use App\Models\Cities;
 use DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -24,8 +26,19 @@ class PropertyController extends Controller
         $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
         $propertyCategory = PropertyCategory::where('user_id',auth()->user()->id)->pluck('name','id')->toArray();
         $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
+        $propertyState = States::where('country_id',States::INDIAN_COUNTRY_ID)->pluck('name','id')->toArray();
 
-        return view('property.index',compact('propertyOption','propertyCategory','propertyPrice'));
+        return view('property.index',compact('propertyOption','propertyCategory','propertyPrice','propertyState'));
+    }
+
+    public function getCityFromState(Request $request)
+    {
+        if($request->ajax())
+        {
+            $state_id = $request->state_id;
+            $data = Cities::where('state_id',$state_id)->pack('city','id')->toArray();
+            return response()->json($data);
+        }
     }
 
     /**
@@ -80,6 +93,11 @@ class PropertyController extends Controller
         $property->category_id = $request->category_id;
         $property->price_id = $request->price_id;
         $property->axat_price = $request->axat_price;
+        $property->state_id = $request->state_id;
+        $property->city_id = $request->city_id;
+        $property->address_line1 = $request->address_line1;
+        $property->address_line2 = $request->address_line2;
+        $property->address_line3 = $request->address_line3;
         $property->latitude = $request->latitude;
         $property->longitude = $request->longitude;
         
@@ -129,8 +147,9 @@ class PropertyController extends Controller
         $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
         $propertyCategory = PropertyCategory::where('user_id',auth()->user()->id)->pluck('name','id')->toArray();
         $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
+        $propertyState = States::where('country_id',States::INDIAN_COUNTRY_ID)->pluck('name','id')->toArray();
 
-        return view('property.edit',compact('property','propertyOption','propertyCategory','propertyPrice'));
+        return view('property.edit',compact('property','propertyOption','propertyCategory','propertyPrice','propertyState'));
     }
 
     /**
@@ -160,6 +179,11 @@ class PropertyController extends Controller
         $property->category_id = $request->category_id;
         $property->price_id = $request->price_id;
         $property->axat_price = $request->axat_price;
+        $property->state_id = $request->state_id;
+        $property->city_id = $request->city_id;
+        $property->address_line1 = $request->address_line1;
+        $property->address_line2 = $request->address_line2;
+        $property->address_line3 = $request->address_line3;
         $property->latitude = $request->latitude;
         $property->longitude = $request->longitude;
 
