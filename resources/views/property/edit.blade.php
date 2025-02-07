@@ -3,7 +3,7 @@
 @section('style')
 
 @endsection
-
+{{-- @dd($propertyState) --}}
 <!-- Content Wrapper. Contains page content -->
 @section('content')
   <div class="content-wrapper">
@@ -98,8 +98,8 @@
                         <label>State</label>
                         <select class="form-control select2" name="state_id" id="state_id" style="width: 100%;">
                           <option selected="selected" value="{{ NULL }}">---Select State---</option>                          
-                          @foreach($propertyState as $key => $value)
-                            <option value="{{ $key }}"> {{ ucwords($value) }} </option>
+                          @foreach($propertyState as $key => $value)                            
+                            <option value="{{ $key }}" {{ $key == $property->state_id ? 'selected' : '' }}> {{ ucwords(strtolower($value)) }} </option>
                           @endforeach
                         </select>
                       </div>
@@ -107,7 +107,10 @@
                       <div class="col-4 form-group">
                         <label>City</label>
                         <select class="form-control select2" name="city_id" id="city_id" style="width: 100%;">
-                          <option selected="selected">Bhavnagar</option>                          
+                          <option selected="selected" value="{{ NULL }}">---Select City---</option>
+                          @foreach($propertyCity as $key => $value)
+                            <option value="{{ $key }}" {{ $key == $property->city_id ? 'selected' : '' }}> {{ ucwords(strtolower($value)) }} </option>
+                          @endforeach                                                
                         </select>
                       </div>
 
@@ -238,6 +241,27 @@
             $('#location-error-message').text('Please wait..');
           }
         } 
+    });
+
+    //Get State wise cities
+    $(document).on("select2:select","#state_id",function(){
+        var state_id = $(this).val();
+        var option = '';
+        $("#city_id").empty();
+        $.ajax({
+          url: '{{ route("getcityfromstate") }}',
+          data: { _token: $('meta[name="csrf-token"]').attr('content'), state_id:state_id },
+          type: 'POST',
+          success: function(res){
+            option += '<option value = ' + null + '>---Select City---</option>';
+            $.each(res, function(index,value){
+              option += '<option value = '+ index +'>'+ value +'</option>';
+            })
+            
+            $("#city_id").append(option);           
+          }
+
+        });
     });
 
 })

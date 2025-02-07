@@ -98,7 +98,7 @@
                         <select class="form-control select2" name="state_id" id="state_id" style="width: 100%;">
                           <option selected="selected" value="{{ NULL }}">---Select State---</option>                          
                           @foreach($propertyState as $key => $value)
-                            <option value="{{ $key }}"> {{ ucwords($value) }} </option>
+                            <option value="{{ $key }}"> {{ ucwords(strtolower($value)) }} </option>
                           @endforeach
                         </select>
                       </div>
@@ -106,7 +106,7 @@
                       <div class="col-4 form-group">
                         <label>City</label>
                         <select class="form-control select2" name="city_id" id="city_id" style="width: 100%;">
-                          <option selected="selected">Bhavnagar</option>                          
+                          <option selected="selected" value="{{ NULL }}">---Select City---</option>                                                
                         </select>
                       </div>
 
@@ -235,8 +235,30 @@
           }
         }      
     });
+
+
+    //Get State wise cities
+    $(document).on("select2:select","#state_id",function(){
+        var state_id = $(this).val();
+        var option = '';
+        $("#city_id").empty();
+        $.ajax({
+          url: '{{ route("getcityfromstate") }}',
+          data: { _token: $('meta[name="csrf-token"]').attr('content'), state_id:state_id },
+          type: 'POST',
+          success: function(res){
+            option += '<option value = ' + null + '>---Select City---</option>';
+            $.each(res, function(index,value){
+              option += '<option value = '+ index +'>'+ value +'</option>';
+            })
+            
+            $("#city_id").append(option);           
+          }
+
+        });
+    });
    
- })
+ });
  </script>
 
 @endsection

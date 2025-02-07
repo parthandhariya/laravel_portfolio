@@ -26,8 +26,14 @@ class PropertyController extends Controller
         $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
         $propertyCategory = PropertyCategory::where('user_id',auth()->user()->id)->pluck('name','id')->toArray();
         $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
-        $propertyState = States::where('country_id',States::INDIAN_COUNTRY_ID)->pluck('name','id')->toArray();
+        // $propertyState = States::pluck('name','id')->toArray();
 
+        $propertyState = States::whereHas('city',function($q){                        
+            $q->groupBy('state_id');
+            $q->havingRaw('COUNT(state_id) > ?', [0]);        
+        })->pluck('name','id')->toArray(); 
+                    
+                           
         return view('property.index',compact('propertyOption','propertyCategory','propertyPrice','propertyState'));
     }
 
@@ -36,7 +42,7 @@ class PropertyController extends Controller
         if($request->ajax())
         {
             $state_id = $request->state_id;
-            $data = Cities::where('state_id',$state_id)->pack('city','id')->toArray();
+            $data = Cities::where('state_id',$state_id)->pluck('city','id')->toArray();
             return response()->json($data);
         }
     }
@@ -147,9 +153,16 @@ class PropertyController extends Controller
         $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
         $propertyCategory = PropertyCategory::where('user_id',auth()->user()->id)->pluck('name','id')->toArray();
         $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
-        $propertyState = States::where('country_id',States::INDIAN_COUNTRY_ID)->pluck('name','id')->toArray();
+        // $propertyState = States::pluck('name','id')->toArray();
 
-        return view('property.edit',compact('property','propertyOption','propertyCategory','propertyPrice','propertyState'));
+        $propertyState = States::whereHas('city',function($q){                        
+            $q->groupBy('state_id');
+            $q->havingRaw('COUNT(state_id) > ?', [0]);        
+        })->pluck('name','id')->toArray(); 
+        
+        $propertyCity = Cities::where('state_id',$property->state_id)->pluck('city','id')->toArray();
+
+        return view('property.edit',compact('property','propertyOption','propertyCategory','propertyPrice','propertyState','propertyCity'));
     }
 
     /**

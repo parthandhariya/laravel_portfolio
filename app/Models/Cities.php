@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Properties;
+use App\Models\States;
 
 class Cities extends Model
 {
@@ -16,5 +17,10 @@ class Cities extends Model
     protected function property()
     {
         return $this->hasMany(Properties::class,'city_id');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(States::class, 'state_id');
     }
 }
