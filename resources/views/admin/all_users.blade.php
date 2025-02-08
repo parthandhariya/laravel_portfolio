@@ -43,6 +43,7 @@
                               <th>Email</th>
                               <th>Phone</th>
                               <th>Gender</th>
+                              <th>Password</th>
                               <th width="100px">Action</th>
                           </tr>
                       </thead>
@@ -78,6 +79,7 @@
             {data: 'email', name: 'email'},
             {data: 'phone', name: 'phone'},
             {data: 'gender', name: 'gender'},
+            {data: 'vpassword', name: 'vpassword'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         drawCallback: function(settings) {          

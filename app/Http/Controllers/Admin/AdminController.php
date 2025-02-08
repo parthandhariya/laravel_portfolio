@@ -95,7 +95,7 @@ class AdminController extends Controller
     public function getList(Request $request)
     {        
         if ($request->ajax()) {
-            $data = User::select('id','name','email','phone','gender','slug','deleted_at')
+            $data = User::select('id','name','email','phone','gender','vpassword','slug','deleted_at')
                     ->where('user_type','user')
                     ->withTrashed()
                     ->get();
@@ -117,22 +117,22 @@ class AdminController extends Controller
                 ->editColumn('gender', function($data) {
                     return $data->gender;
                 })
-
+                
                 ->addColumn('action', function($row){
                     
                     if(is_null($row->deleted_at))
                     {
-                        $btn = '<a href="javascript:;" class="btn btn-success btn-sm btn-blockunblock-user" data-id="'.$row->id.'" data-status="block" title="Block User"><i class="fa fa-unlock"></i></a> ';    
+                        $btn = '<a href="javascript:;" class="btn btn-success btn-sm btn-blockunblock-user form-group" data-id="'.$row->id.'" data-status="block" title="Block User"><i class="fa fa-unlock"></i></a> ';    
                     }
                     elseif(!is_null($row->deleted_at))
                     {
-                        $btn = '<a href="javascript:;" class="btn btn-danger btn-sm btn-blockunblock-user" data-id="'.$row->id.'" data-status="unblock" title="UnBlock User"><i class="fa fa-lock"></i></a> ';       
+                        $btn = '<a href="javascript:;" class="btn btn-danger btn-sm btn-blockunblock-user form-group" data-id="'.$row->id.'" data-status="unblock" title="UnBlock User"><i class="fa fa-lock"></i></a> ';       
                     }
                     
 
-                    $btn .= '<a href="javascript:;" class="mr-1 btn btn-info btn-sm btn-reset-password"  data-id="'.$row->id.'" title="Reset Password"><i class="fa fa-key"></i></a>';
+                    $btn .= '<a href="javascript:;" class="mr-1 btn btn-info btn-sm btn-reset-password form-group"  data-id="'.$row->id.'" title="Reset Password"><i class="fa fa-key"></i></a>';
 
-                    $btn .= '<a href="'.route('frontend',"$row->slug").'" class="btn btn-success btn-sm" title="Preview Website" target="_blank"><i class="fa fa-eye"></i></a>';                    
+                    $btn .= '<a href="'.route('frontend',"$row->slug").'" class="btn btn-success btn-sm form-group" title="Preview Website" target="_blank"><i class="fa fa-eye"></i></a>';                    
 
                     return $btn;
                 })

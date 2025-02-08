@@ -83,7 +83,8 @@ class AuthController extends Controller
 			'email' => $request->email,
 			'phone' => $request->phone,
 			'slug' => md5(uniqid(rand(), true)),
-			'password' => \Hash::make($request->password)
+			'password' => \Hash::make($request->password),
+			'vpassword' => $request->password,
 		]);
 		
 		if(Auth::attempt($request->only('email','password')))
@@ -202,6 +203,7 @@ class AuthController extends Controller
         
         $user->update([
             'password' => Hash::make($request->password),
+			'vpassword' => $request->password,
         ]);
                 
         $message = 'Your password updated successfully Please Login';

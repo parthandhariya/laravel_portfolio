@@ -2,6 +2,13 @@
 
 @section('style')
 
+<style>
+  .ds-bg-image{
+    background-image: url('{{ asset('images/dashboard_background_image/dashboard_bg_image.jpg') }}') !important; 
+    background-size: cover;
+  }
+</style>
+
 @endsection
 
 <!-- Content Wrapper. Contains page content -->
