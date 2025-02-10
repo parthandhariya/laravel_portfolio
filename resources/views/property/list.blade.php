@@ -59,6 +59,24 @@
                       </select>
                     </div>
 
+                    <div class="col-md-3 pl-0 mb-2">
+                      <select class="form-control" name="state_id" id="state_id">
+                        <option value="">---Select State---</option>
+                        @foreach($propertyState as $key => $value)
+                          <option value="{{ $value->state_id }}">{{ $value->state->name ?? NULL }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+
+                    <div class="col-md-3 pl-0 mb-2">
+                      <select class="form-control" name="city_id" id="city_id">
+                        <option value="">---Select City---</option>
+                        @foreach($propertyCity as $key => $value)
+                          <option value="{{ $value->city_id }}">{{ $value->city->city ?? NULL }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+
                     <div class="col-md-3">
                       
                     </div>
@@ -112,6 +130,8 @@
               d.option_id = $("#option_id").val();
               d.category_id = $("#category_id").val();
               d.price_id = $("#price_id").val();
+              d.state_id = $("#state_id").val();
+              d.city_id = $("#city_id").val();
             }
           },        
         columns: [
@@ -144,6 +164,13 @@
         table.draw();
     });
 
+    $('#state_id').on('change', function() {
+        table.draw();
+    });
+
+    $('#city_id').on('change', function() {
+        table.draw();
+    });
     
   });
 

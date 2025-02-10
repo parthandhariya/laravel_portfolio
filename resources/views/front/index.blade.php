@@ -25,8 +25,8 @@
     
     
     <div class="slider-container">
-      <div class="hero">
-        <div class="hero-slide">
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
           
           @if($user->themeOption->count() > 0 && !is_null($user->themeOption[0]->banner_images))
 
@@ -35,45 +35,32 @@
             @endphp
             
             @foreach ($bannerImageArray as $key => $value)
-                      
-              {{-- <div
-                class="img overlay"
-                style="background-image: url('{{ $value }}')"
-              ></div> --}}
-
-              <img
-                class="img overlay"
-                src="{{ $value }}"
-                style="height:400px;"
-              />
+            
+            <div class="swiper-slide"><img src="{{ $value }}" class="slider-img" alt="Image"></div>            
                               
             @endforeach
 
           @else
-            
-            <div
-              class="img overlay"
-              style="background-image: url('{{ asset('client/assets/images/hero_bg_3.jpg') }}')"
-            ></div>
-            <div
-              class="img overlay"
-              style="background-image: url('{{ asset('client/assets/images/hero_bg_2.jpg') }}')"
-            ></div>
-            <div
-              class="img overlay"
-              style="background-image: url('{{ asset('client/assets/images/hero_bg_1.jpg') }}')"
-            ></div>
+                        
+            <div class="swiper-slide"><img src="{{ asset('client/assets/images/hero_bg_3.jpg') }}" class="slider-img" alt="Image 1"></div>
+            <div class="swiper-slide"><img src="{{ asset('client/assets/images/hero_bg_2.jpg') }}" class="slider-img" alt="Image 2"></div>
+            <div class="swiper-slide"><img src="{{ asset('client/assets/images/hero_bg_1.jpg') }}" class="slider-img" alt="Image 3"></div>
 
           @endif
 
         </div>  
       </div>
+      {{-- <div class="swiper-pagination"></div> --}}
+      <!-- Navigation -->
+      {{-- <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div> --}}
     </div>  
       
-    {{-- </div> --}}
+    </div>
 
-    <div class="section mb-4">
-      <div class="ms-5">
+    
+    <div class="mb-4 custom-section-position">
+      <div class="ms-4">
         {{--<div class="row mb-5 align-items-center">
           <div class="col-lg-6">
             <h2 class="font-weight-bold text-primary heading">
@@ -760,8 +747,23 @@
         $(document).on("click",".btn-view-map",function(){          
           loadGoogleMaps($(this).data('lat'), $(this).data('lng'), $(this).attr('data-mapId'));          
         });
+  });
 
-    });
+  var swiper = new Swiper(".mySwiper", {
+      loop: true,
+      autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+      },
+      navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+      },
+      pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+      },
+  });
 
     </script>
 

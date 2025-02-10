@@ -46,7 +46,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 
-    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
 
     @php
@@ -122,8 +125,25 @@
         .footer{
             min-width: 100%;
         }
+
+        .custom-section-position{
+            margin-top: 3rem !important;
+        }
        
+        .swiper{
+            margin-top: 8rem;
+            height: 400px;
+            overflow: hidden;           
+        }
+
+        .slider-img{
+            height: 100% !important;
+            width: 100%;
+            overflow: hidden;
+        }
+    
     </style>
+
 
     
 

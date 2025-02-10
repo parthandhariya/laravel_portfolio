@@ -315,8 +315,10 @@ class PropertyController extends Controller
         $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
         $propertyCategory = PropertyCategory::where('user_id',auth()->user()->id)->pluck('name','id')->toArray();
         $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
+        $propertyState = Properties::select('state_id')->where('user_id',auth()->user()->id)->whereNotNull('state_id')->groupBy('state_id')->get();
+        $propertyCity = Properties::select('city_id')->where('user_id',auth()->user()->id)->whereNotNull('city_id')->groupBy('city_id')->get();
 
-        return view('property.list',compact('propertyOption','propertyCategory','propertyPrice'));        
+        return view('property.list',compact('propertyOption','propertyCategory','propertyPrice','propertyState','propertyCity'));        
     }
 
     public function getList(Request $request)
@@ -326,6 +328,8 @@ class PropertyController extends Controller
             $option_id = $request->option_id;
             $category_id = $request->category_id;
             $price_id = $request->price_id;
+            $state_id = $request->state_id;
+            $city_id = $request->city_id;
             $userId = auth()->user()->id;
             $conditionFlag = 0;
 
@@ -356,6 +360,18 @@ class PropertyController extends Controller
                 
                 $query->where("price_id",$price_id);
 
+            }
+
+            if(!is_null($state_id))
+            {
+                $conditionFlag = 1;
+                $query->where('state_id', $state_id);    
+            }
+
+            if(!is_null($city_id))
+            {
+                $conditionFlag = 1;  
+                $query->where('city_id', $city_id);    
             }
 
             $data = $query->get();

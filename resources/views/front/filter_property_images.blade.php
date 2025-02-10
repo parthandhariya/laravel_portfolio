@@ -9,7 +9,7 @@
 			$propertyWiseCount = 0;	
 		@endphp
 
-		<div class="row mt-2">
+		<div class="row mt-4">
 			<div class="d-flex">
 				
 				<h3 class="me-3">{{ 'Title:' }}</h3>				
@@ -36,19 +36,15 @@
 					$propertyWiseCount++;						
 				@endphp
 
-				@if($propertyWiseCount % 6 == 0 || $propertyWiseCount == 0)
-					{{-- <div class="row">						 --}}
-				@endif
 				
-					<div class="col-md-3 mt-5">					
-						<a href="{{ $v->property_image }}" data-lightbox="image-set" width="1000">							
-							<img src="{{ $v->property_image }}" alt="" width="250" height="250">
-						</a>				
-					</div>
+				
+				<div class="col-md-3 mt-5 mb-3">					
+					<a href="{{ $v->property_image }}" data-lightbox="image-set" width="1000">							
+						<img src="{{ $v->property_image }}" alt="" width="250" height="250">
+					</a>				
+				</div>
 
-				@if($propertyWiseCount % 6 == 0 || $propertyWiseCount == 0)
-					{{-- </div> --}}
-				@endif
+				
 			@endif
 			
 		@endforeach
