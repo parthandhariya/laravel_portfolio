@@ -122,8 +122,8 @@
             color: {{ $fontColor ?? 'FFFFFF' }} !important;
         }
 
-        .footer{
-            min-width: 100%;
+        .site-footer {
+            background: antiquewhite;            
         }
 
         .custom-section-position{

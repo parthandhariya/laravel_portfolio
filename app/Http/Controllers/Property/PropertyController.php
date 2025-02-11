@@ -312,9 +312,9 @@ class PropertyController extends Controller
 
     public function list()
     {
-        $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
-        $propertyCategory = PropertyCategory::where('user_id',auth()->user()->id)->pluck('name','id')->toArray();
-        $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
+        $propertyOption = Properties::select('option_id')->where('user_id',auth()->user()->id)->whereNotNull('option_id')->groupBy('option_id')->get();
+        $propertyCategory = Properties::select('category_id')->where('user_id',auth()->user()->id)->whereNotNull('category_id')->groupBy('category_id')->get();
+        $propertyPrice = Properties::select('price_id')->where('user_id',auth()->user()->id)->whereNotNull('price_id')->groupBy('price_id')->get();
         $propertyState = Properties::select('state_id')->where('user_id',auth()->user()->id)->whereNotNull('state_id')->groupBy('state_id')->get();
         $propertyCity = Properties::select('city_id')->where('user_id',auth()->user()->id)->whereNotNull('city_id')->groupBy('city_id')->get();
 
