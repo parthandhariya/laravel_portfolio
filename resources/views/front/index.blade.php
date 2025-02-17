@@ -59,8 +59,8 @@
     </div>
 
     
-    <div class="mb-4 custom-section-position">
-      <div class="ms-4">
+    <div class="custom-section-position">
+      <div>
         {{--<div class="row mb-5 align-items-center">
           <div class="col-lg-6">
             <h2 class="font-weight-bold text-primary heading">
@@ -79,51 +79,76 @@
           </div>
         </div> --}}
 
-        <div class="row align-items-center">
+        <div class="row align-items-center ms-5">
           {{-- <img src="{{ asset('client/assets/images/coming_soon_page.webp') }}" /> --}}
           <div col-md-12>
             <input type="hidden" value="{{ $slug }}" id="slug">
-            <div class="col-md-3 mb-4">
 
-              <select class="form-control" name="option_id" id="option_id">
-                <option value="">-- Select Option --</option>
-                @foreach($propertyOption as $k => $v)
-                  <option value="{{ $v->propertyOption->id }}">{{ $v->propertyOption->option_name }}</option>
-                @endforeach
-              </select>
-              
+            <div class="row mb-4">
+
+              <div class="col-auto mb-4">
+
+                <select class="form-control" name="option_id" id="option_id">
+                  <option value="">-- Select Option --</option>
+                  @foreach($propertyOption as $k => $v)
+                    <option value="{{ $v->propertyOption->id }}">{{ $v->propertyOption->option_name }}</option>
+                  @endforeach
+                </select>
+                
+              </div>
+
+              <div class="col-auto mb-4">
+                
+                <select class="form-control" name="category_id" id="category_id">
+                  <option value="">-- Select Category --</option>
+                  @foreach($propertyCategory as $k => $v)
+                    <option value="{{ $v->propertyCategory->id }}">{{ $v->propertyCategory->name }}</option>
+                  @endforeach
+                </select>
+                
+              </div>
+
+              <div class="col-auto mb-4">
+                
+                <select class="form-control" name="price_id" id="price_id">
+                  <option value="">-- Select Price Range --</option>
+                  @foreach($propertyPrice as $k => $v)
+                    <option value="{{ $v->propertyPrice->id }}">{{ $v->propertyPrice->price }}</option>
+                  @endforeach
+                </select>
+                
+              </div>
+            
+              <div class="col-auto mb-4">
+                
+                <select class="form-control" name="state_id" id="state_id">
+                  <option value="">-- Select State --</option>
+                  @foreach($propertyState as $k => $v)
+                    <option value="{{ $v->state_id }}">{{ $v->state->name }}</option>
+                  @endforeach
+                </select>
+                
+              </div>
+
+              <div class="col-auto mb-4">
+                
+                <select class="form-control" name="city_id" id="city_id">
+                  <option value="">-- Select City --</option>                  
+                </select>
+                
+              </div>
+
+              <div class="mb-4 col-md-1">
+                <button id="btn_view_images" class="btn btn-primary">Search</button>
+              </div>
+
             </div>
 
-            <div class="col-md-3 mb-4">
-              
-              <select class="form-control" name="category_id" id="category_id">
-                <option value="">-- Select Category --</option>
-                @foreach($propertyCategory as $k => $v)
-                  <option value="{{ $v->propertyCategory->id }}">{{ $v->propertyCategory->name }}</option>
-                @endforeach
-              </select>
-              
-            </div>
-
-            <div class="col-md-3 mb-4">
-              
-              <select class="form-control" name="price_id" id="price_id">
-                <option value="">-- Select Price Range --</option>
-                @foreach($propertyPrice as $k => $v)
-                  <option value="{{ $v->propertyPrice->id }}">{{ $v->propertyPrice->price }}</option>
-                @endforeach
-              </select>
-              
-            </div>
-
-            <div class="col-md-2 mt-auto">
-              <button id="btn_view_images" class="btn btn-primary">Search</button>
-            </div>
           </div>
         </div>
 
-        <div class="row align-items-center">
-          <div id="filterImages" class="ms-4">
+        <div class="row align-items-center pl-0">
+          <div id="filterImages" class="ms-5">
             
           </div>
         </div>
@@ -656,14 +681,37 @@
 
 
   $(document).ready(function(){
+    
+  //Get State wise cities
+  $(document).on("change","#state_id",function(){
+      var state_id = $(this).val();
+      var option = '';
+      $("#city_id").empty();
+      $.ajax({
+        url: "{{ route('getcityfromstatefilter') }}",
+        data: { _token: $('meta[name="csrf-token"]').attr('content'), state_id:state_id, slug:$("#slug").val() },
+        type: 'POST',
+        success: function(res){
+          option += '<option value = ' + null + '>--Select City--</option>';
+          $.each(res, function(index,value){
+            option += '<option value = '+ index +'>'+ value +'</option>';
+          })
+          
+          $("#city_id").append(option);           
+        }
 
-        
+      });
+  });
+
+
   $(document).on("click","#btn_view_images",function(){
 
     var slug = $("#slug").val();
     var option_id = $("#option_id").val();
     var category_id = $("#category_id").val();
     var price_id = $("#price_id").val();
+    var state_id = $("#state_id").val();
+    var city_id = $("#city_id").val();
 
     $("#filterImages").empty();
 
@@ -677,6 +725,8 @@
           'option_id':option_id,
           'category_id':category_id,
           'price_id':price_id,
+          'state_id':state_id,
+          'city_id':city_id,
         },
         success: function(res)
         {

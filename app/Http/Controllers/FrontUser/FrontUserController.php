@@ -12,6 +12,9 @@ use App\Models\FooterDetail;
 use App\Models\PropertyOptions;
 use App\Models\PropertyCategory;
 use App\Models\PropertyPrice;
+use App\Models\Cities;
+
+use function PHPUnit\Framework\isNull;
 
 class FrontUserController extends Controller
 {
@@ -38,16 +41,40 @@ class FrontUserController extends Controller
         $propertyOption = Properties::select('option_id')->where('user_id',$user->id)->groupBy('option_id')->get();
 
         $propertyCategory = Properties::select('category_id')->where('user_id',$user->id)->groupBy('category_id')->get();
-
         
         $propertyPrice = Properties::select('price_id')->where('user_id',$user->id)->groupBy('price_id')->get();
+
+        $propertyState = Properties::select('state_id')->where('user_id',auth()->user()->id)->whereNotNull('state_id')->groupBy('state_id')->get();
         
-        return view('front.index',compact('slug','user','pages','footer','propertyOption','propertyCategory','propertyPrice'));
+        return view('front.index',compact('slug','user','pages','footer','propertyOption','propertyCategory','propertyPrice','propertyState'));
     }
 
-    public function functionPage()
+    public function getCityFromStateFilter(Request $request)
     {
-        dd(1);
+        if($request->ajax())
+        {
+            $slug = $request->slug;
+            $user = User::where('slug',$slug)->first();
+            if(is_null($user))
+            {
+                abort(404);
+            }
+
+            $userId = $user->id;
+            $stateId = $request->state_id;
+            // $data = Properties::select('city_id')->where('user_id',$userId)->where('state_id',$state_id)->groupBy('city_id')->get();
+            $data = Cities::whereHas('property',function($q) use ($userId,$stateId){
+
+                $q->where('user_id',$userId);
+                $q->where('state_id',$stateId);
+                $q->groupBy('city_id');
+
+            })->pluck('city','id')->toArray();
+
+            //dd($data);
+
+            return response()->json($data);
+        }
     }
 
     public function getFrontUserDetail($slug)
@@ -126,6 +153,8 @@ class FrontUserController extends Controller
             $option_id = $request->option_id;
             $category_id = $request->category_id;
             $price_id = $request->price_id;
+            $state_id = $request->state_id;
+            $city_id = $request->city_id;
             $conditionFlag = 0;
 
             //dd($option_id,$category_id,$price_id);
@@ -151,7 +180,20 @@ class FrontUserController extends Controller
                 $conditionFlag = 1;
                 
                 $query->where("price_id",$price_id);
+            }
 
+            if(!is_null($state_id))
+            {
+                $conditionFlag = 1;
+                
+                $query->where("state_id",$state_id);
+            }
+
+            if(!is_null($city_id))
+            {
+                $conditionFlag = 1;
+                
+                $query->where("city_id",$city_id);
             }
 
             if($conditionFlag == 1)

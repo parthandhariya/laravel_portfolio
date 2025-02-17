@@ -9,7 +9,7 @@
 			$propertyWiseCount = 0;	
 		@endphp
 
-		<div class="row mt-4">
+		<div class="row ps-2 mt-4">
 			<div class="d-flex">
 				
 				<h3 class="me-3">{{ 'Title:' }}</h3>				
@@ -78,7 +78,7 @@
 	@endforeach
 
 @if($count == 0)
-	<div class="alert alert-danger p-4 col-md-10" data-dismiss="alert" aria-label="Close" style="cursor: pointer;">
+	<div class="alert alert-danger p-4 col-md-10 alert-message" data-dismiss="alert" aria-label="Close" style="cursor: pointer;">
 		<strong>Alert !</strong> No matching data found.
   	</div>
 @endif

@@ -32,7 +32,7 @@
 
                 <div class="col-md-12">
                   <div class="row mb-4">                  
-                    <div class="col-md-3 pl-0 mb-2">
+                    <div class="col-md-3 pl-0 mb-4">
                       <select class="form-control" name="option_id" id="option_id">
                         <option value="">---Select Option---</option>
                         @foreach($propertyOption as $key => $value)
@@ -41,7 +41,7 @@
                       </select>
                     </div>
 
-                    <div class="col-md-3 pl-0 mb-2">
+                    <div class="col-md-3 pl-0 mb-4">
                       <select class="form-control" name="category_id" id="category_id">
                         <option value="">---Select Category---</option>
                         @foreach($propertyCategory as $key => $value)
@@ -50,7 +50,7 @@
                       </select>
                     </div>
 
-                    <div class="col-md-3 pl-0 mb-2">
+                    <div class="col-md-3 pl-0 mb-4">
                       <select class="form-control" name="price_id" id="price_id">
                         <option value="">---Select Price---</option>
                         @foreach($propertyPrice as $key => $value)
@@ -59,22 +59,21 @@
                       </select>
                     </div>
 
-                    <div class="col-md-3 pl-0 mb-2">
+                    <div class="col-md-3 pl-0 mb-4">
                       <select class="form-control" name="state_id" id="state_id">
                         <option value="">---Select State---</option>
                         @foreach($propertyState as $key => $value)
-                          <option value="{{ $value->state_id }}">{{ $value->state->name }}</option>
+                          <option value="{{ $value->state_id }}">{{ ucwords(strtolower($value->state->name)) }}</option>
                         @endforeach
                       </select>
                     </div>
 
-                    <div class="col-md-3 pl-0 mb-2">
-                      <select class="form-control" name="city_id" id="city_id">
-                        <option value="">---Select City---</option>
-                        @foreach($propertyCity as $key => $value)
-                          <option value="{{ $value->city_id }}">{{ $value->city->city ?? NULL }}</option>
-                        @endforeach
-                      </select>
+                    <div class="col-md-3 pl-0 mb-4">
+                      
+                        <select class="form-control" name="city_id" id="city_id">
+                          <option value="">---Select City---</option>                        
+                        </select>
+                      
                     </div>
 
                     <div class="col-md-3">
@@ -126,6 +125,14 @@
         serverSide: true,        
         ajax: { 
             url: "{{ route('property.list') }}",
+            dataSrc: function(json) {
+                
+              if(json.cityOption !== ''){
+                $("#city_id").empty();
+                $('#city_id').append(json.cityOption);
+              }                      
+                return json.data; // Ensure DataTables gets only the data array                
+            },
             data:function(d){
               d.option_id = $("#option_id").val();
               d.category_id = $("#category_id").val();
@@ -146,6 +153,7 @@
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         drawCallback: function(settings) {          
+          //console.log(settings.list);
           var pagination = $(this).closest('.dataTables_wrapper').find('.dataTables_paginate');
           pagination.toggle(this.api().page.info().pages > 1);
         }
@@ -165,12 +173,21 @@
     });
 
     $('#state_id').on('change', function() {
+        if($(this).val() == ""){
+          $("#city_id").empty();
+          $("#city_id").append("<option value=''>---Select City---</option>");
+        }
         table.draw();
     });
 
-    $('#city_id').on('change', function() {
-        table.draw();
+    $('#city_id').on('change', function() {         
+        table.draw();        
     });
+
+    // table.on('draw', function() {
+    //     var selectedValue = $('#city_id').val(); // Get selected value
+    //     $('#city_id').val(selectedValue).trigger('change'); // Reapply it
+    // });
     
   });
 

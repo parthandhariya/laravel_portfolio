@@ -14,7 +14,7 @@ class Cities extends Model
     protected $table = 'cities';
     protected $primaryKey = 'id';
 
-    protected function property()
+    public function property()
     {
         return $this->hasMany(Properties::class,'city_id');
     }

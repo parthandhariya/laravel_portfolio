@@ -61,6 +61,7 @@ Route::group(['prefix' => 'client'], function (){
 
 	Route::get('/{slug}',[FrontUserController::class,'index'])->name('frontend');
 	Route::post('/filterimage',[FrontUserController::class,'filterImage'])->name('frontend.filterimage');
+	Route::post('/getcityfromstatefilter', [FrontUserController::class,'getCityFromStateFilter'])->name('getcityfromstatefilter');
 
 });	
 

@@ -2,6 +2,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Untree.co" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ $user->themeOption[0]->site_favicon ?? '' }}" />
 
     <meta name="description" content="" />
@@ -142,6 +143,22 @@
             overflow: hidden;
         }
     
+        .alert-message{
+            width: 75%;
+        }
+
+        #btn_view_images {
+                width:100%;
+        }
+
+        @media (max-width: 768px) {
+            .alert-message {
+                width:fit-content;
+            }
+            #btn_view_images {
+                width:50%;
+            }
+        }
     </style>
 
 

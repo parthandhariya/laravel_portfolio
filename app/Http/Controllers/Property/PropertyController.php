@@ -316,8 +316,8 @@ class PropertyController extends Controller
         $propertyCategory = Properties::select('category_id')->where('user_id',auth()->user()->id)->whereNotNull('category_id')->groupBy('category_id')->get();
         $propertyPrice = Properties::select('price_id')->where('user_id',auth()->user()->id)->whereNotNull('price_id')->groupBy('price_id')->get();
         $propertyState = Properties::select('state_id')->where('user_id',auth()->user()->id)->whereNotNull('state_id')->groupBy('state_id')->get();
-        $propertyCity = Properties::select('city_id')->where('user_id',auth()->user()->id)->whereNotNull('city_id')->groupBy('city_id')->get();
-
+        //$propertyCity = Properties::select('city_id')->where('user_id',auth()->user()->id)->whereNotNull('city_id')->groupBy('city_id')->get();
+        $propertyCity = collect([]);
         return view('property.list',compact('propertyOption','propertyCategory','propertyPrice','propertyState','propertyCity'));        
     }
 
@@ -331,7 +331,9 @@ class PropertyController extends Controller
             $state_id = $request->state_id;
             $city_id = $request->city_id;
             $userId = auth()->user()->id;
-            $conditionFlag = 0;
+            $conditionFlag = 0;            
+            $cityOption = "";
+            $citySelectOption = "";
 
             
 
@@ -362,16 +364,33 @@ class PropertyController extends Controller
 
             }
 
+            
             if(!is_null($state_id))
             {
-                $conditionFlag = 1;
-                $query->where('state_id', $state_id);    
-            }
 
+                $conditionFlag = 1;
+                $query->where('state_id', $state_id);
+                                                               
+                $cityFilter = Cities::whereHas('property',function($q) use ($userId,$state_id){
+
+                    $q->where('user_id',$userId);
+                    $q->where('state_id',$state_id);
+                    $q->groupBy('city_id');
+    
+                })->pluck('city','id')->toArray();
+                
+                $cityOption .= '<option value="'.NULL.'">---Select City---</option>';
+
+                foreach($cityFilter as $key => $value)
+                {
+                    $cityOption .= "<option value=$key>$value</option>";
+                }
+            }
+                        
             if(!is_null($city_id))
             {
                 $conditionFlag = 1;  
-                $query->where('city_id', $city_id);    
+                $query->where('city_id', $city_id);                
             }
 
             $data = $query->get();
@@ -384,9 +403,10 @@ class PropertyController extends Controller
             {
                 $data = collect([]);
             }*/
-                    
+                        
+           
             
-            $list = Datatables::of($data)->addIndexColumn()
+            $list = Datatables::of($data)
 
                 ->editColumn('title', function($data) {
                     return ucwords($data->title);
@@ -424,10 +444,14 @@ class PropertyController extends Controller
                     return $btn;
                 })
                 ->rawColumns(['action'])                
-                ->addIndexColumn()                
+                ->addIndexColumn()
+                ->with(['cityOption' => $cityOption, 'citySelectOption' => $citySelectOption])
                 ->make(true);
-
+                
+                                        
             return $list;
+            
         }
+    
     }
 }
