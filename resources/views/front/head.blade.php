@@ -129,6 +129,7 @@
 
         .custom-section-position{
             margin-top: 3rem !important;
+            margin-bottom: 2rem !important;            
         }
        
         .swiper{
@@ -151,6 +152,15 @@
                 width:100%;
         }
 
+        .auto-break {
+            white-space: pre-line;
+            line-height: inherit !important;
+        }
+        .property-address{
+            /* max-width: 80% !important; */
+            padding-left: initial !important; 
+        }
+        
         @media (max-width: 768px) {
             .alert-message {
                 width:fit-content;

@@ -7,24 +7,60 @@
 
 		@php
 			$propertyWiseCount = 0;	
+			$count = 1;
 		@endphp
 
-		<div class="row ps-2 mt-4">
-			<div class="d-flex">
+		<div class="row">
+			<div class="w-100">
+
 				
-				<h3 class="me-3">{{ 'Title:' }}</h3>				
-				<span><b>{{ $value->title ?? "--" }}</b></span>
+				<div class="property-address col-md-1">
+					<address class="auto-break">
+						<b>Type:</b>
+						{{ $value->propertyOption->option_name ?? "--" }}
+					</address>
+				</div>
+
+				<div class="property-address col-md-1">
+					<p class="auto-break">
+						<b>Price:</b>						
+						<span>{{ '₹' . number_format($value->axat_price, 2, '.', ',') }}</span>
+					</p>
+				</div>
+
+				<div class="property-address col-md-2">
+					<address class="auto-break">
+						<b>Title:</b>
+						{{ $value->title ?? "--" }}
+					</address>
+				</div>
+
+				<div class="property-address col-md-3">
+					<address class="auto-break">
+						<b>Address:</b>
+						{{ $value->address_line1 ?? "--" }}
+						{{ $value->address_line2 ?? "" }}
+						{{ $value->address_line3 ?? "" }}
+					</address>
+				</div>
+
+				<div class="property-address col-md-1">
+					<p class="auto-break">
+						<b>State:</b>						
+						<span>{{ $value->state->name ?? "--" }}</span>
+					</p>
+				</div>
+
+				<div class="property-address col-md-1">
+					<p class="auto-break">
+						<b>City:</b>						
+						<span>{{ $value->city->city ?? "--" }}</span>
+					</p>
+				</div>
+				
 				
 			</div>
-		
-			<div class="d-flex">
-
-				<h3 class="me-3">{{ 'Price:' }}</h3>
-				<span><b>{{ $value->axat_price ?? "--" }}</b></span>
-
-			</div>
-		
-
+										
 		{{-- <div class="row col-md-12"> --}}
 											
 		@foreach($value->propertyDetail as $k => $v)

@@ -157,6 +157,8 @@ class FrontUserController extends Controller
             $city_id = $request->city_id;
             $conditionFlag = 0;
 
+            //dd($state_id,$city_id);
+            
             //dd($option_id,$category_id,$price_id);
 
             $query = Properties::where('user_id',$user->id);
@@ -177,25 +179,22 @@ class FrontUserController extends Controller
 
             if(!is_null($price_id))
             {
-                $conditionFlag = 1;
-                
+                $conditionFlag = 1;                
                 $query->where("price_id",$price_id);
             }
 
             if(!is_null($state_id))
             {
-                $conditionFlag = 1;
-                
+                $conditionFlag = 1;                
                 $query->where("state_id",$state_id);
             }
 
-            if(!is_null($city_id))
+            if($city_id != 0)
             {
-                $conditionFlag = 1;
-                
-                $query->where("city_id",$city_id);
+                $conditionFlag = 1;                
+                $query->Where("city_id",$city_id);                                                
             }
-
+           
             if($conditionFlag == 1)
             {
                 $data = $query->get();
@@ -204,7 +203,7 @@ class FrontUserController extends Controller
             {
                 $data = collect([]);
             }
-        
+                    
             return view('front.filter_property_images',compact('data'));
         }
     }

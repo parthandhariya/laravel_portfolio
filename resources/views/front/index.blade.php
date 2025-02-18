@@ -79,7 +79,7 @@
           </div>
         </div> --}}
 
-        <div class="row align-items-center ms-5">
+        <div class="row align-items-center ms-4">
           {{-- <img src="{{ asset('client/assets/images/coming_soon_page.webp') }}" /> --}}
           <div col-md-12>
             <input type="hidden" value="{{ $slug }}" id="slug">
@@ -119,7 +119,7 @@
                 
               </div>
             
-              <div class="col-auto mb-4">
+              <div class="col-auto col-md-2 mb-4">
                 
                 <select class="form-control" name="state_id" id="state_id">
                   <option value="">-- Select State --</option>
@@ -130,7 +130,7 @@
                 
               </div>
 
-              <div class="col-auto mb-4">
+              <div class="col-auto col-md-2 mb-4">
                 
                 <select class="form-control" name="city_id" id="city_id">
                   <option value="">-- Select City --</option>                  
@@ -692,7 +692,7 @@
         data: { _token: $('meta[name="csrf-token"]').attr('content'), state_id:state_id, slug:$("#slug").val() },
         type: 'POST',
         success: function(res){
-          option += '<option value = ' + null + '>--Select City--</option>';
+          option += '<option value = ' + 0 + '>--Select City--</option>';
           $.each(res, function(index,value){
             option += '<option value = '+ index +'>'+ value +'</option>';
           })
@@ -713,8 +713,11 @@
     var state_id = $("#state_id").val();
     var city_id = $("#city_id").val();
 
-    $("#filterImages").empty();
+    // console.log(city_id);
+    // return false;
 
+    $("#filterImages").empty();
+    
     $.ajax({
         url: "{{ route('frontend.filterimage') }}",
         method: "post",              
@@ -802,7 +805,7 @@
   var swiper = new Swiper(".mySwiper", {
       loop: true,
       autoplay: {
-          delay: 3000,
+          delay: 2000,
           disableOnInteraction: false,
       },
       navigation: {
