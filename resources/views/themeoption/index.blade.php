@@ -86,7 +86,7 @@ tr.shown td.dt-control {
                       </div>
                     </div>
 
-                    <div>
+                    <div class="w-25">
                       <div class="col-auto form-group">                        
                         <input type="text" class="form-control" name="site_name" id="site_name" placeholder="Site Name" required="">
                       </div>

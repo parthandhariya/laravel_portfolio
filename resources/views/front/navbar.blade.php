@@ -46,7 +46,7 @@
 
                                         @else
                                           
-                                          @if ($v1->status == '1') <li class=""><a href="{{ '' }}">{{ $v1->name }}</a></li> @endif
+                                          @if ($v1->status == '1') <li class=""><a href="{{ '#' }}">{{ $v1->name }}</a></li> @endif
 
                                         @endif
 
@@ -56,7 +56,7 @@
                               </li>  
 
                             @else
-                              @if ($v->status == '1') <li class=""><a href="{{ '' }}">{{ $v->name }}</a></li> @endif
+                              @if ($v->status == '1') <li class=""><a href="{{ '#' }}">{{ $v->name }}</a></li> @endif
                             @endif
 
                         @endforeach
@@ -65,7 +65,7 @@
                    </li>
                 
                 @else                                        
-                    @if ($value->status == '1') <li class=""><a href="{{ '' }}">{{ $value->name }}</a></li> @endif
+                    @if ($value->status == '1') <li class=""><a href="{{ '#' }}">{{ $value->name }}</a></li> @endif
                 @endif
 
               @endforeach              

@@ -89,6 +89,7 @@
                           <tr>
                               <th>ID</th>
                               <th>Title</th>
+                              <th>City</th>
                               <th>Option</th>
                               <th>Category</th>
                               <th>Price Range</th>
@@ -144,6 +145,7 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
             {data: 'title', name: 'title'},
+            {data: 'city_id', name: 'city_id'},
             {data: 'option_id', name: 'option_id'},
             {data: 'category_id', name: 'category_id'},
             {data: 'price_id', name: 'price_id'},

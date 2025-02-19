@@ -15,44 +15,44 @@
 
 				
 				<div class="property-address col-md-1">
-					<address class="auto-break">
+					<address class="auto-break text-black">
 						<b>Type:</b>
 						{{ $value->propertyOption->option_name ?? "--" }}
 					</address>
 				</div>
 
 				<div class="property-address col-md-1">
-					<p class="auto-break">
+					<p class="auto-break text-black">
 						<b>Price:</b>						
-						<span>{{ '₹' . number_format($value->axat_price, 2, '.', ',') }}</span>
+						<span class="info-value-color">{{ '₹' . number_format($value->axat_price, 2, '.', ',') }}</span>
 					</p>
 				</div>
 
 				<div class="property-address col-md-2">
-					<address class="auto-break">
+					<address class="auto-break text-black">
 						<b>Title:</b>
 						{{ $value->title ?? "--" }}
 					</address>
 				</div>
 
 				<div class="property-address col-md-3">
-					<address class="auto-break">
+					<p class="auto-break text-black">
 						<b>Address:</b>
-						{{ $value->address_line1 ?? "--" }}
-						{{ $value->address_line2 ?? "" }}
-						{{ $value->address_line3 ?? "" }}
-					</address>
+						<span>{{ $value->address_line1 ?? "--" }}</span>
+						<span>{{ $value->address_line2 ?? "" }}</span>
+						<span>{{ $value->address_line3 ?? "" }}</span>						
+					</p>
 				</div>
 
-				<div class="property-address col-md-1">
-					<p class="auto-break">
+				<div class="property-address col-md-2">
+					<p class="auto-break text-black">
 						<b>State:</b>						
-						<span>{{ $value->state->name ?? "--" }}</span>
+						<span>{{ ucwords(strtolower($value->state->name ?? "")) ?? "--" }}</span>
 					</p>
 				</div>
 
 				<div class="property-address col-md-1">
-					<p class="auto-break">
+					<p class="auto-break text-black">
 						<b>City:</b>						
 						<span>{{ $value->city->city ?? "--" }}</span>
 					</p>

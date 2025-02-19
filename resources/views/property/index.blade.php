@@ -71,8 +71,8 @@
                       </div>
 
                       <div class="col-4 form-group">
-                        <label for="title">Price <span class="text-red">*</span></label>
-                        <input type="number" class="form-control" name="axat_price" id="axat_price" placeholder="Price" required>
+                        <label for="title">Actual Price <span class="text-red">*</span></label>
+                        <input type="number" class="form-control" name="axat_price" id="axat_price" placeholder="Actual Price" required>
                       </div>
                                                              
                   </div>
@@ -94,8 +94,8 @@
                       </div>
 
                       <div class="col-4 form-group">
-                        <label>State</label>
-                        <select class="form-control select2" name="state_id" id="state_id" style="width: 100%;">
+                        <label>State <span class="text-red">*</span></label>
+                        <select class="form-control select2" name="state_id" id="state_id" style="width: 100%;" required>
                           <option selected="selected" value="{{ NULL }}">---Select State---</option>                          
                           @foreach($propertyState as $key => $value)
                             <option value="{{ $key }}"> {{ ucwords(strtolower($value)) }} </option>
@@ -104,8 +104,8 @@
                       </div>
 
                       <div class="col-4 form-group">
-                        <label>City</label>
-                        <select class="form-control select2" name="city_id" id="city_id" style="width: 100%;">
+                        <label>City <span class="text-red">*</span></label>
+                        <select class="form-control select2" name="city_id" id="city_id" style="width: 100%;" required>
                           <option selected="selected" value="{{ NULL }}">---Select City---</option>                                                
                         </select>
                       </div>

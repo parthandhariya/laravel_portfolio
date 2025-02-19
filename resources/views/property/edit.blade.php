@@ -54,7 +54,7 @@
                                     
                       <div class="col-4 form-group">
                       <label for="title">Category <span class="text-red">*</span></label>                        
-                        <select name="category_id" class="form-control">
+                        <select name="category_id" class="form-control"  required>
                           @foreach($propertyCategory as $key => $value)
                             <option value="{{ $key }}" {{ ($property->propertyCategory->id == $key) ? 'selected' : '' }}>{{ $value }}</option>
                           @endforeach
@@ -63,7 +63,7 @@
                                     
                       <div class="col-4 form-group">
                       <label for="title">Price Range<span class="text-red">*</span></label>                        
-                        <select name="price_id" class="form-control">
+                        <select name="price_id" class="form-control"  required>
                           @foreach($propertyPrice as $key => $value)
                             <option value="{{ $key }}" {{ ($property->propertyPrice->id == $key) ? 'selected' : '' }}>{{ $value }}</option>
                           @endforeach
@@ -72,8 +72,8 @@
                   
 
                       <div class="col-4 form-group">
-                        <label for="title">Price <span class="text-red">*</span></label>
-                        <input type="number" class="form-control" name="axat_price" id="axat_price" value="{{ $property->axat_price }}" placeholder="Price" required>
+                        <label for="title">Actual Price <span class="text-red">*</span></label>
+                        <input type="number" class="form-control" name="axat_price" id="axat_price" value="{{ $property->axat_price }}" placeholder="Actual Price" required>
                       </div>
                   </div>
 
@@ -95,8 +95,8 @@
                       </div>
 
                       <div class="col-4 form-group">
-                        <label>State</label>
-                        <select class="form-control select2" name="state_id" id="state_id" style="width: 100%;">
+                        <label>State <span class="text-red">*</span></label>
+                        <select class="form-control select2" name="state_id" id="state_id" style="width: 100%;" required>
                           <option selected="selected" value="{{ NULL }}">---Select State---</option>                          
                           @foreach($propertyState as $key => $value)                            
                             <option value="{{ $key }}" {{ $key == $property->state_id ? 'selected' : '' }}> {{ ucwords(strtolower($value)) }} </option>
@@ -105,8 +105,8 @@
                       </div>
 
                       <div class="col-4 form-group">
-                        <label>City</label>
-                        <select class="form-control select2" name="city_id" id="city_id" style="width: 100%;">
+                        <label>City <span class="text-red">*</span></label>
+                        <select class="form-control select2" name="city_id" id="city_id" style="width: 100%;" required>
                           <option selected="selected" value="{{ NULL }}">---Select City---</option>
                           @foreach($propertyCity as $key => $value)
                             <option value="{{ $key }}" {{ $key == $property->city_id ? 'selected' : '' }}> {{ ucwords(strtolower($value)) }} </option>

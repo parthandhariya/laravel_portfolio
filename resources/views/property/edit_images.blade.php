@@ -7,6 +7,7 @@
   .large-checkbox {
     transform: scale(1.5); /* Increase the size of the checkbox */
     margin-right: 10px; /* Optional: adjust spacing between checkbox and label */
+    cursor: pointer;
   }
 
   .custom-img-thumbnail{

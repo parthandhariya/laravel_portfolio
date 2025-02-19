@@ -88,6 +88,9 @@ class PropertyController extends Controller
             'category_id' => 'required',
             'price_id' => 'required',
             'axat_price' => 'required',
+            'address_line1' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
         ]);
         
         $property = new Properties();
@@ -180,6 +183,9 @@ class PropertyController extends Controller
             'category_id' => 'required',
             'price_id' => 'required',
             'axat_price' => 'required',
+            'address_line1' => 'required',
+            'state_id' => 'required',
+            'city_id' => 'required',
         ]);
 
         
@@ -202,7 +208,7 @@ class PropertyController extends Controller
 
         $property->save();
 
-        Alert::success('Property updated successfully','Thank you');
+        Alert::success('Property detail updated successfully','Thank you');
         
         return redirect()->route('property.list.view');
     }
@@ -410,6 +416,10 @@ class PropertyController extends Controller
 
                 ->editColumn('title', function($data) {
                     return ucwords($data->title);
+                })
+
+                ->editColumn('city_id', function($data) {
+                    return $data->city->city ?? "--";
                 })
 
                 ->editColumn('option_id', function($data) {

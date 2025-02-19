@@ -66,7 +66,7 @@ class ThemeOptionController extends Controller
         
         if(!is_null($checkForExist) && ((!is_null($checkForExist->site_favicon) || !is_null($checkForExist->site_log))))
         {
-            Alert::error('Delete old theme first','Alert');
+            Alert::error('Delete old detail first','Alert');
             return back();            
         }
         elseif(!is_null($checkForExist) && ((is_null($checkForExist->site_favicon) || is_null($checkForExist->site_log))))

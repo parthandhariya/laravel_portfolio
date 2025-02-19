@@ -156,9 +156,12 @@
             white-space: pre-line;
             line-height: inherit !important;
         }
-        .property-address{
-            /* max-width: 80% !important; */
+        .property-address{            
             padding-left: initial !important; 
+        }
+
+        .info-value-color{            
+            color: forestgreen !important;
         }
         
         @media (max-width: 768px) {
@@ -167,6 +170,12 @@
             }
             #btn_view_images {
                 width:50%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auto-resize {
+                flex-direction: column;
             }
         }
     </style>

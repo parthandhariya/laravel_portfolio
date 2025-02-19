@@ -79,12 +79,12 @@
           </div>
         </div> --}}
 
-        <div class="row align-items-center ms-4">
+        <div class="row align-items-center ps-5">
           {{-- <img src="{{ asset('client/assets/images/coming_soon_page.webp') }}" /> --}}
           <div col-md-12>
             <input type="hidden" value="{{ $slug }}" id="slug">
 
-            <div class="row mb-4">
+            <div class="row auto-resize me-3">
 
               <div class="col-auto mb-4">
 
@@ -124,7 +124,7 @@
                 <select class="form-control" name="state_id" id="state_id">
                   <option value="">-- Select State --</option>
                   @foreach($propertyState as $k => $v)
-                    <option value="{{ $v->state_id }}">{{ $v->state->name }}</option>
+                    <option value="{{ $v->state_id }}">{{ ucwords(strtolower($v->state->name)) }}</option>
                   @endforeach
                 </select>
                 

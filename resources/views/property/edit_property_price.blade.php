@@ -34,11 +34,11 @@
                 @method('PUT')
                 <div class="card-body"> 
                   <div class="row">                    
-                      <div class="col-5 form-group">                        
+                      <div class="col-md-5 form-group">                        
                         <input type="number" class="form-control" id="minPrice" name="min_price" min="0" step="1" value="{{ $propertyPrice->min_price }}" placeholder="Min Price" required="">
                       </div>
 
-                      <div class="col-5 form-group">                        
+                      <div class="col-md-5 form-group">                        
                         <input type="number" class="form-control" id="maxPrice" name="max_price" min="0" step="1" value="{{ $propertyPrice->max_price }}" placeholder="Max Price" required="">
                       </div>
 
