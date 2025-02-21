@@ -30,7 +30,7 @@ class AdminPropertyController extends Controller
     {
         $propertyDetailId = explode(',',$request->imageId);
         
-        $imageStatus = ['image_status' => 1];
+        $imageStatus = ['image_status' => '0']; // Temprory Set '0', instead of '1'
         PropertyDetail::whereIn('id',$propertyDetailId)->update($imageStatus);
 
         Alert::success('Image Approved Successfully','Thank you');        

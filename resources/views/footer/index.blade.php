@@ -32,94 +32,65 @@ tr.shown td.dt-control {
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title mb-0">Footer Detail</h3>
+                
+                @if($footerHeadings->count() == 0)
+                  <form method="post" action="{{ route('createfooter') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-secondary">Create Footer</button>
+                  </form>
+                @else
+                  <h3 class="card-title mb-0">Footer Detail</h3>  
+                @endif
               </div>
 
-              <div class="card-body">
-
-                <form method="get" action="{{ route('viewfooterdetail') }}">
+              <div class="card-body">                  
+                
+                  <form method="post" action="{{ route('savefooterheading') }}">
+                    @csrf
+                    <div class="row">
+                      @foreach ($footerHeadings as $key => $value)
+                        <div class="col-auto form-group">
+                          <div class="mb-1">Heading {{ $key + 1 }}</div>
+                          <input type="text" value="{{ $value->footer_heading }}" name="footerHeading[{{ $value->id }}]" class="form-control" placeholder="Footer Heading {{ $key + 1  }}" />
+                        </div>
+                      @endforeach
+                      
+                      @if($footerHeadings->count() != 0)
+                        <div class="col-auto mt-auto form-group">
+                          <input type="submit" value="Save" class="btn btn-primary"/>
+                        </div>
+                      @endif
+                    </div>
+                  </form>
+                                            
+                @if($footerHeadings->count() != 0)
                   
                   <div class="row">                  
-                    <div class="col-md-9">
+                    <div class="col-md-3">
                       <div class="form-group">
-                          <select name="footer_heading_id" class="form-control">
+                          <select name="footer_id" id="footer_id" class="form-control">
                             <option value="">-- Select Footer Heading --</option>
-                            @foreach($footerHeading as $key => $value)
-                              <option value="{{ $value->id }}" {{ in_array($footerDetail->footer_id ?? NULL, $value->toArray()) ? 'selected' : '' }}>{{ ucwords($value->footer_heading) }}</option>
+                            @foreach($footerHeadings as $key => $value)
+                              @if(is_null($value->footer_heading) || $value->footer_heading == "")
+                                @continue
+                              @endif
+                              <option value="{{ $value->id }}">{{ ucwords($value->footer_heading) }}</option>
                             @endforeach
                           </select>
                       </div>
-                    </div>
-
-                    <div class="col-md-3 mt-auto">
-                      <div class="form-group">
-                          <button type="submit" class="btn btn-primary">View</button>
-                      </div>
-                    </div>
+                    </div>                    
                   </div>
 
-                </form>
+              <div id="footerDetail">
+                
+              </div>
 
-
-                <form method="post" action="{{ route('updatefooter') }}">
-                  
-                  @csrf
-                  
-                  <input type="hidden" name="user_id" value="{{ $footerDetail->user_id ??  NULL }}">
-                  <input type="hidden" name="footer_id" value="{{ $footerDetail->footer_id ?? NULL }}">        
-                          
-
-
-                            
-                            <div class="row">                  
-                              <div class="col-md-9">
-                                <div class="form-group">
-                                  <input type="text" name="{{ 'line1' }}" value="{{ $footerDetail->line1 ?? NULL }}" class="form-control" placeholder="{{ 'Fooer Line 1' }}">
-                                </div>
-                              </div>
-
-                              <div class="col-md-9">
-                                <div class="form-group">
-                                  <input type="text" name="{{ 'line2' }}" value="{{ $footerDetail->line2 ?? NULL }}" class="form-control" placeholder="{{ 'Fooer Line 2' }}">
-                                </div>
-                              </div>
-
-                              <div class="col-md-9">
-                                <div class="form-group">
-                                  <input type="text" name="{{ 'line3' }}" value="{{ $footerDetail->line3 ?? NULL }}" class="form-control" placeholder="{{ 'Fooer Line 3' }}">
-                                </div>
-                              </div>
-
-                              <div class="col-md-9">
-                                <div class="form-group">
-                                  <input type="text" name="{{ 'line4' }}" value="{{ $footerDetail->line4 ?? NULL }}" class="form-control" placeholder="{{ 'Fooer Line 4' }}">
-                                </div>
-                              </div>
-
-                              <div class="col-md-9">
-                                <div class="form-group">
-                                  <input type="text" name="{{ 'line5' }}" value="{{ $footerDetail->line5 ?? NULL }}" class="form-control" placeholder="{{ 'Fooer Line 5' }}">
-                                </div>
-                              </div>
-
-                              <div class="col-md-9">
-                                <div class="form-group">
-                                  <input type="submit" value="Save" class="btn btn-primary">
-                                </div>
-                              </div>
-                            </div>
-
-                          
-                          
-                      
-
-                </form>
-
-
+                @endif
+                                
               </div>
               
             </div>
@@ -141,85 +112,34 @@ tr.shown td.dt-control {
 
 
 <script type="text/javascript">
-  $(function () {
+  
+  $(document).ready(function(){
 
-    var table = $('#tableOption').DataTable({
+    $(document).on("change","#footer_id",function(){
 
-        processing: true,
-        serverSide: true,
-        responsive: true,
-        ajax: "{{ route('themeoption.list') }}",        
-        columns: [
-             /*{
-                className: 'dt-control',
-                orderable: false,
-                data: null,
-                defaultContent: '',
-            },*/
-            
-            {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-            /*{data: 'user', name: 'user'},*/
-            {data: 'site_favicon', name: 'site_favicon'},
-            {data: 'site_logo', name: 'site_logo'},
-            {data: 'site_name', name: 'site_name'},
-            {data: 'created', name: 'created'},            
-            {data: 'last_modified', name: 'last_modified'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
+      if($(this).val() == "" || $(this).val() == null)
+      {
+        $("#footerDetail").empty();
+        return false;
+      }
 
-
-        ],
-
-        /*order: [[1, 'asc']],*/
-
-        drawCallback: function(settings) {          
-          var pagination = $(this).closest('.dataTables_wrapper').find('.dataTables_paginate');
-          pagination.toggle(this.api().page.info().pages > 1);
-        }
+      $("#footerDetail").empty();
+      var footer_id = $(this).val();
       
+      $.ajax({
+          url: "{{ route('viewfooterdetail') }}",
+          type: "POST",
+          data: {'_token':'{{ csrf_token() }}',footer_id:footer_id},
+          dataType: "text",
+          success: function(res) {
+              //console.log("Server Response:", res);
+              $("#footerDetail").append(res);
+          }
+      });
+
     });
 
-    // Add event listener for opening and closing details
-    /*$('#tableOption tbody').on('click', 'td.dt-control', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row(tr);
-
-        if (row.child.isShown()) {
-            row.child.hide();
-            tr.removeClass('shown');
-        } else {
-            row.child(format(row.data())).show();
-            tr.addClass('shown');
-        }
-    });*/
-
-    
   });
-
-  /*function format(d) {
-        
-        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px">' +
-            '<tr>' +
-                '<td>Site Name:</td>' +
-                '<td>' + d.site_name + '</td>' +
-            '</tr>' +
-            '<tr>' +
-                '<td>Created:</td>' +
-                '<td>' + d.created + '</td>' +
-            '</tr>' +
-            '<tr>' +
-                '<td>Extra info:</td>' +
-                '<td>And any further details here (images etc).</td>' +
-            '</tr>' +
-        '</table>';
-    }*/
-
-  
-  $("#tableOption").on("click",".a-fancybox",function(){          
-       Fancybox.bind('img', {}); 
-  });
-  
-  /*$.noConflict();*/
-
 
 </script>
 

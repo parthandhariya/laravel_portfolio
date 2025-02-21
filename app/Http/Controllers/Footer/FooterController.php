@@ -18,9 +18,10 @@ class FooterController extends Controller
      */
     public function index()
     {
-        $footerHeading = Footer::get();
-        $footerDetail = [];
-        return view('footer.index',compact('footerHeading','footerDetail'));
+        $userId = auth()->user()->id;
+        $footerHeadings = Footer::where('user_id',$userId)->get();
+        
+        return view('footer.index',compact('footerHeadings'));       
     }
 
     /**
@@ -32,64 +33,34 @@ class FooterController extends Controller
 
     public function viewFooterDetail(Request $request)
     {
-        $footerHeading = Footer::get();
-
-        $checkId = Footer::where('id',$request->footer_heading_id)->first();
-        if(is_null($checkId))
-        {
-            //abort(404);
-            return redirect()->route('footer.index');
-        } 
-
-        $footerDetail = FooterDetail::where('user_id',auth()->user()->id)->where('footer_id',$checkId->id)->first();
-
-        if(is_null($footerDetail))
-        {
-            $footerDetail = new FooterDetail();
-            $footerDetail->user_id = auth()->user()->id;
-            $footerDetail->footer_id = $checkId->id;
-            $footerDetail->save();
-        }
-
-        return view('footer.index',compact('footerDetail','footerHeading'));
+        $footer_id = $request->footer_id;
+        $footerDetail = Footer::where('id',$footer_id)->first();        
+        return view('footer.footer_detail',compact('footerDetail'));
     }
 
-    public function updateFooterDetail(Request $request)
+   public function saveFooterDetail(Request $request)
+   {        
+        $footer_id = $request->footer_id;
+        $saveData = $request->except(['_token','footer_id']);
+        Footer::where('id',$footer_id)->update($saveData);
+        Alert::success('Saved successfully','Thank you');
+        return redirect()->route('footer.index');
+   }
+
+    public function createFooter()
     {
-        //dd($request->all());
-        $userId = $request->user_id;
-        $footerId = $request->footer_id;
-
-        if(is_null($userId) || is_null($footerId))
-        {
-            Alert::error('Please select proper footer heading','Sorry');
-            return back();
-        }
-
-        $footerLines = [
-
-            'line1' => $request->line1,
-            'line2' => $request->line2,
-            'line3' => $request->line3,
-            'line4' => $request->line4,
-            'line5' => $request->line5,
-
-        ];
-
-        //dd($footerLines);
-
-        FooterDetail::where(['user_id'=>$userId,'footer_id'=>$footerId])->update($footerLines);
-
-
-        Alert::success('Footer detail saved successfully','Thank you');
+        $toatlHeading = Footer::FOOTER_TOTAL_HEADING;
+        $userId = auth()->user()->id;
         
-        return back();
-
-    }
-
-    public function create()
-    {
-        //
+        for($numBer=1; $numBer <= $toatlHeading; $numBer++)
+        {
+            $newRow = new Footer();
+            $newRow->user_id = $userId;
+            $newRow->save();
+        }
+       
+        Alert::success('Footer created successfully','Thank you');
+        return redirect()->route('footer.index');
     }
 
     /**
@@ -98,9 +69,16 @@ class FooterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function saveFooterHeading(Request $request)
     {
-        //
+        $footerHeading = $request->footerHeading;
+        foreach($footerHeading as $key => $value)
+        {
+            $filterValue = $value;
+            Footer::where('id',$key)->update(['footer_heading' => $filterValue]);
+        }
+        Alert::success('Saved successfully','Thank you');
+        return redirect()->route('footer.index');
     }
 
     /**

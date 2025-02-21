@@ -10,11 +10,13 @@ class Footer extends Model
 {
     use HasFactory;
 
+    const FOOTER_TOTAL_HEADING = 4;
+
     protected $table = 'footer';
     protected $primaryKey = 'id';
 
-    public function footerDetail()
-    {
-    	return $this->hasMany(FooterDetail::class,'footer_id');
-    }
+    // public function footerDetail()
+    // {
+    // 	return $this->hasMany(FooterDetail::class,'footer_id');
+    // }
 }

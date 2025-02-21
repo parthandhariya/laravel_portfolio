@@ -125,9 +125,11 @@ Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 	Route::post('updatepropertyimage', [PropertyController::class,'updateImage'])->name('updatepropertyimage');
 	Route::post('deletepropertyimage', [PropertyController::class,'destroySelectedImage'])->name('deletepropertyimage');
 
-	Route::resource('footer', FooterController::class);
-	Route::get('viewfooterdetail', [FooterController::class,'viewFooterDetail'])->name('viewfooterdetail');
-	Route::post('updatefooter', [FooterController::class,'updateFooterDetail'])->name('updatefooter');
+	Route::resource('footer', FooterController::class);	
+	Route::post('createfooter', [FooterController::class,'createFooter'])->name('createfooter');
+	Route::post('savefooterheading', [FooterController::class,'saveFooterHeading'])->name('savefooterheading');
+	Route::post('viewfooterdetail', [FooterController::class,'viewFooterDetail'])->name('viewfooterdetail');
+	Route::post('savefooterdetail', [FooterController::class,'saveFooterDetail'])->name('savefooterdetail');
 
 	Route::resource('propertycategory', PropertyCategoryController::class);
 	Route::get('propertyCategoryList', [PropertyCategoryController::class,'getList'])->name('propertycategory.list');

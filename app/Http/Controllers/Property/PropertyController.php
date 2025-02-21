@@ -229,7 +229,7 @@ class PropertyController extends Controller
         $propertyId = $id;
                 
         $propertyImages = PropertyDetail::where('user_id',auth()->user()->id)->where('property_id',$propertyId)->where('image_status','0')->get();
-
+        
         if($propertyImages->count() == 0)
         {
             abort(404);
