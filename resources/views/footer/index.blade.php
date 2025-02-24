@@ -2,15 +2,20 @@
 
 @section('style')
 
-{{-- <style>
-td.dt-control {
-    background: url('https://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
-    cursor: pointer;
-}
-tr.shown td.dt-control {
-    background: url('https://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
-}
-</style> --}}
+<style>
+  fieldset {
+    border: 2px solid #ccc;
+    padding: 10px;
+  }
+
+  legend {
+    float: none;
+    width: auto;
+    font-weight: bold;
+    font-size: larger;
+    padding: 0 5px;    
+  }
+</style>
 
 
 

@@ -11,7 +11,7 @@
 		@endphp
 
 		<div class="row">
-			<div class="w-100">
+			<div class="w-100 ps-4">
 
 				
 				<div class="property-address col-md-1">
@@ -37,7 +37,7 @@
 
 				<div class="property-address col-md-3">
 					<p class="auto-break text-black">
-						<b>Address:</b>
+						<b>Location:</b>
 						<span>{{ $value->address_line1 ?? "--" }}</span>
 						<span>{{ $value->address_line2 ?? "" }}</span>
 						<span>{{ $value->address_line3 ?? "" }}</span>						

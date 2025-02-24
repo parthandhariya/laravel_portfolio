@@ -124,7 +124,8 @@
         }
 
         .site-footer {
-            background: antiquewhite;            
+            background: antiquewhite;
+            /* padding-top: 40px;             */
         }
 
         .custom-section-position{
@@ -178,6 +179,21 @@
                 flex-direction: column;
             }
         }
+
+        /* page loader css */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1050; /* Ensure it covers other content */
+        }
+
     </style>
 
 

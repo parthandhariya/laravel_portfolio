@@ -34,8 +34,8 @@ class FrontUserController extends Controller
 
         $pages = Pages::where('user_id',$user->id)->where('parent_id','0')->get();
 
-        $footer = FooterDetail::where('user_id',$user->id)->orderBy('footer_id')->get();
-
+        $footer = Footer::where('user_id',$user->id)->orderBy('id')->get();
+        
         //$propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
             
         $propertyOption = Properties::select('option_id')->where('user_id',$user->id)->groupBy('option_id')->get();

@@ -49,6 +49,13 @@ class FooterController extends Controller
 
     public function createFooter()
     {
+        $checkForExist = Footer::where('user_id',auth()->user()->id)->count();
+
+        if($checkForExist != 0)
+        {
+            return back();
+        }
+
         $toatlHeading = Footer::FOOTER_TOTAL_HEADING;
         $userId = auth()->user()->id;
         

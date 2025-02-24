@@ -14,9 +14,5 @@ class Footer extends Model
 
     protected $table = 'footer';
     protected $primaryKey = 'id';
-
-    // public function footerDetail()
-    // {
-    // 	return $this->hasMany(FooterDetail::class,'footer_id');
-    // }
+   
 }
