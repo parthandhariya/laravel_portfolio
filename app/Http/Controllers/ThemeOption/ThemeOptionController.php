@@ -157,6 +157,7 @@ class ThemeOptionController extends Controller
         $backgroundAndFont = json_encode([
             'background' => $request->background,
             'font' => $request->font,
+            'heading' => $request->heading,
         ]);
         
        

@@ -9,7 +9,7 @@
             @endif
             <div class="col-lg-3">
               <div class="widget">
-                <h3>{{ $value->footer_heading ?? '' }}</h3>
+                <h3 class="footer-heading">{{ $value->footer_heading ?? '' }}</h3>
                 {{-- <address>43 Raymouth Rd. Baltemoer, London 3910</address> --}}
                 <ul class="list-unstyled links">
                   <li>{{ $value->footer_line1  ?? ''}}</li>

@@ -57,7 +57,7 @@
         @if(!is_null(auth()->user()->profile_image))         
           <img src="{{ auth()->user()->profile_image }}" width="35" height="35" class="img-circle elevation-2" alt="User Image">
         @else
-          <img src="{{ asset('images/default-profile-picture.png') }}" width="35" height="35" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('images/profile_images/default_proflie_image.png') }}" width="35" height="35" class="img-circle elevation-2" alt="User Image">
         @endif
 
         </a>

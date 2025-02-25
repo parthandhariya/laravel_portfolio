@@ -38,7 +38,7 @@
                     @else
                       <div id="profile_image">
                         <img class="profile-user-img img-fluid img-circle"
-                           src="{{ asset('images/default-profile-picture.png') }}"
+                           src="{{ asset('images/profile_images/default_proflie_image.png') }}"
                            alt="User profile picture">
                       </div>
                     @endif

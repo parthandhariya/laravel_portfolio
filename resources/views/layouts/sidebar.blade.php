@@ -5,7 +5,7 @@
 
       @if(is_null(auth()->user()->dashboard_image))
         {{-- <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-        <img src="{{ asset('images/dashboard_image/default_image.png') }}" alt="AdminLTE Logo" class="brand-image w-100 elevation-3" style="opacity: .8; float: none; margin-left: 0;">
+        <img src="{{ asset('images/dashboard_image/default_dashboard_image.png') }}" alt="AdminLTE Logo" class="brand-image w-100 elevation-3" style="opacity: .8; float: none; margin-left: 0;">
         {{-- <span class="brand-text font-weight-light">AdminLTE 3</span>  --}}
       @else
         <img src="{{ auth()->user()->dashboard_image }}" alt="AdminLTE Logo" class="w-100 brand-image elevation-3" style="opacity: .8; float: none; margin-left: 0;">

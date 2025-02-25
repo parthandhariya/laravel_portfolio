@@ -244,6 +244,11 @@ tr.shown td.dt-control {
                         <label for="myColor" class="form-label">Font Color</label>
                         <input type="color" name="font" class="form-control form-control-color" value="{{ $backgroundAndFont['font'] ?? '#FFFFFF' }}" title="Choose a color">
                       </div>
+
+                      <div class="col-md-3 mt-auto form-group">                      
+                        <label for="myColor" class="form-label">Heading Color</label>
+                        <input type="color" name="heading" class="form-control form-control-color" value="{{ $backgroundAndFont['heading'] ?? '#FFFFFF' }}" title="Choose a color">
+                      </div>
                   </div>
                   
                 <div class="row">

@@ -56,14 +56,17 @@
     @php
         $backgroundColor = NULL;
         $fontColor = NULL;
+        $headingColor = NULL;
         $designColor = $user->themeOption[0]->background_and_font ?? NULL;
         
         if(!is_null($designColor))
         {
             $designColor = json_decode($designColor,true);
-            $backgroundColor = $designColor['background'];
-            $fontColor = $designColor['font'];
+            $backgroundColor = $designColor['background'] ?? NULL;
+            $fontColor = $designColor['font'] ?? NULL;
+            $headingColor = $designColor['heading'] ?? NULL;
         }
+    
     @endphp
 
     <style type="text/css">
@@ -117,17 +120,17 @@
             width: 100%;
         }
 
-        .btn{
+        .btn, .site-footer{
             border-radius: 0px;
             background-color: {{ $backgroundColor ?? '#005555' }} !important;
-            color: {{ $fontColor ?? 'FFFFFF' }} !important;
+            color: {{ $fontColor ?? '#FFFFFF' }}  !important;
         }
 
-        .site-footer {
-            background: antiquewhite;
-            /* padding-top: 40px;             */
+        .footer-heading{
+            color: {{ $headingColor ?? '#FFFFFF' }} !important;
+            font-size: 15px !important;
         }
-
+         
         .custom-section-position{
             margin-top: 3rem !important;
             margin-bottom: 2rem !important;            

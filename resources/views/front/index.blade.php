@@ -215,6 +215,10 @@
         url: "{{ route('getcityfromstatefilter') }}",
         data: { _token: $('meta[name="csrf-token"]').attr('content'), state_id:state_id, slug:$("#slug").val() },
         type: 'POST',
+        beforeSend: function() {
+          $('#page-loader').removeClass('d-none');
+        },
+        
         success: function(res){
           option += '<option value = ' + 0 + '>--Select City--</option>';
           $.each(res, function(index,value){
@@ -222,7 +226,11 @@
           })
           
           $("#city_id").append(option);           
-        }
+        },
+
+        complete: function() {
+          $('#page-loader').addClass('d-none');
+        },
 
       });
   });

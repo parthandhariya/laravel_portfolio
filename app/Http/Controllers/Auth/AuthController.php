@@ -127,17 +127,17 @@ class AuthController extends Controller
 
 	        $image = $request->file('profile_image');
 	        $imageName = time() . '_' . $image->getClientOriginalName();
-	        $destinationPath = 'images';
+	        $destinationPath = 'images/profile_images';
 	        $pathDetail = $image->move(public_path($destinationPath), $imageName);
 
-	        $storePath = asset("/images/".$imageName);
+	        $storePath = asset("/images/profile_images/".$imageName);
 	        	        	       
 	        if(!is_null($user->profile_image))
 	        {
 	        	$temp = $user->profile_image;
 	        	$list = explode('/', $temp);
 	        	$fileName = last($list);
-	        	$path = public_path() . '/images/'.$fileName;
+	        	$path = public_path() . '/images/profile_images/'.$fileName;
 				if(file_exists($path)) {
 				    unlink($path);			    
 				}
