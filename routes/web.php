@@ -143,6 +143,11 @@ Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
 Route::group(['middleware' => 'customauth:admin', 'prefix' => 'admin'], function(){
 
 	Route::get('home',[AdminController::class,'home'])->name('admin.home');
+
+	//Start Reset Entire Project
+	Route::get('factoryreset',[AdminController::class,'factoryReset'])->name('admin.factoryreset');
+	//End Reset Entire Project
+
 	Route::resource('allusers', AdminController::class);
 	Route::get('allusersList', [AdminController::class,'getList'])->name('allusers.list');
 	Route::post('blockunblockuser', [AdminController::class,'blockUnblockUser'])->name('blockunblockuser');

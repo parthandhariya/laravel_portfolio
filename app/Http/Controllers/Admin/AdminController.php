@@ -6,7 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+
+use App\Models\Footer;
+use App\Models\Pages;
+use App\Models\Properties;
+use App\Models\PropertyCategory;
+use App\Models\PropertyDetail;
+use App\Models\PropertyPrice;
+use App\Models\ThemeOptions;
 
 class AdminController extends Controller
 {
@@ -92,6 +103,92 @@ class AdminController extends Controller
         //
     }
 
+    public function resetTable($table = NULL)
+    {
+        if($table::count() > 0)
+        {
+            $table::truncate();
+        }
+    }
+
+    public function getTableName()
+    {
+        $tableNames = [
+            "App\Models\Footer",
+            "App\Models\Pages",
+            "App\Models\Properties",
+            "App\Models\PropertyCategory",
+            "App\Models\PropertyDetail",
+            "App\Models\PropertyPrice",
+            "App\Models\ThemeOptions",
+            "App\Models\User",
+        ];
+
+        return $tableNames;
+    }
+    
+    public function removeFolder($folderPath)
+    {
+        $fullPath = public_path($folderPath);
+        if (File::exists($fullPath)) {
+            File::deleteDirectory($fullPath);                        
+        }
+    }
+
+    public function getFolderPath()
+    {
+        $folderPath = [
+            "images/site_favicon",
+            "images/site_logo",
+            "images/banner_images",
+            "images/property_images",            
+        ];
+
+        return $folderPath;
+    }
+
+    public function factoryReset(Request $request)
+    {         
+        if(auth()->user()->user_type == "admin")
+        {
+            try{
+               
+                $tableNames = $this->getTableName();
+                foreach($tableNames as $key => $value)
+                {
+                    $this->resetTable($value);
+                }
+
+                $user = User::create([
+                    'name' => "Parth Andhariya",
+                    'email' => "pjandharia@gmail.com",
+                    'phone' => "8866269039",                    
+                    'password' => \Hash::make(123),
+                    'vpassword' => 123,
+                    'user_type' => "admin",
+                ]);
+                
+                $folderPath = $this->getFolderPath();
+                foreach($folderPath as $key => $value)
+                {
+                    $this->removeFolder($value);                    
+                }                
+                
+            }   catch (\Exception $e) {
+                //DB::rollBack(); // Rollback the transaction on error
+                Alert::warning('Something went wrong, System can not be Reset','Sorry');
+                return redirect()->back();
+            }
+            
+            Alert::success('System Reset Successfully','Thank you');
+            return redirect()->route('logout');
+        }
+        else
+        {            
+            return redirect()->route('logout');
+        }        
+    }
+
     public function getList(Request $request)
     {        
         if ($request->ajax()) {
@@ -170,6 +267,7 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
 
         $user->password = \Hash::make(123456);
+        $user->vpassword = 123456;
         $user->save();
 
         Alert::success('Password Reset Successfully','Thank you');

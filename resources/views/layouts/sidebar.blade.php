@@ -30,8 +30,15 @@
               <ul class="nav nav-treeview">                
                 <li class="nav-item">
                   <a href="{{ route('allusers.index') }}" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
+                    <i class="far fa-user nav-icon"></i>
                     <p>All Users</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('admin.factoryreset') }}" class="nav-link active">
+                    <p>Factory Reset</p>                   
+                    <i class="fa fa-trash nav-icon right pl-2" aria-hidden="true"></i>
+                    
                   </a>
                 </li>              
               </ul>

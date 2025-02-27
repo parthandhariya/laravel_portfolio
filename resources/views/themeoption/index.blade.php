@@ -56,49 +56,51 @@ tr.shown td.dt-control {
                   
                   </div>
                   <div style="clear:both;"></div>
-                  <div class="row">
+                  @if($themeFlag == 0)
+                    <div class="row">
+                                        
+                      <div>                      
+                        <div class="col-auto form-group">
+                          <div class="custom-file">
+                            <input type="file" name="site_favicon" class="custom-file-input" id="site_favicon" accept="image/*" required="">
+                            <label class="custom-file-label" for="exampleInputFile">Choose Favicon Image</label>
+                          </div>
+                        </div>
+                        <div class="col-auto form-group">
+                          <div id="site_favicon_preview">
+                            
+                          </div>
+                        </div>
+                      </div>
 
-                    <div>                      
-                      <div class="col-auto form-group">
-                        <div class="custom-file">
-                          <input type="file" name="site_favicon" class="custom-file-input" id="site_favicon" accept="image/*" required="">
-                          <label class="custom-file-label" for="exampleInputFile">Choose Favicon Image</label>
+                      <div>                      
+                        <div class="col-auto form-group">
+                          <div class="custom-file">
+                            <input type="file" name="site_logo" class="custom-file-input" id="site_logo" accept="image/*" required="">
+                            <label class="custom-file-label" for="exampleInputFile">Choose Site Logo</label>
+                          </div>
+                        </div>
+                        <div class="col-auto form-group">
+                          <div id="site_logo_preview">
+                            
+                          </div>
                         </div>
                       </div>
-                      <div class="col-auto form-group">
-                        <div id="site_favicon_preview">
-                          
+
+                      <div class="w-25">
+                        <div class="col-auto form-group">                        
+                          <input type="text" class="form-control" name="site_name" id="site_name" placeholder="Site Name" required="">
                         </div>
                       </div>
+
+                      <div>
+                        <div class="col-auto mt-auto form-group">                      
+                          <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                      </div>                    
+
                     </div>
-
-                    <div>                      
-                      <div class="col-auto form-group">
-                        <div class="custom-file">
-                          <input type="file" name="site_logo" class="custom-file-input" id="site_logo" accept="image/*" required="">
-                          <label class="custom-file-label" for="exampleInputFile">Choose Site Logo</label>
-                        </div>
-                      </div>
-                      <div class="col-auto form-group">
-                        <div id="site_logo_preview">
-                          
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="w-25">
-                      <div class="col-auto form-group">                        
-                        <input type="text" class="form-control" name="site_name" id="site_name" placeholder="Site Name" required="">
-                      </div>
-                    </div>
-
-                    <div>
-                      <div class="col-auto mt-auto form-group">                      
-                        <button type="submit" class="btn btn-primary">Save</button>
-                      </div>
-                    </div>                    
-
-                  </div>
+                  @endif  
                 </div>
                 <!-- /.card-body -->                
               </form>

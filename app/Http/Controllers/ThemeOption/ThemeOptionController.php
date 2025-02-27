@@ -8,6 +8,8 @@ use App\Models\ThemeOptions;
 use DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
 
+use function PHPUnit\Framework\isNull;
+
 class ThemeOptionController extends Controller
 {
     /**
@@ -18,6 +20,7 @@ class ThemeOptionController extends Controller
     public function index()
     {
         $themeOption = ThemeOptions::where('user_id',auth()->user()->id)->first();
+        $themeFlag = 0;
                 
         if(is_null($themeOption))
         {
@@ -30,9 +33,14 @@ class ThemeOptionController extends Controller
             $totalBannerImages = $themeOption::TOTAL_BANNER_IMAGES;        
             $bannerImages = json_decode($themeOption->banner_images,true) ?? NULL;        
             $backgroundAndFont = json_decode($themeOption->background_and_font,true) ?? [];
+
+            if(!is_null($themeOption->site_favicon) || !is_null($themeOption->site_logo) || !is_null($themeOption->site_name))
+            {
+                $themeFlag = 1;
+            }
         }
         
-        return view('themeoption.index',compact('bannerImages','totalBannerImages','backgroundAndFont'));
+        return view('themeoption.index',compact('bannerImages','totalBannerImages','backgroundAndFont','themeFlag'));
     }
 
     /**
