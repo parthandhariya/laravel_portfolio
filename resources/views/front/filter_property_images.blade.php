@@ -11,33 +11,37 @@
 		@endphp
 
 		<div class="row">
-			<div class="w-100 ps-4">
+			<div class="w-100 ps-4 pt-4">
 
 				
 				<div class="property-address col-md-1">
-					<address class="auto-break text-black">
+					<address class="text-black">
 						<b>Type:</b>
+						</br>
 						{{ $value->propertyOption->option_name ?? "--" }}
 					</address>
 				</div>
 
 				<div class="property-address col-md-1">
-					<p class="auto-break text-black">
-						<b>Price:</b>						
-						<span class="info-value-color">{{ '₹' . number_format($value->axat_price, 2, '.', ',') }}</span>
-					</p>
+					<span class="text-black">
+						<b>Price:</b>					
+						{{-- <span class="info-value-color">{{ '₹' . number_format($value->axat_price, 2, '.', ',') }}</span> --}}
+						<h4 class="info-value-color">{{ '₹' .  $value->axat_price }}</h4>
+					</span>
 				</div>
 
 				<div class="property-address col-md-2">
-					<address class="auto-break text-black">
+					<address class="text-black">
 						<b>Title:</b>
+						</br>
 						{{ $value->title ?? "--" }}
 					</address>
 				</div>
 
 				<div class="property-address col-md-3">
-					<p class="auto-break text-black">
+					<p class="text-black">
 						<b>Location:</b>
+						</br>
 						<span>{{ $value->address_line1 ?? "--" }}</span>
 						<span>{{ $value->address_line2 ?? "" }}</span>
 						<span>{{ $value->address_line3 ?? "" }}</span>						
@@ -45,15 +49,17 @@
 				</div>
 
 				<div class="property-address col-md-2">
-					<p class="auto-break text-black">
+					<p class="text-black">
 						<b>State:</b>						
+						</br>
 						<span>{{ ucwords(strtolower($value->state->name ?? "")) ?? "--" }}</span>
 					</p>
 				</div>
 
 				<div class="property-address col-md-1">
-					<p class="auto-break text-black">
-						<b>City:</b>						
+					<p class="text-black">
+						<b>City:</b>
+						</br>						
 						<span>{{ $value->city->city ?? "--" }}</span>
 					</p>
 				</div>

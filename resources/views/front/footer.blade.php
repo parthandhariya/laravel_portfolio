@@ -56,12 +56,12 @@
     </div>
 
     <!-- Preloader -->
-    <div id="overlayer"></div>
+    {{-- <div id="overlayer"></div>
     <div class="loader">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
-    </div>
+    </div> --}}
 
     {{-- <script src="https://gomaps.pro/library.js"></script> --}}
     

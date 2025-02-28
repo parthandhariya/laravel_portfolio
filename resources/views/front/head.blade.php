@@ -194,7 +194,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1050; /* Ensure it covers other content */
+            z-index: 1050; 
         }
 
     </style>

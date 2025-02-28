@@ -14,7 +14,7 @@
 
 
     <!-- Start Page Loader -->
-    <div id="page-loader" class="page-loader d-none">
+    <div id="page-loader" class="page-loader">
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
@@ -71,26 +71,9 @@
     
     <div class="custom-section-position">
       <div>
-        {{--<div class="row mb-5 align-items-center">
-          <div class="col-lg-6">
-            <h2 class="font-weight-bold text-primary heading">
-              Popular Properties
-            </h2>
-          </div>
-          <div class="col-lg-6 text-lg-end">
-            <p>
-              <a
-                href="#"
-                target="_blank"
-                class="btn btn-primary text-white py-3 px-4"
-                >View all properties</a
-              >
-            </p>
-          </div>
-        </div> --}}
-
+        
         <div class="row align-items-center ps-5">
-          {{-- <img src="{{ asset('client/assets/images/coming_soon_page.webp') }}" /> --}}
+          
           <div col-md-12>
             <input type="hidden" value="{{ $slug }}" id="slug">
 
@@ -123,7 +106,7 @@
                 <select class="form-control" name="price_id" id="price_id">
                   <option value="">-- Select Price Range --</option>
                   @foreach($propertyPrice as $k => $v)
-                    <option value="{{ $v->propertyPrice->id }}">{{ '₹' . number_format($v->propertyPrice->min_price, 2, '.', ','). ' to ' .'₹' . number_format($v->propertyPrice->max_price, 2, '.', ',') }}</option>
+                    <option value="{{ $v->propertyPrice->id }}">{{ '₹' . $v->propertyPrice->min_price .' to ' .'₹' . $v->propertyPrice->max_price }}</option>
                   @endforeach
                 </select>
                 
@@ -199,10 +182,12 @@
 
   $(document).ready(function(){
   
-  
+    $("#page-loader").hide();
     
     
-    
+    // $("#loader").fadeOut(500, function() {
+    //     $("#content").fadeIn(500);
+    // });
 
 
 
@@ -245,8 +230,6 @@
     var state_id = $("#state_id").val();
     var city_id = $("#city_id").val();
 
-    // console.log(city_id);
-    // return false;
 
     $("#filterImages").empty();
     
@@ -330,7 +313,7 @@
             }
             
             var script = document.createElement("script");
-            script.src = "https://maps.gomaps.pro/maps/api/js?key=AlzaSyrNlkOdl0-1B20KiC-KT8k-IgYGdwhJOpd&callback=loadGoogleMaps";
+            script.src = "https://maps.gomaps.pro/maps/api/js?key=AlzaSyXBoxtg9DvK7eLxhMzOeLhA9WSHNDHcMLd&callback=loadGoogleMaps";
             script.async = true;
             script.defer = true;
             document.body.appendChild(script);

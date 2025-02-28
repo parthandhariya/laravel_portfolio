@@ -13,6 +13,7 @@ use App\Models\PropertyOptions;
 use App\Models\PropertyCategory;
 use App\Models\PropertyPrice;
 use App\Models\Cities;
+use Illuminate\Support\Facades\Auth;
 
 use function PHPUnit\Framework\isNull;
 
@@ -25,6 +26,10 @@ class FrontUserController extends Controller
      */
     public function index($slug = NULL)
     {
+        if (!Auth::check()) {
+		
+            return redirect()->to('logout');
+        }    
         $user = User::where('slug',$slug)->first();
 
         if(is_null($user))

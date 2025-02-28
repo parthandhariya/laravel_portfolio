@@ -58,7 +58,7 @@ Route::get('/', function () {
 
 
 Route::group(['prefix' => 'client'], function (){
-
+	
 	Route::get('/{slug}',[FrontUserController::class,'index'])->name('frontend');
 	Route::post('/filterimage',[FrontUserController::class,'filterImage'])->name('frontend.filterimage');
 	Route::post('/getcityfromstatefilter', [FrontUserController::class,'getCityFromStateFilter'])->name('getcityfromstatefilter');
@@ -82,8 +82,9 @@ Route::get('contactus/{slug}',[FrontUserController::class,'contactUs'])->name('f
 });*/
 
 
-Route::group(['prefix' => 'guest'], function(){
-	
+
+Route::group(['middleware' => 'guestAuth','prefix' => 'guest'], function(){
+			
 	Route::get('login',[AuthController::class,'index'])->name('login');
 	Route::post('login',[AuthController::class,'login'])->name('login');
 
@@ -97,9 +98,8 @@ Route::group(['prefix' => 'guest'], function(){
 
 });
 
-Route::group(['middleware' => 'customauth:user','prefix' => 'user'], function(){
-
-	//dd('user');
+Route::group(['middleware' => ['userAuth','customauth:user'],'prefix' => 'user'], function(){
+	
 	Route::get('home',[AuthController::class,'home'])->name('home');
 	Route::get('profile',[AuthController::class,'profile'])->name('profile');
 	Route::post('profile',[AuthController::class,'profileUpdate'])->name('profile');
