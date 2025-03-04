@@ -140,7 +140,7 @@ Route::group(['middleware' => ['userAuth','customauth:user'],'prefix' => 'user']
 
 });
 
-Route::group(['middleware' => 'customauth:admin', 'prefix' => 'admin'], function(){
+Route::group(['middleware' => ['adminAuth','customauth:admin'], 'prefix' => 'admin'], function(){
 
 	Route::get('home',[AdminController::class,'home'])->name('admin.home');
 

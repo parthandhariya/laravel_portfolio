@@ -25,12 +25,8 @@ class FrontUserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index($slug = NULL)
-    {
-        if (!Auth::check()) {
-		
-            return redirect()->to('logout');
-        }    
-        $user = User::where('slug',$slug)->first();
+    {        
+        $user = User::where('slug',$slug)->first();        
 
         if(is_null($user))
         {
@@ -49,7 +45,7 @@ class FrontUserController extends Controller
         
         $propertyPrice = Properties::select('price_id')->where('user_id',$user->id)->groupBy('price_id')->get();
 
-        $propertyState = Properties::select('state_id')->where('user_id',auth()->user()->id)->whereNotNull('state_id')->groupBy('state_id')->get();
+        $propertyState = Properties::select('state_id')->where('user_id',$user->id)->whereNotNull('state_id')->groupBy('state_id')->get();
         
         return view('front.index',compact('slug','user','pages','footer','propertyOption','propertyCategory','propertyPrice','propertyState'));
     }
