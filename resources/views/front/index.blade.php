@@ -106,7 +106,7 @@
                 <select class="form-control" name="price_id" id="price_id">
                   <option value="">-- Select Price Range --</option>
                   @foreach($propertyPrice as $k => $v)
-                    <option value="{{ $v->propertyPrice->id }}">{{ '₹' . $v->propertyPrice->min_price .' to ' .'₹' . $v->propertyPrice->max_price }}</option>
+                    <option value="{{ $v->propertyPrice->id }}">{{ '₹' . formatIndianCurrency($v->propertyPrice->min_price) .' to ' .'₹' . formatIndianCurrency($v->propertyPrice->max_price) }}</option>
                   @endforeach
                 </select>
                 
@@ -296,7 +296,7 @@
           //alert(mapId+'  '+lat+'  '+lng);
           map = new google.maps.Map(document.getElementById("map"+mapId), {
               center: { lat: lat, lng: lng },
-              zoom: 10,
+              zoom: 15,
           });
 
           new google.maps.Marker({

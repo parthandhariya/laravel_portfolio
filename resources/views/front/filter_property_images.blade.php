@@ -26,7 +26,7 @@
 					<span class="text-black">
 						<b>Price:</b>					
 						{{-- <span class="info-value-color">{{ '₹' . number_format($value->axat_price, 2, '.', ',') }}</span> --}}
-						<h4 class="info-value-color">{{ '₹' .  $value->axat_price }}</h4>
+						<h4 class="info-value-color">{{ '₹' .  formatIndianCurrency($value->axat_price) }}</h4>
 					</span>
 				</div>
 
