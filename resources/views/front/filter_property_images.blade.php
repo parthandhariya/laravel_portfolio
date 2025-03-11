@@ -10,10 +10,17 @@
 			$count = 1;
 		@endphp
 
-		<div class="row">
-			<div class="w-100 ps-4 pt-4">
+		<div class="row  col-md-12">
+			<div class="row w-100 ps-4 pt-4">
 
-				
+				<div class="property-address col-md-2">
+					<address class="text-black">
+						<b>Title:</b>
+						</br>
+						{{ $value->title ?? "--" }}
+					</address>
+				</div>
+
 				<div class="property-address col-md-1">
 					<address class="text-black">
 						<b>Type:</b>
@@ -29,15 +36,7 @@
 						<h4 class="info-value-color">{{ '₹' .  formatIndianCurrency($value->axat_price) }}</h4>
 					</span>
 				</div>
-
-				<div class="property-address col-md-2">
-					<address class="text-black">
-						<b>Title:</b>
-						</br>
-						{{ $value->title ?? "--" }}
-					</address>
-				</div>
-
+				
 				<div class="property-address col-md-3">
 					<p class="text-black">
 						<b>Location:</b>
@@ -56,15 +55,22 @@
 					</p>
 				</div>
 
-				<div class="property-address col-md-1">
+				<div class="property-address col-md-3">
 					<p class="text-black">
 						<b>City:</b>
 						</br>						
 						<span>{{ $value->city->city ?? "--" }}</span>
 					</p>
 				</div>
-				
-				
+
+				<div class="property-address col-md-1">
+					<p class="text-black">
+						<b>Contact:</b>
+						</br>						
+						<span>{{ $value->user->phone ?? "--" }}</span>
+					</p>
+				</div>
+																				
 			</div>
 										
 		{{-- <div class="row col-md-12"> --}}

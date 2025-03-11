@@ -140,6 +140,9 @@ class PropertyPriceController extends Controller
             
             $list = Datatables::of($data)->addIndexColumn()
 
+                ->editColumn('price', function($data) {                    
+                    return formatIndianCurrency($data->min_price) . " to " . formatIndianCurrency($data->max_price) ?? "--";                     
+                })
                 
                 ->editColumn('created', function($data) {
                     return date('d M Y',strtotime($data->created_at));

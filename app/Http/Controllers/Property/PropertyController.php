@@ -430,12 +430,12 @@ class PropertyController extends Controller
                     return $data->propertyCategory->name ?? "--";
                 })
 
-                ->editColumn('price_id', function($data) {
-                    return $data->propertyPrice->price ?? "--";
+                ->editColumn('price_id', function($data) {                    
+                    return formatIndianCurrency($data->propertyPrice->min_price) . " to " . formatIndianCurrency($data->propertyPrice->max_price) ?? "--";                     
                 })
 
                 ->editColumn('axat_price', function($data) {
-                    return $data->axat_price ?? "--";
+                    return formatIndianCurrency($data->axat_price) ?? "--";                     
                 })
 
                 ->editColumn('created', function($data) {
