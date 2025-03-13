@@ -42,8 +42,8 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                 <a class="mr-3">Add Property Images</a>
-                 <span class="text-red">(Maximum six Images and Maximum size 2MB Per Image are allowed)</span>
+                 <a class="mr-3">Add Property Images for <b>({{ $property->title ?? '' }})</b></a>
+                 <span class="text-red">(Maximum Eight Images and Maximum size 2MB Per Image are Allowed)</span>
                  
                  <a href="{{ route('property.list.view') }}" class="btn btn-secondary">{{ "Go Back" }}</a>
               </div>

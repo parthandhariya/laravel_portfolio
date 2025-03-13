@@ -32,10 +32,10 @@ class FooterController extends Controller
 
 
     public function viewFooterDetail(Request $request)
-    {
+    {        
         $footer_id = $request->footer_id;
         $footerDetail = Footer::where('id',$footer_id)->first();        
-        return view('footer.footer_detail',compact('footerDetail'));
+        return view('footer.footer_detail',compact('footerDetail'));              
     }
 
    public function saveFooterDetail(Request $request)

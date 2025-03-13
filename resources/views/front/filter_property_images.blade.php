@@ -122,6 +122,11 @@
 			</div>
 		@endif --}}
 		{{-- <div> --}}
+
+			{{-- <div class="row col-md-12 mt-5 form-group">
+				<hr style="border-top: 10px doted #000;">
+			</div> --}}
+			<hr style="height:5px;" class="opacity-100 mt-5 me-5">
 		</div>
 	@endforeach
 

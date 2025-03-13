@@ -112,7 +112,7 @@ class PropertyController extends Controller
         
         $property->save();
 
-        for ($i=0; $i < 6; $i++)
+        for ($i=0; $i < 8; $i++)
         { 
             $propertyDetail = new PropertyDetail();
 
@@ -227,7 +227,7 @@ class PropertyController extends Controller
     public function editImage($id)
     {
         $propertyId = $id;
-                
+        $property = Properties::where('user_id',auth()->user()->id)->where('id',$propertyId)->first();       
         $propertyImages = PropertyDetail::where('user_id',auth()->user()->id)->where('property_id',$propertyId)->where('image_status','0')->get();
         
         if($propertyImages->count() == 0)
@@ -235,7 +235,7 @@ class PropertyController extends Controller
             abort(404);
         }
 
-        return view('property.edit_images',compact('propertyImages'));
+        return view('property.edit_images',compact('property','propertyImages'));
     }
 
     public function updateImage(Request $request)

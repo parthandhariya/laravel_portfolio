@@ -130,7 +130,7 @@
 
       $("#footerDetail").empty();
       var footer_id = $(this).val();
-      
+     
       $.ajax({
           url: "{{ route('viewfooterdetail') }}",
           type: "POST",
@@ -139,6 +139,12 @@
           success: function(res) {
               //console.log("Server Response:", res);
               $("#footerDetail").append(res);
+          },
+          error: function (xhr) {
+            if (xhr.status === 401 || xhr.status === 419) {  // Unauthorized or CSRF Token Mismatch
+                
+                location.reload();
+            }
           }
       });
 

@@ -3,10 +3,40 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Throwable;
+
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
+
 
 class Handler extends ExceptionHandler
 {
+    // protected function unauthenticated($request, AuthenticationException $exception)
+    // {
+    //     if ($request->expectsJson()) {
+    //         return response()->json(['message' => 'Unauthenticated'], 401);
+    //     }
+
+    //     return redirect()->guest(route('login'));
+    // }
+    
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof TokenMismatchException) {
+            if(!$request->ajax()){
+                return redirect()->route('logout');
+            }                       
+        }
+
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return redirect()->route('logout');
+        }
+
+        return parent::render($request, $exception);
+    }
+    
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -47,4 +77,5 @@ class Handler extends ExceptionHandler
             //
         });
     }
+    
 }
