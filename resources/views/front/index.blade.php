@@ -313,7 +313,7 @@
             }
             
             var script = document.createElement("script");
-            script.src = "https://maps.gomaps.pro/maps/api/js?key=AlzaSyXBoxtg9DvK7eLxhMzOeLhA9WSHNDHcMLd&callback=loadGoogleMaps";
+            script.src = "https://maps.gomaps.pro/maps/api/js?key=AlzaSy9kq6kCZ-Bgh_5HF4-0SLPA0RBWQUXwIrJ&callback=loadGoogleMaps";
             script.async = true;
             script.defer = true;
             document.body.appendChild(script);

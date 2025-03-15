@@ -183,7 +183,7 @@
           // Dynamically load the Google Places API script
           const script = document.createElement('script');
           
-          script.src = 'https://maps.gomaps.pro/maps/api/js?key=AlzaSyXBoxtg9DvK7eLxhMzOeLhA9WSHNDHcMLd&libraries=places';
+          script.src = 'https://maps.gomaps.pro/maps/api/js?key=AlzaSy9kq6kCZ-Bgh_5HF4-0SLPA0RBWQUXwIrJ&libraries=places';
           script.async = true;
           script.defer = true;
 
