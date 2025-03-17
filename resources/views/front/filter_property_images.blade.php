@@ -126,8 +126,11 @@
 			{{-- <div class="row col-md-12 mt-5 form-group">
 				<hr style="border-top: 10px doted #000;">
 			</div> --}}
-			<hr style="height:5px;" class="opacity-100 mt-5 me-4 pe-5">
+			{{-- <hr style="height:5px;" class="opacity-100 mt-5 me-4 pe-5"> --}}
 		</div>
+
+		<hr style="height:5px;" class="opacity-100 mt-5 me-4 pe-5">
+		
 	@endforeach
 
 @if($count == 0)
