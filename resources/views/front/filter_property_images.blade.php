@@ -10,7 +10,7 @@
 			$count = 1;
 		@endphp
 
-		<div class="row  col-md-12">
+		<div class="col-md-12">
 			<div class="row w-100 ps-4 pt-4">
 
 				<div class="property-address col-md-2">
@@ -126,7 +126,7 @@
 			{{-- <div class="row col-md-12 mt-5 form-group">
 				<hr style="border-top: 10px doted #000;">
 			</div> --}}
-			<hr style="height:5px;" class="opacity-100 mt-5 me-5">
+			<hr style="height:5px;" class="opacity-100 mt-5 me-4 pe-5">
 		</div>
 	@endforeach
 

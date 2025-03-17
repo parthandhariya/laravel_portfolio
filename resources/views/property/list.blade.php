@@ -134,13 +134,20 @@
               }                      
                 return json.data; // Ensure DataTables gets only the data array                
             },
+            error: function (xhr) {
+              
+              if(xhr.status === 200 || xhr.status === 401 || xhr.status === 419) {  // Unauthorized or CSRF Token Mismatch
+                //alert(1);
+                window.location.href = "{{ route('logout') }}"; // Redirect to logout                
+              }
+            },
             data:function(d){
               d.option_id = $("#option_id").val();
               d.category_id = $("#category_id").val();
               d.price_id = $("#price_id").val();
               d.state_id = $("#state_id").val();
               d.city_id = $("#city_id").val();
-            }
+            },           
           },        
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },

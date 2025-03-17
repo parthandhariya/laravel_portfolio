@@ -259,6 +259,12 @@
             })
             
             $("#city_id").append(option);           
+          },
+          error: function (xhr) {
+            if (xhr.status === 401 || xhr.status === 419) {  // Unauthorized or CSRF Token Mismatch
+                
+                location.reload();
+            }
           }
 
         });

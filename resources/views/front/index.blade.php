@@ -72,9 +72,9 @@
     <div class="custom-section-position">
       <div>
         
-        <div class="row align-items-center ps-5">
+        <div class="row align-items-center">
           
-          <div col-md-12>
+          <div class="row align-items-center ps-5">
             <input type="hidden" value="{{ $slug }}" id="slug">
 
             <div class="row auto-resize me-3">
@@ -142,7 +142,7 @@
 
         
         <div class="row align-items-center pl-0">
-          <div id="filterImages" class="ms-5">
+          <div id="filterImages" style="box-sizing: border-box;" class="ps-4">
             
           </div>
         </div>
