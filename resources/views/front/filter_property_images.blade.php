@@ -62,15 +62,7 @@
 						<span>{{ $value->city->city ?? "--" }}</span>
 					</p>
 				</div>
-
-				<div class="property-address col-md-1">
-					<p class="text-black">
-						<b>Contact:</b>
-						</br>						
-						<span>{{ $value->user->phone ?? "--" }}</span>
-					</p>
-				</div>
-																				
+																								
 			</div>
 										
 		{{-- <div class="row col-md-12"> --}}
@@ -116,17 +108,7 @@
 							
 		@endif
 
-		{{-- @if($key == ($count - 1))
-			<div class="row col-md-12 mt-5 form-group">
-				<hr style="border-top: 2px doted #000;">
-			</div>
-		@endif --}}
-		{{-- <div> --}}
-
-			{{-- <div class="row col-md-12 mt-5 form-group">
-				<hr style="border-top: 10px doted #000;">
-			</div> --}}
-			{{-- <hr style="height:5px;" class="opacity-100 mt-5 me-4 pe-5"> --}}
+		
 		</div>
 
 		<hr style="height:5px;" class="opacity-100 mt-5 me-4 pe-5">
@@ -134,7 +116,7 @@
 	@endforeach
 
 @if($count == 0)
-	<div class="alert alert-danger p-4 col-md-10 alert-message" data-dismiss="alert" aria-label="Close" style="cursor: pointer;">
+	<div class="alert alert-danger p-4 ms-4 col-md-10 alert-message" data-dismiss="alert" aria-label="Close" style="cursor: pointer;">
 		<strong>Alert !</strong> No matching data found.
   	</div>
 @endif
