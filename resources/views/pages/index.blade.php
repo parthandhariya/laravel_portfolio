@@ -56,7 +56,7 @@
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title mb-0 mr-2">Pages</h3>
-                <span class="text-red">(Pages will only be shown in Preview Website, Detail developement is Pending)</span>
+                {{-- <span class="text-red">(Pages will only be shown in Preview Website, Detail developement is Pending)</span> --}}
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -69,12 +69,12 @@
                       <input type="text" class="form-control" name="name" id="Name" placeholder="Name" required="">
                     </div>
                     <div class="col-md-3 form-group">
-                      <label for="Name">Pages <span class="text-red">*</span></label>
+                      <label for="Name">Parent Page <span class="text-red">*</span></label>
                       <select class="form-control" name="parent_with_level">
                         <option value="{{ implode(',',[0,-1]) }}">------- ROOT -------</option>
-                        @foreach($pages as $k => $v)
+                        {{-- @foreach($pages as $k => $v)
                           <option value="{{ implode(',', [$v->id,$v->level]) }}">{{ $v->name }}</option>
-                        @endforeach
+                        @endforeach --}}
                       </select>
                     </div>
                     <div class="col-md-3 form-group">

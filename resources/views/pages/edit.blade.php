@@ -48,13 +48,12 @@
                       <label for="Name">Page <span class="text-red">*</span></label>
                       <select class="form-control" name="parent_with_level">
                         <option value="{{ implode(',',[0,-1]) }}">------- ROOT -------</option>
-                        @foreach($pages as $k => $v)
-
+                        {{-- @foreach($pages as $k => $v)
                           @if($v->id == $page->id)
                             @continue
                           @endif
                           <option value="{{ implode(',', [$v->id,$v->level]) }}" {{ $v->id == $page->parent_id ? 'selected' : '' }}>{{ $v->name }}</option>
-                        @endforeach
+                        @endforeach --}}
                       </select>
                     </div>
                     <div class="col-md-3 form-group">

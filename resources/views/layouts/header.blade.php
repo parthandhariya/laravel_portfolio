@@ -62,7 +62,7 @@
 
         </a>
 
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">          
+        <div class="dropdown-menu" aria-labelledby="imageDropdown">          
           @if(auth()->user()->user_type == "user")
             <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
             <div class="dropdown-divider"></div>

@@ -42,7 +42,9 @@
 						<b>Location:</b>
 						</br>
 						<span>{{ $value->address_line1 ?? "--" }}</span>
+						</br>
 						<span>{{ $value->address_line2 ?? "" }}</span>
+						</br>
 						<span>{{ $value->address_line3 ?? "" }}</span>						
 					</p>
 				</div>
