@@ -65,7 +65,8 @@
                       <label for="title">Price Range<span class="text-red">*</span></label>                        
                         <select name="price_id" class="form-control"  required>
                           @foreach($propertyPrice as $key => $value)
-                            <option value="{{ $key }}" {{ ($property->propertyPrice->id == $key) ? 'selected' : '' }}>{{ $value }}</option>
+                            {{-- <option value="{{ $key }}" {{ ($property->propertyPrice->id == $key) ? 'selected' : '' }}>{{ $value }}</option> --}}
+                            <option value="{{ $value->id }}" {{ ($property->propertyPrice->id == $value->id) ? 'selected' : '' }}>{{ formatIndianCurrency($value-> min_price).' to '.formatIndianCurrency($value-> max_price) }}</option>
                           @endforeach
                         </select>
                       </div>

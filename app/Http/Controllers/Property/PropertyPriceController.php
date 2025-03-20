@@ -39,23 +39,29 @@ class PropertyPriceController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
-            'min_price' => 'required',
-            'max_price' => 'required',
+        //  $request->validate([
+        //     'min_price' => 'required',
+        //     'max_price' => 'required',
+        // ]);
+
+        $request->validate([
+            'min_price' => ['required', 'numeric', 'min:0','max:999999999999999'],
+            'max_price' => ['required', 'numeric', 'min:0','max:999999999999999'],
         ]);
          
         $min_price = $request->min_price;
         $max_price = $request->max_price;
-
+        
         $price = $min_price.' to '.$max_price;
 
         $propertyPrice = new PropertyPrice();
 
         $propertyPrice->user_id = auth()->user()->id;
         $propertyPrice->price = $price;
+        
         $propertyPrice->min_price = $min_price;
         $propertyPrice->max_price = $max_price;        
-
+        
         $propertyPrice->save();
 
         Alert::success('Property Price saved successfully','Thank you');
@@ -100,8 +106,8 @@ class PropertyPriceController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'min_price' => 'required',
-            'max_price' => 'required',
+            'min_price' => ['required', 'numeric', 'min:0','max:999999999999999'],
+            'max_price' => ['required', 'numeric', 'min:0','max:999999999999999'],
         ]);
 
         $min_price = $request->min_price;

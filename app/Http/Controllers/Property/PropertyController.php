@@ -25,8 +25,9 @@ class PropertyController extends Controller
     {
         $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
         $propertyCategory = PropertyCategory::where('user_id',auth()->user()->id)->pluck('name','id')->toArray();
-        $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
-        // $propertyState = States::pluck('name','id')->toArray();
+        // $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
+        $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->get();
+        
 
         $propertyState = States::whereHas('city',function($q){                        
             $q->groupBy('state_id');
@@ -155,7 +156,8 @@ class PropertyController extends Controller
 
         $propertyOption = PropertyOptions::pluck('option_name','id')->toArray();
         $propertyCategory = PropertyCategory::where('user_id',auth()->user()->id)->pluck('name','id')->toArray();
-        $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
+        //$propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->pluck('price','id')->toArray();
+        $propertyPrice = PropertyPrice::where('user_id',auth()->user()->id)->get();
         // $propertyState = States::pluck('name','id')->toArray();
 
         $propertyState = States::whereHas('city',function($q){                        
