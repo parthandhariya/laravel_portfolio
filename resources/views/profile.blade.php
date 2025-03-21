@@ -134,13 +134,18 @@
                   
                   <div class="row">
 
-                    
-                      @if($errors->any())
+                      @if ($errors->has('current_password'))
                         <div class="col-sm-12 form-group">
-                          {!! implode('', $errors->all('<div class="text-red">:message</div>')) !!}
+                          <span class="text-danger">{{ $errors->first('current_password') }}</span>
                         </div>
-                      @endif                    
-                                      
+                      @endif
+
+                      @if($errors->customBag->any())
+                        <div class="col-sm-12 form-group">
+                          {!! implode('', $errors->customBag->all('<div class="text-red">:message</div>')) !!}
+                        </div>
+                      @endif
+                                                           
                     <div class="col-sm-12 form-group">
                         <label>
                           Enter Current Password

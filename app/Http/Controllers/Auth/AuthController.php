@@ -9,6 +9,7 @@ use Auth;
 use Hash;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -188,17 +189,28 @@ class AuthController extends Controller
 	public function updatePassword(Request $request)
 	{
 
-		$request->validate([
-            'current_password' => ['required', 'string'],
-            'password' => ['required', 'string', 'confirmed'],
-        ]);
+		// $request->validate([
+        //     'current_password' => ['required', 'string'],
+        //     'password' => ['required', 'string', 'confirmed'],
+        // ],[],[],'customBag');
 		
-        if (!Hash::check($request->current_password, Auth::user()->password)) {        	
+		$validator = Validator::make($request->all(), [
+			'current_password' => 'required|string',
+			'password' => 'required|string|confirmed',
+		],[],[],'customBag');
 
-            return back()->withErrors(['current_password' => 'The old password does not match our records.']);
+		if (!Hash::check($request->current_password, Auth::user()->password)) {        	
+			
+            return back()->withErrors(['current_password' => 'The current password does not match our records.']);
+			//return redirect()->back()->withErrors($validator, 'customBag');
         }
-
-        
+		
+		if ($validator->fails())
+		{
+			return redirect()->back()->withErrors($validator,'customBag')->withInput();
+		}
+		
+               
         $user = Auth::user();
         
         $user->update([
