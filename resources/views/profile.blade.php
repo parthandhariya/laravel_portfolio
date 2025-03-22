@@ -49,20 +49,21 @@
 
                   <div class="row mt-3">
                     
+                    <div class="col-sm-6 form-group mt-auto">
+                      <div class="custom-file">
+                        <input type="file" name="profile_image" class="custom-file-input profile_image" id="exampleInputFile" accept="image/*">
+                        <label class="custom-file-label" for="exampleInputFile">Profile Image</label>
+                      </div>
+                    </div>
                                       
                     <div class="col-sm-6 form-group">
                       <div class="custom-file">
-                        <input type="file" name="dashboard_image" class="custom-file-input" id="exampleInputFile">
+                        <input type="file" name="dashboard_image" class="custom-file-input" id="exampleInputFile" accept="image/*">
                         <label class="custom-file-label" for="exampleInputFile">Dashboard Image</label>
                       </div>                        
                     </div>
 
-                    <div class="col-sm-6 form-group mt-auto">
-                      <div class="custom-file">
-                        <input type="file" name="profile_image" class="custom-file-input profile_image" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Profile Image</label>
-                      </div>
-                    </div>
+                    
 
                   </div>
 
@@ -71,6 +72,7 @@
                       <label>Name</label>
                       <input type="text" name="name" class="form-control" id="name" value="{{ auth()->user()->name }}">
                     </div>
+
                     <div class="col-sm-6 form-group">
                       <label>Gender</label><br>
                       <div class="form-check form-check-inline">                        
@@ -81,7 +83,8 @@
                         <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="Female" {{ auth()->user()->gender == "Female" ? 'checked' : '' }}>
                         <label class="form-check-label" for="inlineRadio2">Female</label>
                       </div>
-                    </div>                   
+                    </div>
+
                   </div>
 
                   <div class="row mt-2">

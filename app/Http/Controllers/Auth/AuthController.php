@@ -175,6 +175,7 @@ class AuthController extends Controller
 	        $user->dashboard_image = $storePath;	        
 	    }
 
+		$user->name = $request->name;
 	    $user->gender = $request->gender;
 	    /*$user->phone = $request->phone;*/
 	    $user->about_us = $request->about_us;
