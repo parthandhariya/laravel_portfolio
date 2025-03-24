@@ -156,7 +156,7 @@ tr.shown td.dt-control {
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">                
-                <a class="mr-3">Theme Design <span class="text-red">( Maximum 3 Banner images are allowed )</span></a>
+                <a class="mr-3">Theme Design <span class="text-red">( Maximum 3 Slider images are allowed )</span></a>
                 <form action="{{ route('themeoption.reset.design') }}" method="POST" class="float-right" id="frm_reset_theme_option">
                   @csrf
                   <button type="button" class="btn btn-danger" id="btn_reset_theme_option">Reset</button>
@@ -198,7 +198,7 @@ tr.shown td.dt-control {
                           <div class="col-auto form-group">
                             <div class="custom-file">
                               <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $totalImage }}" accept="image/*">
-                              <label class="custom-file-label" for="exampleInputFile">{{ "Choose Banner Image" }}</label>
+                              <label class="custom-file-label" for="exampleInputFile">{{ "Choose Slider Image" }}</label>
                             </div>
                           </div>
                           <div class="col-auto form-group">
@@ -220,7 +220,7 @@ tr.shown td.dt-control {
                         <div class="col-auto form-group">
                           <div class="custom-file">
                             <input type="file" name="banner_images[]" class="custom-file-input banner_image" data-id="banner_image{{ $totalImage }}" accept="image/*">
-                            <label class="custom-file-label" for="exampleInputFile">{{ "Choose Banner Image" }}</label>
+                            <label class="custom-file-label" for="exampleInputFile">{{ "Choose Slider Image" }}</label>
                           </div>
                         </div>
                         <div class="col-auto form-group">
