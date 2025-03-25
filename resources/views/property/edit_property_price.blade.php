@@ -24,7 +24,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title mr-3">Edit Property Price</h3>
+                <h3 class="card-title mr-3">Edit Property Price Range</h3>
                 <a href="{{ route('propertyprice.index') }}" class="btn btn-secondary">{{ "Go Back" }}</a>
               </div>
               <!-- /.card-header -->
