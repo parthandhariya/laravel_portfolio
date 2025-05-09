@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Auth;
-use Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
@@ -91,7 +92,8 @@ class AuthController extends Controller
 		if(Auth::attempt($request->only('email','password')))
 		{
 			Alert::success('You are registered successfully','Thank you');			
-			return redirect()->route('profile');
+			//return redirect()->route('profile');
+			return redirect()->route('home');
 		}
 
 		return redirect('register')->withError('Error');
@@ -225,8 +227,8 @@ class AuthController extends Controller
 
 	public function logout($message = NULL)
 	{
-		\Session::flush();
-		\Auth::logout();
+		Session::flush();
+		Auth::logout();
 
 		if(!is_null($message))
 		{
