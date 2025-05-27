@@ -25,13 +25,13 @@
               <dt>Pages</dt>
               <dd>- Enter Page Name (you can create maximum FOUR pages)</dd>
               <dt>Theme Options (Theme Design)</dt>
-              <dd>- Choose Slider Image (you can create maximum THREE Banner Images)</dd>
+              <dd>- Choose Slider Image (you can create maximum THREE Slider Images)</dd>
               <dt>Property Detail</dt>
               <dd>- Category (Add New Category)</dd>
               <dd>- Property Price (Add Min & Max Price)</dd>
               <dd>- List (Add New Property) (Enter all property detail) (By Enabling Google Location, you can view Google Map on frontend)</dd>
-              <dd>- After Adding Property Detail, you can add property images from proprety List</dd>
-              <dt>All this Changes will affect on Preview Website So, Refesh the page</dt>
+              <dd>- After Adding Property Detail, you can add property images from proprety Action Column</dd>
+              <dt>All this Changes will affect on Preview Website So, Refesh the page and select specific search Option, and then Press Search Button</dt>
             </dl> 
           </div><!-- /.col -->          
         </div><!-- /.row -->
