@@ -33,6 +33,11 @@
       background-image: url('{{ asset('images/login_page_image/login_background.jpg') }}');
       background-size: cover;
     }
+    
+    .login-image-border{
+      border-top: solid blue;
+      border-bottom: solid blue;     
+    }
   </style>
 
 </head>
@@ -51,7 +56,7 @@
 
       {{-- <img src="{{ asset('images/login_page_image/loginpage.png') }}" class="w-100" height="100" /> --}}
 
-      <img src="{{ asset('images/login_page_image/auth_image.jpg') }}" class="w-100" height="100" />
+      <img src="{{ asset('images/login_page_image/auth_image.jpg') }}" class="w-100 login-image-border" height="100"/>
 
     </div>
 
